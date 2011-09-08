@@ -5,10 +5,10 @@ DESCRIPTION
   
 PREREQUISITES
 =============
-  I assume you have a  client installed on your system. Run recipe local_lib::bootstrap
+  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. Run recipe local_lib::bootstrap
   to install prerequisites
   
-    include_recipe 'local_lib::bootstrap'  
+    include_recipe `'local_lib::bootstrap'` 
 
 ATTRIBUTES
 ==========
@@ -16,7 +16,7 @@ ATTRIBUTES
 USAGE
 =====
 
-     include_recipe 'local_lib'
+     include_recipe `'local_lib'`
      
 hello world example
 -------------------
@@ -30,11 +30,11 @@ hello world example
 fake install
 ------------
     local_lib_install 'CGI' do
-    action 'install'
-    install_type 'cpan_module'
-    user 'root'
-    group 'root'
-    dry_run true 
+        action 'install'
+        install_type 'cpan_module'
+        user 'root'
+        group 'root'
+        dry_run true 
     end
 
 
@@ -42,10 +42,10 @@ fake install
 do not install, only run tests
 ------------------------------
     local_lib_install 'CGI' do
-    action 'test'
-    install_type 'cpan_module'
-    user 'root'
-    group 'root'
+        action 'test'
+        install_type 'cpan_module'
+        user 'root'
+        group 'root'
     end
 
 
