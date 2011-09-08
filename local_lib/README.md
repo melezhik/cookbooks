@@ -19,10 +19,12 @@ USAGE
 # hello world example
 
     local_lib_install 'CGI' do
-	action 'install'
-	install_type 'cpan_module'
-	user 'root'
-	group 'root'
+        action 'install'
+        install_type 'cpan_module'
+        user 'root'
+        group 'root'
     end
+
+
 
 
