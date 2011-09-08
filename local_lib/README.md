@@ -1,11 +1,11 @@
 DESCRIPTION
 ===========
 
-local::lib provider -- install application / cpan module via local::lib
+[cpan](http://search.cpan.org/perldoc?CPAN) modules provider
   
-REQUIREMENTS
-============
-  I assume you have a cpan client installed on your system. Run recipe local_lib::bootstrap
+PREREQUISITES
+=============
+  I assume you have a  client installed on your system. Run recipe local_lib::bootstrap
   to install prerequisites
   
     include_recipe 'local_lib::bootstrap'  
@@ -165,3 +165,4 @@ reload cpan indexes
         user 'user'
         group 'users'
     end
+
