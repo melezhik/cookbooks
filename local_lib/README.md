@@ -5,10 +5,16 @@ local::lib provider -- install application / cpan module via local::lib
   
 REQUIREMENTS
 ============
-
-  * local::lib
+  
   * CPAN
-  * Module::Build 
+  * local::lib
+  * CPAN::Version
+  * ExtUtils::MakeMaker version 6.31
+  * CPAN::Meta::YAML
+  * File::Path version 2.08
+  * Dist::Metadata
+  * Module::Build version 0.36_17
+  
 
 ATTRIBUTES
 ==========

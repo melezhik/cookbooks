@@ -1,5 +1,6 @@
 default.local_lib.default_inc = []
 default.local_lib.bootstrap.deps = [
+ { :module => 'local::lib', :version => '0' }, 
  { :module => 'CPAN::Version', :version => '0' }, 
  { :module => 'ExtUtils::MakeMaker' , :version => '6.31' },   
  { :module => 'CPAN::Meta::YAML' , :version => '0' },
