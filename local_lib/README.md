@@ -1,14 +1,14 @@
 DESCRIPTION
 ===========
 
-  local::lib provider -- install application / cpan module via local::lib
+local::lib provider -- install application / cpan module via local::lib
   
 REQUIREMENTS
 ============
 
-  local::lib
-  CPAN
-  Module::Build 
+  * local::lib
+  * CPAN
+  * Module::Build 
 
 ATTRIBUTES
 ==========
@@ -16,15 +16,13 @@ ATTRIBUTES
 USAGE
 =====
 
-hello world example:
+# hello world example
 
-    include_recipe 'local_lib'
-    
     local_lib_install 'CGI' do
 	action 'install'
-	      install_type 'cpan_module'
-	      user 'root'
-	      group 'root'
-        end
+	install_type 'cpan_module'
+	user 'root'
+	group 'root'
+    end
 
 
