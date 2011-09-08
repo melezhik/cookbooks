@@ -18,12 +18,13 @@ USAGE
 
 hello world example:
 
- include_recipe 'local_lib'
- local_lib_install 'CGI' do
-  action 'install'
-  install_type 'cpan_module'
-  user 'root'
-  group 'root'
- end
+    include_recipe 'local_lib'
+    
+    local_lib_install 'CGI' do
+	action 'install'
+	      install_type 'cpan_module'
+	      user 'root'
+	      group 'root'
+        end
 
 
