@@ -16,7 +16,7 @@ ATTRIBUTES
 USAGE
 =====
 
-# hello world example
+hello world example:
 
  include_recipe 'local_lib'
  local_lib_install 'CGI' do
