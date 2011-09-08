@@ -5,16 +5,10 @@ local::lib provider -- install application / cpan module via local::lib
   
 REQUIREMENTS
 ============
+  I assume you have a cpan client installed on your system. Run recipe local_lib::bootstrap
+  to install prerequisites
   
-  * CPAN
-  * local::lib
-  * CPAN::Version
-  * ExtUtils::MakeMaker version 6.31
-  * CPAN::Meta::YAML
-  * File::Path version 2.08
-  * Dist::Metadata
-  * Module::Build version 0.36_17
-  
+    include_recipe 'local_lib::bootstrap'  
 
 ATTRIBUTES
 ==========
@@ -22,6 +16,8 @@ ATTRIBUTES
 USAGE
 =====
 
+     include_recipe 'local_lib'
+     
 hello world example
 -------------------
     local_lib_install 'CGI' do
