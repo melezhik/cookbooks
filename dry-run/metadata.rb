@@ -1,7 +1,7 @@
 maintainer       "Alexey Melezhik"
 maintainer_email "melezhik@gmail.com"
 license          "Apache 2.0"
-description      "dry runnable recipes"
+description      "run chef templates in dryrun mode"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.0.2"
 
