@@ -14,6 +14,16 @@ USAGE
         group 'root'
     end
 
+PARAMETERS
+==========
+well, this is [chef definition](http://wiki.opscode.com/display/chef/Definitions) so you can pass some
+parametes here:
 
+* `source`
+* `mode`
+* `owner`
+* `group`
+
+see explanations for them in http://wiki.opscode.com/display/chef/Resources#Resources-Template
 
     
