@@ -5,11 +5,10 @@ DESCRIPTION
   
 PREREQUISITES
 =============
-  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. Run recipe local_lib::bootstrap
-  to install prerequisites
+  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
+  Run recipe local_lib::bootstrap to install prerequisites:
   
     include_recipe 'local_lib::bootstrap'
-
 
 USAGE
 =====
@@ -24,22 +23,24 @@ USAGE
 ACTIONS
 =======
 
-* `install` - install module
-* `test` - test module, don't install
+* `install` - install module or application 
+* `test` - test module, don't install it
 * `reload_cpan_index` - reload cpan client indexes
 
 ATTRIBUTES
 ==========
 
-* `install_type` - whether install as cpan module or application : (cpan_module, application)
+* `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
 * `user` - a user name that we should change to before installing
 * `group` - a group name that we should change to before installing
-* `version` - a version of module, if '0' then install only if module does not exist
-* `install_base` - install base
-* `install_path` -  install path, array of install pathes
-* `dry_run` - whether to run in dry-run mode or not, default - false 
-* `force` - whether to run install process in force mode, default - false
+* `version` - a version of module, if 0 then install only if module does not exist, default nil
+* `install_base` - install base for your installation 
+* `install_path` - install path, array of install pathes
+* `dry_run` - whether to run installation process in dryrun mode or not, default - false 
+* `force` - whether to run installation process in force mode, default - false
 * `from_cookbook` - whether to look up distributive in [cookbook file](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
+* `environment` - hash which holds environment vars exporting to installation process
+* `cwd` - sets the current working directory before running installation process
 
 EXAMPLES OF USAGE
 =================
@@ -104,8 +105,8 @@ install only if module not exists
     end
 
 
-install from tarball
---------------------
+install from tarball stored in cookbook
+---------------------------------------
 
     local_lib_install 'Moose-1.24.tar.gz' do
         action 'install'
@@ -130,6 +131,7 @@ install into given install_base
 install into given install_base + cwd
 -------------------------------------
 
+    # would install into '/home/alex/mydir'
     local_lib_install 'CGI' do
         action 'install'
         install_type 'cpan_module'
@@ -165,7 +167,7 @@ install application from current working directory
 install under not privileged user
 ---------------------------------
 
-    # would install into $PWD/cpablib directory
+    # would install into $PWD/cpanlib directory
     local_lib_install 'my application' do
         action 'install'
         install_type 'application'
