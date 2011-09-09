@@ -1,6 +1,6 @@
 DESCRIPTION
 ===========
-run [chef tempaltes](http://wiki.opscode.com/display/chef/Resources#Resources-Template) in dryrun mode
+run [chef templates](http://wiki.opscode.com/display/chef/Resources#Resources-Template) in dryrun mode
     
 USAGE
 =====
