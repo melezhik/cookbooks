@@ -1,0 +1,1 @@
+node.default.dryrun.dir = '/tmp/.chef/dryrun/'

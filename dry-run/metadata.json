@@ -1,0 +1,35 @@
+{
+  "name": "cpan",
+  "description": "- cpan modules package provider - features: - install / update - dry-run - skip_test - verbose ",
+  "long_description": "= DESCRIPTION:\n\n  - cpan modules package provider\n  - features:\n    - install / update \n    - dry-run\n    \n= REQUIREMENTS:\n\n  perl\n  CPAN\n\n= ATTRIBUTES:\n\n= USAGE:\n\n cpan_module \"CGI\" do\n   action :install\n end\n\n cpan_module \"CGI\" do\n   action :install\n   version '3.52' \n end\n \n cpan_module \"CGI\" do\n   action :update\n end\n \n cpan_module \"Moose\" do\n   action :install\n   pretend true\n   dry_run_verbose true\n   dry_run_skip_test false\n end\n\n",
+  "maintainer": "AMZ",
+  "maintainer_email": "melezhik@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": [
+
+    ],
+    "gentoo": [
+
+    ]
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.3"
+}
