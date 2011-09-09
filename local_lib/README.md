@@ -31,7 +31,7 @@ ACTIONS
 ATTRIBUTES
 ==========
 
-* `install_type` - whether install as cpan module or application : 'cpan_module', 'application'
+* `install_type` - whether install as cpan module or application : (cpan_module, application)
 * `user` - a user name that we should change to before installing
 * `group` - a group name that we should change to before installing
 * `version` - a version of module, if '0' then install only if module does not exist
@@ -39,7 +39,7 @@ ATTRIBUTES
 * `install_path` -  install path, array of install pathes
 * `dry_run` - whether to run in dry-run mode or not, default - false 
 * `force` - whether to run install process in force mode, default - false
-* `from_cookbook` - whether to look up distributive in (cookbook file)[http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile]
+* `from_cookbook` - whether to look up distributive in [cookbook file](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
 
 EXAMPLES OF USAGE
 =================
