@@ -1,7 +1,7 @@
 DESCRIPTION
 ===========
 
-[cpan](http://search.cpan.org/perldoc?CPAN) modules provider
+[cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
   
 PREREQUISITES
 =============
@@ -10,22 +10,36 @@ PREREQUISITES
   
     include_recipe 'local_lib::bootstrap'
 
-ATTRIBUTES
-==========
 
 USAGE
 =====
-
-     include_recipe 'local_lib'
-     
-hello world example
--------------------
+    include_recipe 'local_lib'
     local_lib_install 'CGI' do
         action 'install'
         install_type 'cpan_module'
         user 'root'
         group 'root'
     end
+
+ACTIONS
+=======
+
+* `install` - install module
+* `test` - test module, don't install
+* `reload_cpan_index` - reload cpan client indexes
+
+ATTRIBUTES
+==========
+
+* `install_type` - whether install as cpan_module of application 'cpan_module'|'application'
+* `user` - a user name that we should change to before installing
+* `group` - a group name that we should change to before installing
+* `version` - a version of module, if '0' then install only if module does not exist
+ 
+
+
+EXAMPLES OF USAGE
+=================
 
 fake install
 ------------
