@@ -1,6 +1,6 @@
 def load_current_resource
 
-  @installer = Chef::Resource::LocalLibInstall.new(new_resource.name)
+  @installer = Chef::Resource::CpanClient.new(new_resource.name)
   @installer.name(new_resource.name)
   @installer.install_base(new_resource.install_base)
   @installer.dry_run(new_resource.dry_run)
