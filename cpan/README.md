@@ -10,8 +10,15 @@ PREREQUISITES
   
     include_recipe 'cpan_client::bootstrap'
 
-USAGE
-=====
+ATTRIBUTES used in bootstrap recipe
+===================================
+===================================
+
+* `cpan.minimal_version` - minimal required version of cpan client 
+* `cpan.download_url` - url to download fresh cpan client 
+
+BASIC USAGE
+===========
     include_recipe 'cpan'
     cpan_client 'CGI' do
         action 'install'
@@ -20,15 +27,15 @@ USAGE
         group 'root'
     end
 
-ACTIONS
-=======
+RESOURCE ACTIONS
+================
 
 * `install` - install module or application 
 * `test` - test module, don't install it
 * `reload_cpan_index` - reload cpan client indexes
 
-ATTRIBUTES
-==========
+RESOURCE ATTRIBUTES
+===================
 
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
 * `user` - a user name that we should change to before installing
