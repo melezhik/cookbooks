@@ -10,5 +10,7 @@ default.cpan_client.bootstrap.deps = [
 ]
 
 default.cpan_client.bootstrap.install_base = nil
+default.cpan_client.minimal_version = '1.9402'
+default.cpan_client.download_url = 'http://search.cpan.org/CPAN/authors/id/A/AN/ANDK/CPAN-1.9800.tar.gz'
 
 
