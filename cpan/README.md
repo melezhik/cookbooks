@@ -10,9 +10,7 @@ PREREQUISITES
   
     include_recipe 'cpan_client::bootstrap'
 
-ATTRIBUTES used in bootstrap recipe
-===================================
-===================================
+## ATTRIBUTES used in bootstrap recipe
 
 * `cpan.minimal_version` - minimal required version of cpan client 
 * `cpan.download_url` - url to download fresh cpan client 
