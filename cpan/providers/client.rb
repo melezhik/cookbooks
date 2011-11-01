@@ -29,13 +29,15 @@ def header
   
   ruby_block 'info' do 
     block do
-      print "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module} via cpan #{cpan_client_flags} "
+      print "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}"
       print "cpan_client has started with rights: user=#{user} group=#{group} "
       print "install-base : #{install_base_print} "
       print "cwd : #{cwd} "
       print "install_version : #{version} "
-      print "cpan_client_stack : #{cpan_client_stack} "
+      print "install_base: #{local_lib_stack} "
+      print "perl5lib stack: #{perl5lib_stack} "
       print "install path : #{get_install_path} " unless get_install_path.empty?
+      print "install_perl_code : #{install_perl_code} "
       print "install log file #{install_log_file} "
     end
   end
@@ -86,21 +88,21 @@ action :test do
 
 end
 
-def cpan_client_stack
+def perl5lib_stack
 
   perl5lib = Array.new
   perl5lib += node.cpan_client.default_inc
   perl5lib += @installer.inc
-
-  cpan_client_stack = 'eval $(perl -Mlocal::lib=--deactivate-all); '  
-
-  unless  @installer.install_base.nil?
-   cpan_client_stack << "eval $(perl -Mlocal::lib=#{real_install_base}); "
-  end
-
-  cpan_client_stack << "PERL5LIB=$PERL5LIB:#{perl5lib.join(':')}; " unless perl5lib.empty?
-  return cpan_client_stack
+  perl5lib.join(':')
   
+end
+
+def local_lib_stack
+  stack = nil
+  unless  @installer.install_base.nil?
+   stack << "eval $(perl -Mlocal::lib=#{real_install_base}); "
+  end
+  return stack
 end
 
 def real_install_base
@@ -162,7 +164,7 @@ def install_dry_run_tarball
   text << "WOULD cd to /tmp/local-lib/install/"
   text << "WOULD tar -zxf #{@installer.name}"
   text << "WOULD cd to #{installed_module}"
-  text << "WOULD cpan #{cpan_client_flags} ."
+  text << "WOULD install via #{install_perl_code} ."
   
   ruby_block 'info' do
     block do
@@ -187,7 +189,7 @@ def install_dry_run_application
   end
 
   cmd = Array.new
-  cmd << cpan_client_stack
+  cmd << local_lib_stack
   cmd << 'if test -f Build.PL; then'
   cmd << 'perl Build.PL && ./Build'
   cmd << " echo './Build fakeinstall' > #{install_log_file}"
@@ -199,11 +201,12 @@ def install_dry_run_application
   cmd << "echo ' -- OK dry-run mode only enabled for Module::Build based distributions' > #{install_log_file}"
   cmd << 'fi'
 
-  bash "install_dry_run_application" do
+  execute "install_dry_run_application" do
     user user
     group group
     cwd cwd
     code cmd.join("\n")
+    environment cpan_env
   end
 
   ruby_block 'prereq_report' do 
@@ -224,49 +227,50 @@ def install_cpan_module
   group = @installer.group
   home = get_home
 
-  cmd = Array.new
-  cmd << cpan_client_stack
-
-  if @installer.version.nil? # not install if uptodate
-      log 'version required : highest'
-      cmd << 'perl -MCPAN -e \''
-      cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->uptodate){ exit(2) }'
-      cmd << ' else { print $ARGV[0], " -- OK is uptodate : ".(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) }'
-      cmd << "' #{@installer.name} 2>&1 > #{install_log_file} || "  
-  elsif @installer.version == "0" # not install if any version already installed
-      log 'version required : any'
-      cmd << 'perl -MCPAN -e \''
-      cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->inst_version){ exit(2) }'
-      cmd << ' else { print $ARGV[0], " -- OK already installed " }'
-      cmd << "' #{@installer.name} 2>&1 > #{install_log_file} || "  
-  elsif @installer.version != "0" # not install if have higher or equal version
-      v = @installer.version
-      log "version required : #{v}"
-      cmd << 'perl -MCPAN -MCPAN::Version -e \''
-      cmd << '$inst_v = CPAN::Shell->expand("Module",$ARGV[0])->inst_version;'
-      cmd << 'unless ( CPAN::Version->vcmp($inst_v, $ARGV[1]) >=0 ) { exit(2) }'
-      cmd << ' else { print $ARGV[0], " -- OK have higher or equal version [$inst_v]"  }'
-      cmd << "' #{@installer.name} #{@installer.version} 2>&1 > #{install_log_file} || "  
-  else
-      raise "bad version : #{@installer.version}"      
-  end
-  
-
-  cmd << " cpan #{cpan_client_flags} #{@installer.name} 2>&1 > #{install_log_file}"
-
-
   file "#{install_log_file}" do
     action :touch
     owner user
     group group
   end
 
-  bash "install_cpan_module" do
+  cmd = Array.new
+  cmd << local_lib_stack
+
+  if @installer.version.nil? # not install if uptodate
+      log 'version required : highest'
+      cmd << 'perl -MCPAN -e \''
+      cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->uptodate){'
+      cmd << install_perl_code
+      cmd << ' } '
+      cmd << ' else { print $ARGV[0], " -- OK is uptodate : ".(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) }'
+      cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
+  elsif @installer.version == "0" # not install if any version already installed
+      log 'version required : any'
+      cmd << 'perl -MCPAN -e \''
+      cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) { '
+      cmd << install_perl_code
+      cmd << ' } '
+      cmd << ' else { print $ARGV[0], " -- OK already installed " }'
+      cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
+  elsif @installer.version != "0" # not install if have higher or equal version
+      v = @installer.version
+      log "version required : #{v}"
+      cmd << 'perl -MCPAN -MCPAN::Version -e \''
+      cmd << '$inst_v = CPAN::Shell->expand("Module",$ARGV[0])->inst_version;'
+      cmd << 'unless ( CPAN::Version->vcmp($inst_v, $ARGV[1]) >=0 ) { '
+      cmd << install_perl_code
+      cmd << ' } '
+      cmd << ' else { print $ARGV[0], " -- OK have higher or equal version [$inst_v]"  }'
+      cmd << "' #{@installer.name} #{@installer.version}  2>&1 > #{install_log_file}"  
+  else
+      raise "bad version : #{@installer.version}"      
+  end
+  
+  execute cmd.join(" ") do
     user user
     group group
     cwd cwd
-    code cmd.join("\n")
-    environment my_env
+    environment cpan_env
   end
 
   install_log
@@ -298,8 +302,7 @@ def install_tarball
   end
 
   cmd = Array.new
-  cmd << cpan_client_stack
-  cmd << "export PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
+  cmd << local_lib_stack
   cmd << 'perl -MCPAN::Version -MDist::Metadata -MCPAN -e \''
   cmd << 'my $dist = Dist::Metadata->new(file => $ARGV[0]);'
   cmd << 'my $dist_name = $dist->name;';
@@ -307,10 +310,8 @@ def install_tarball
   cmd << 'eval{ for $m ($cpan_dist->containsmods) { $cpan_mod = CPAN::Shell->expand("Module", $m);'
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
   cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
-  cmd << 'exit(2);'
-  cmd << "\' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file} ||"
-  cmd << "cpan #{cpan_client_flags} . 2>&1 >> #{install_log_file}"
-
+  cmd << install_perl_code
+  cmd << "' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file}"
   
   file "#{install_log_file}" do
     action :touch
@@ -319,12 +320,11 @@ def install_tarball
   end
 
         
-  bash "install_tarball" do
+  execute cmd.join(' ') do
     user user
     group group
     cwd "/tmp/local-lib/install/#{installed_module}"
-    code cmd.join("\n")
-    environment my_env
+    environment cpan_env
   end
 
   install_log
@@ -347,28 +347,29 @@ def install_application
   home = get_home
 
   cmd = Array.new
-  cmd << cpan_client_stack
-  cmd << "cpan #{cpan_client_flags} .  2>&1 > #{install_log_file}"
+  cmd << local_lib_stack
+  cmd << "perl -MCPAN -e '"
+  cmd << install_perl_code
+  cmd << "' '.'  2>&1 > #{install_log_file}"
 
-  #cmd << "cpan #{cpan_client_flags} . "
-  
-  bash "install_application" do
+  execute  cmd.join(" ") do
     user user
     group group
     cwd cwd
-    code cmd.join("\n")
-    environment my_env
+    environment cpan_env
   end
 
   install_log
 
 end
 
-def my_env
-  my_env = @installer.environment
-  my_env['HOME'] = get_home
-  my_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
-  my_env
+def cpan_env
+  c_env = @installer.environment
+  c_env['HOME'] = get_home
+  c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
+  c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
+  c_env['PERL5LIB'] = "PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
+  c_env
 end
 
 def install_log_file 
@@ -394,16 +395,18 @@ def install_log
 end
 
 
-def cpan_client_flags 
-  flags = Array.new
-  if @test_mode.nil? 
-   flags << '-i'
+def install_perl_code
+ cmd = nil
+ if @test_mode.nil?
+  if @installer.force == true
+    cmd = 'CPAN::Shell->force("install",$ARGV[0])' 
   else
-   flags << '-t'
-  end
-  flags << '-f' if @installer.force == true
-  flags << ''
-  flags.join(' ')
+    cmd = 'CPAN::Shell->install($ARGV[0])' 
+ end 
+ else
+   cmd = 'CPAN::Shell->test($ARGV[0])' 
+ end
+ cmd
 end
 
 def get_home 
