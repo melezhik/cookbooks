@@ -29,7 +29,7 @@ def header
   
   ruby_block 'info' do 
     block do
-      print "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}"
+      print "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module} "
       print "cpan_client has started with rights: user=#{user} group=#{group} "
       print "install-base : #{install_base_print} "
       print "cwd : #{cwd} "
@@ -38,11 +38,106 @@ def header
       print "perl5lib stack: #{perl5lib_stack} "
       print "install path : #{get_install_path} " unless get_install_path.empty?
       print "install_perl_code : #{install_perl_code} "
+      print "environment : #{cpan_env} "
       print "install log file #{install_log_file} "
     end
   end
   
 end
+
+
+def cpan_env
+  c_env = @installer.environment
+  c_env['HOME'] = get_home
+  c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
+  c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
+  c_env['PERL5LIB'] = "PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
+  c_env
+end
+
+def install_log_file 
+  "/tmp/local-lib/#{installed_module}-install.log"
+end
+
+def install_log 
+
+  my_installed_module = installed_module
+  ruby_block 'install-log' do
+    block do
+        print " *** #{my_installed_module} *** "
+        IO.foreach(install_log_file) do |l|
+            print l if /\s--\s(OK|NOT OK)/.match(l)
+            print l if /Writing.*for/.match(l) 
+            print l if /Going to build/.match(l)
+            print l if /^Warning:/.match(l)
+            
+        end
+        print " *** "
+    end
+  end
+end
+
+
+def install_perl_code
+ cmd = nil
+ if @test_mode.nil?
+  if @installer.force == true
+    cmd = 'CPAN::Shell->force("install",$ARGV[0])' 
+  else
+    cmd = 'CPAN::Shell->install($ARGV[0])' 
+ end 
+ else
+   cmd = 'CPAN::Shell->test($ARGV[0])' 
+ end
+ cmd
+end
+
+def get_home 
+  user = @installer.user
+  group = @installer.group
+  home = user == 'root' ? "/root/" : "/home/#{user}/"
+  return home
+end 
+
+def perl5lib_stack
+
+  perl5lib = Array.new
+  perl5lib += node.cpan_client.default_inc
+  perl5lib += @installer.inc
+  perl5lib.join(':')
+  
+end
+
+def local_lib_stack
+  stack = nil
+  unless  @installer.install_base.nil?
+   stack << "eval $(perl -Mlocal::lib=#{real_install_base}); "
+  end
+  return stack
+end
+
+def real_install_base
+   install_base = @installer.install_base
+   install_base.gsub!('\s','')
+   install_base.chomp!
+   unless /^\//.match(install_base)
+     install_base = "#{@installer.cwd}/#{install_base}"
+   end
+   return install_base
+end
+
+def install_base_print 
+ @installer.install_base.nil? ? 'default::install::base' : real_install_base
+end
+
+def get_install_path
+  install_path = ''
+  @installer.install_path.each do |i|
+    install_path << " --install_path #{i} "
+  end
+  install_path
+end
+
 
 action :reload_cpan_index do
 
@@ -86,37 +181,6 @@ action :test do
 
   install_real
 
-end
-
-def perl5lib_stack
-
-  perl5lib = Array.new
-  perl5lib += node.cpan_client.default_inc
-  perl5lib += @installer.inc
-  perl5lib.join(':')
-  
-end
-
-def local_lib_stack
-  stack = nil
-  unless  @installer.install_base.nil?
-   stack << "eval $(perl -Mlocal::lib=#{real_install_base}); "
-  end
-  return stack
-end
-
-def real_install_base
-   install_base = @installer.install_base
-   install_base.gsub!('\s','')
-   install_base.chomp!
-   unless /^\//.match(install_base)
-     install_base = "#{@installer.cwd}/#{install_base}"
-   end
-   return install_base
-end
-
-def install_base_print 
- @installer.install_base.nil? ? 'default::install::base' : real_install_base
 end
 
 
@@ -294,11 +358,10 @@ def install_tarball
     group group
   end
 
-  bash "install_tarball" do
+  bash "tar -zxf #{tarball_name}" do
     user user
     group group
     cwd "/tmp/local-lib/install/"
-    code "tar -zxf #{tarball_name}"
   end
 
   cmd = Array.new
@@ -331,14 +394,6 @@ def install_tarball
 
 end
 
-def get_install_path
-  install_path = ''
-  @installer.install_path.each do |i|
-    install_path << " --install_path #{i} "
-  end
-  install_path
-end
-
 def install_application
 
   cwd = @installer.cwd
@@ -362,57 +417,4 @@ def install_application
   install_log
 
 end
-
-def cpan_env
-  c_env = @installer.environment
-  c_env['HOME'] = get_home
-  c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
-  c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
-  c_env['PERL5LIB'] = "PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
-  c_env
-end
-
-def install_log_file 
-  "/tmp/local-lib/#{installed_module}-install.log"
-end
-
-def install_log 
-
-  my_installed_module = installed_module
-  ruby_block 'install-log' do
-    block do
-        print " *** #{my_installed_module} *** "
-        IO.foreach(install_log_file) do |l|
-            print l if /\s--\s(OK|NOT OK)/.match(l)
-            print l if /Writing.*for/.match(l) 
-            print l if /Going to build/.match(l)
-            print l if /^Warning:/.match(l)
-            
-        end
-        print " *** "
-    end
-  end
-end
-
-
-def install_perl_code
- cmd = nil
- if @test_mode.nil?
-  if @installer.force == true
-    cmd = 'CPAN::Shell->force("install",$ARGV[0])' 
-  else
-    cmd = 'CPAN::Shell->install($ARGV[0])' 
- end 
- else
-   cmd = 'CPAN::Shell->test($ARGV[0])' 
- end
- cmd
-end
-
-def get_home 
-  user = @installer.user
-  group = @installer.group
-  home = user == 'root' ? "/root/" : "/home/#{user}/"
-  return home
-end 
 
