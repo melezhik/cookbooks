@@ -38,7 +38,7 @@ def header
       print "perl5lib stack: #{perl5lib_stack} "
       print "install path : #{get_install_path} " unless get_install_path.empty?
       print "install_perl_code : #{install_perl_code} "
-      print "environment : #{cpan_env} "
+      print "environment : #{cpan_env.to_s} "
       print "install log file #{install_log_file} "
     end
   end
@@ -78,16 +78,16 @@ def install_log
 end
 
 
-def install_perl_code
+def install_perl_code install_thing = '$ARGV[0]'
  cmd = nil
  if @test_mode.nil?
   if @installer.force == true
-    cmd = 'CPAN::Shell->force("install",$ARGV[0])' 
+    cmd = "CPAN::Shell->force(\"install\",#{install_thing})"
   else
-    cmd = 'CPAN::Shell->install($ARGV[0])' 
+    cmd = "CPAN::Shell->install(#{install_thing})" 
  end 
  else
-   cmd = 'CPAN::Shell->test($ARGV[0])' 
+   cmd = "CPAN::Shell->test(#{install_thing})" 
  end
  cmd
 end
@@ -358,7 +358,7 @@ def install_tarball
     group group
   end
 
-  bash "tar -zxf #{tarball_name}" do
+  execute "tar -zxf #{tarball_name}" do
     user user
     group group
     cwd "/tmp/local-lib/install/"
@@ -373,7 +373,7 @@ def install_tarball
   cmd << 'eval{ for $m ($cpan_dist->containsmods) { $cpan_mod = CPAN::Shell->expand("Module", $m);'
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
   cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
-  cmd << install_perl_code
+  cmd << install_perl_code('"."')
   cmd << "' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file}"
   
   file "#{install_log_file}" do
@@ -404,8 +404,8 @@ def install_application
   cmd = Array.new
   cmd << local_lib_stack
   cmd << "perl -MCPAN -e '"
-  cmd << install_perl_code
-  cmd << "' '.'  2>&1 > #{install_log_file}"
+  cmd << install_perl_code('"."')
+  cmd << "' 2>&1 > #{install_log_file}"
 
   execute  cmd.join(" ") do
     user user
