@@ -111,7 +111,7 @@ end
 def local_lib_stack
   stack = nil
   unless  @installer.install_base.nil?
-   stack << "eval $(perl -Mlocal::lib=#{real_install_base}); "
+   stack = "eval $(perl -Mlocal::lib=#{real_install_base}); "
   end
   return stack
 end
