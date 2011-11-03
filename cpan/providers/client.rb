@@ -38,7 +38,7 @@ def header
       print "perl5lib stack: #{perl5lib_stack} "
       print "install path : #{get_install_path} " unless get_install_path.empty?
       print "install_perl_code : #{install_perl_code} "
-      print "environment : #{cpan_env.to_s} "
+      print "environment : #{cpan_env_print} "
       print "install log file #{install_log_file} "
     end
   end
@@ -53,6 +53,12 @@ def cpan_env
   c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
   c_env['PERL5LIB'] = "PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
   c_env
+end
+
+def cpan_env_print
+  st = ''
+  cpan_env.each {|key, value| st << "#{key}  #{value}\n" }
+  st
 end
 
 def install_log_file 
