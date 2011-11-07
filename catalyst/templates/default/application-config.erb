@@ -1,0 +1,44 @@
+#
+# don't edit manually, any changes will be replaced by chef
+#
+
+# OBLIGATORY PARAMETERS
+# home dir for your catalyst application
+APPLICATION_HOME="<%= @application_home %>"
+
+# application will be run under user APPLICATION_USER:
+APPLICATION_USER=<%= @application_user %>
+
+# name of script, willbe looked in $APPLICATION_HOME/script/
+SCRIPT="<%= @application_script %>"
+
+# path to config application
+# could be overriden by MYAPP_CONFIG env var, see Catalyst::Plugin::ConfigLoader for details
+CATALYST_CONFIG="<%= @catalyst_config %>"
+
+# OPTIONS
+<%- unless @socket.nil?  %>
+SOCKET="<%= @socket %>"
+<%- end %>
+
+<%- unless @nproc.nil?  %>
+# number or child fastcgi processes
+NPROC="<%= @nproc %>"
+<%- end %>
+
+<%- unless @perl5lib.nil?  %>
+PERL5LIB="<%= @perl5lib %>"
+<%- end %>
+
+<%- unless @proc_manager.nil?  %>
+PROC_MANAGER="<%= @proc_manager %>"
+<%- end %>
+
+<%- unless @envvars.keys.empty?  %>
+    vars = []
+    <%- @envvars.each do |k,v| %>
+	<%- vars << "#{k}=#{v}" %>
+    <%- end %>
+ENVVARS='<%= vars.join(" ") %>'
+<%- end %>
+
