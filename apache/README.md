@@ -1,6 +1,6 @@
 Description
 ===========
-my apache provides (LWRP)
+various apache server related resource provides (LWRP)
 
 * `apache_fastcgi` - fastcgi server via virtul host, now only `external` mode available
   
