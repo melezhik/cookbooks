@@ -10,17 +10,6 @@ Requirements
 
 * Catalyst
 
-BASIC USAGE
-===========
-    catalyst_application 'foo' do
-        application_user 'alex'
-        application_group 'users'
-        application_home '/home/alex/catalyst-applications/foo'
-        application_script 'foo_fastcgi.pl'
-        catalyst_config '/home/alex/catalyst-applications/foo.conf'
-        action 'install'
-    end
-
 RESOURCE ACTIONS
 ================
 
@@ -41,6 +30,18 @@ RESOURCE ATTRIBUTES
     * `envvars` - a hash of environment vars, passed to application environment
     * `proc_manager` - a perl class, implimenting Fast CGI Process ProcManager, default FCGI::ProcManager
     * `socket` - a socket, application will be binded to
+
+
+Usage
+=====
+    catalyst_application 'foo' do
+        application_user 'alex'
+        application_group 'users'
+        application_home '/home/alex/catalyst-applications/foo'
+        application_script 'foo_fastcgi.pl'
+        catalyst_config '/home/alex/catalyst-applications/foo.conf'
+        action 'install'
+    end
     
 Links
 =====
