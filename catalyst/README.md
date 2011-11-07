@@ -34,7 +34,7 @@ RESOURCE ATTRIBUTES
     * `perl5lib` - an array of perl5lib pathes
     * `nproc` - a number of processes will be launched when application start in fastcgi mode, default value 1
     * `envvars` - a hash of environment vars, passed to application environment
-    * `proc_manager` - a perl class, implimenting FCGI::ProcManager
+    * `proc_manager` - a perl class, implimenting Fast CGI Process ProcManager, default FCGI::ProcManager
     * `socket` - a socket, application will be binded to
     
     
