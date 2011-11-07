@@ -2,7 +2,7 @@ Description
 ===========
 various apache server related resource provides (LWRP)
 
-* `apache_fastcgi` - fastcgi server via virtul host, now only `external` mode available
+* `apache_fastcgi` - install fastcgi server via name based virtual host, now only `external` mode available
   
 Requirements
 ============

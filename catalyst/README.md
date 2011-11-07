@@ -3,7 +3,12 @@ DESCRIPTION
 
 catalyst application resource provider (LWRP)
 
-* start your catalyst application as server, now available only `fastcgi` run mode
+* start your catalyst application as server, now available only in `fastcgi` run mode
+
+Requirements
+============
+
+* Catalyst
 
 BASIC USAGE
 ===========
@@ -37,6 +42,7 @@ RESOURCE ATTRIBUTES
     * `proc_manager` - a perl class, implimenting Fast CGI Process ProcManager, default FCGI::ProcManager
     * `socket` - a socket, application will be binded to
     
-    
-    
+Links
+=====
 
+* http://search.cpan.org/perldoc?Catalyst::Engine::FastCGI
