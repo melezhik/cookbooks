@@ -2,7 +2,7 @@ DESCRIPTION
 ===========
 
 catalyst application resource provider LWRP
-* start your catalyst application as server, now avalible only `fastcgi` run mode
+* start your catalyst application as server, now available only `fastcgi` run mode
 
 BASIC USAGE
 ===========
