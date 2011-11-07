@@ -13,8 +13,15 @@ Requirements
 Resource Attributes
 ===================
 
-* socket - a socket which fast cgi external server binds to
-* server_name - name of virtual host 
+* obligatory 
+    * socket - a socket which fast cgi external server binds to
+    * server_name - name of virtual host 
+* optional
+    * timeout - Int, a time to wait for fast cgi server response, in seconds, default 180
+    * access_log - a path to apache access log file
+    * error_log - a path to apache error log file
+    * timeout - Int, a time to wait for fast cgi server response, in seconds
+    
  
 Usage
 =====
