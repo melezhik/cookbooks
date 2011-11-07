@@ -17,7 +17,7 @@ Resource Attributes
     * `socket` - a socket to which fast cgi external server is binded
     * `server_name` - name of virtual host 
 * optional
-    * `timeout` - Int, a time to wait for fast cgi server response, in seconds, default value `180`
+    * `timeout` - Integer, a time to wait for fast cgi server response, in seconds, default value `180`
     * `access_log` - a path to apache access log file
     * `error_log` - a path to apache error log file
     

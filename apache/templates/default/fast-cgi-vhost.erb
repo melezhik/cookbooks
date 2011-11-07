@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+
+     ServerName <%= @server_name %>
+     FastCgiExternalServer <%= @virtual_file %>  -socket <%= @socket %> -idle-timeout <%= @timeout %>
+     Alias / <%= @virtual_file %>/
+
+     <Location />
+        order allow,deny
+        allow from all
+     </Location>
+
+     CustomLog <%= @access_log %> combined
+     ErrorLog  <%= @error_log %>
+
+</VirtualHost>
+
+
