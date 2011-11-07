@@ -26,8 +26,8 @@ SOCKET="<%= @socket %>"
 NPROC="<%= @nproc %>"
 <%- end %>
 
-<%- unless @perl5lib.nil?  %>
-PERL5LIB="<%= @perl5lib %>"
+<%- unless @perl5lib.empty?  %>
+PERL5LIB="<%= @perl5lib.join(':') %>"
 <%- end %>
 
 <%- unless @proc_manager.nil?  %>
