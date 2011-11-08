@@ -3,7 +3,7 @@ DESCRIPTION
 
 catalyst application resource provider (LWRP)
 
-* start your catalyst application as server, now available only in `fastcgi` run mode
+* start your catalyst application as fast cgi server
 
 Requirements
 ============
@@ -34,6 +34,7 @@ RESOURCE ATTRIBUTES
 
 Usage
 =====
+
     catalyst_application 'foo' do
         application_user 'alex'
         application_group 'users'
@@ -42,7 +43,13 @@ Usage
         catalyst_config '/home/alex/catalyst-applications/foo.conf'
         action 'install'
     end
-    
+
+Now you may do this:
+
+    /etc/init.d/foo start
+    /etc/init.d/foo stop
+    /etc/init.d/foo restart
+
 Links
 =====
 
