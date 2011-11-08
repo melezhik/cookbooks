@@ -5,6 +5,11 @@ catalyst application resource provider (LWRP)
 
 * start your catalyst application as fast cgi server
 
+Systems supported
+=================
+
+* gentoo
+
 Requirements
 ============
 
@@ -54,3 +59,9 @@ Links
 =====
 
 * http://search.cpan.org/perldoc?Catalyst::Engine::FastCGI
+
+ToDo
+====
+
+ * support for ubuntu
+

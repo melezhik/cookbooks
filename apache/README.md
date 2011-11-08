@@ -3,7 +3,12 @@ Description
 various apache server related resource provides (LWRP)
 
 * `apache_fastcgi` - install fastcgi server via name based virtual host, now only `external` mode available
-  
+
+Systems supported
+=================
+
+* gentoo
+   
 Requirements
 ============
 
@@ -38,3 +43,8 @@ Links
  * http://httpd.apache.org/docs/1.3/vhosts/
  * http://www.fastcgi.com/drupal/node/25
 
+ToDo
+====
+
+ * support for ubuntu
+ 
