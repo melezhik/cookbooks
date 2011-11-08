@@ -18,7 +18,8 @@ action :install do
  socket = @res.socket
  timeout = @res.timeout
  
- 
+ service 'apache2'
+
  template vhost_config_path do
     source 'fast-cgi-vhost.erb'
     variables(
@@ -30,7 +31,9 @@ action :install do
        :error_log => error_log
     )
     cookbook 'apache'
+    notifies :restart, resources(:service =>'apache2')
   end
+  
  new_resource.updated_by_last_action(true)
 end
 

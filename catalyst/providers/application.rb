@@ -3,10 +3,6 @@ CATALYST_APPLICATION_PATH = '/etc/init.d/catalyst_application'
 def load_current_resource
  
  
- unless ::File.exists?(CATALYST_APPLICATION_PATH)
-  raise "#{CATALYST_APPLICATION_PATH} should exists"
- end
-   
  @resource = Chef::Resource::CatalystApplication.new(new_resource.name)
  @resource.application_home(new_resource.application_home)
  @resource.application_script(new_resource.application_script)
@@ -25,6 +21,14 @@ end
 
 
 action :install do
+
+ cookbook_file CATALYST_APPLICATION_PATH do
+   source "catalyst_application"
+   mode '0775'
+   cookbook 'catalyst'
+   action :create_if_missing
+ end
+
  link "/etc/init.d/#{service_name}"  do
    to CATALYST_APPLICATION_PATH
  end
@@ -46,6 +50,7 @@ def install_confd_template
  nproc = @resource.nproc
  proc_manager = @resource.proc_manager
 
+ service service_name
 
  template "/etc/conf.d/#{service_name}" do
   source   'application-config.erb'
@@ -61,6 +66,7 @@ def install_confd_template
     :nproc => nproc,
     :proc_manager => proc_manager
   )
+  notifies :restart, resources( :service => service_name )
  end 
 
 end
