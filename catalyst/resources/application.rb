@@ -8,5 +8,5 @@ attribute :perl5lib, :kind_of => Array, :default => []
 attribute :envvars, :kind_of => Hash, :default => {}
 attribute :socket, :kind_of => String
 attribute :nproc, :kind_of => Integer, :default => 1
-attribute :proc_manager, :kind_of => String
+attribute :proc_manager, :kind_of => String, :default => 'FCGI::ProcManager'
 
