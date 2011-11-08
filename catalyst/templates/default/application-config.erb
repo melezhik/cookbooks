@@ -35,7 +35,7 @@ PROC_MANAGER="<%= @proc_manager %>"
 <%- end %>
 
 <%- unless @envvars.keys.empty?  %>
-    vars = []
+    <%- vars = [] %>
     <%- @envvars.each do |k,v| %>
 	<%- vars << "#{k}=#{v}" %>
     <%- end %>
