@@ -4,3 +4,6 @@ license          "All rights reserved"
 description      "catalyst application resource provider (LWRP)"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
+%w{ ubuntu gentoo }.each do |os|
+  supports os
+end
