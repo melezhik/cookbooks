@@ -1,6 +1,5 @@
 def load_current_resource
  
- 
  @resource = Chef::Resource::CatalystApplication.new(new_resource.name)
  @resource.application_home(new_resource.application_home)
  @resource.application_script(new_resource.application_script)
@@ -20,18 +19,16 @@ end
 
 action :install do
 
- if platform == 'gentoo' # special case for gentoo
+ if node.platform == 'gentoo' # special case for gentoo
      cookbook_file '/etc/init.d/catalyst_application' do
-	source "catalyst_application"
+	source 'catalyst_application'
 	mode '0775'
         cookbook 'catalyst'
      action :create_if_missing
- end
- end
- 
-
- link "/etc/init.d/#{service_name}"  do
-   to CATALYST_APPLICATION_PATH
+    end
+    link "/etc/init.d/#{service_name}"  do
+       to '/etc/init.d/catalyst_application'
+    end
  end
  install_confd_template 
  new_resource.updated_by_last_action(true)
@@ -53,10 +50,11 @@ def install_confd_template
 
  service service_name
 
- template "/etc/conf.d/#{service_name}" do
+ template "#{node.catalyst.initscript.template.dir}/#{service_name}" do
   source   'catalyst_application.erb'
   cookbook 'catalyst'
   variables(
+    :service_name     => service_name,
     :application_home => application_home,
     :application_user => application_user,
     :application_script => application_script,
@@ -67,8 +65,14 @@ def install_confd_template
     :nproc => nproc,
     :proc_manager => proc_manager
   )
+  mode node.catalyst.initscript.template.mode
   notifies :restart, resources( :service => service_name )
  end 
+
+ # start for first time
+ service service_name do
+  action 'start'
+ end
 
 end
 

@@ -5,10 +5,11 @@ catalyst application resource provider (LWRP)
 
 * start your catalyst application as fast cgi server
 
-Systems supported
-=================
+Supports OS
+===========
 
-* gentoo
+* gentoo (tested with Calculate Linux Desktop 9.6)
+* ubuntu (tested with 11.10 server amd64)
 
 Requirements
 ============
@@ -63,5 +64,5 @@ Links
 ToDo
 ====
 
- * support for ubuntu
+ * fullfill cucumber tests for ubuntu
 

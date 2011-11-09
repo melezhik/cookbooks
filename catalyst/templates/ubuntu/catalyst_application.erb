@@ -18,13 +18,29 @@
 # Do NOT "set -e"
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
+
+APPLICATION_USER=<%= @application_user %>
+APPLICATION_HOME=<%= @application_home %>
+CATALYST_CONFIG=<%= @application_user %>
+
+<%- unless @perl5lib.empty?  %>
+PERL5LIB="<%= @perl5lib.join(':') %>"
+<%- end %>
+
 NAME="<%= @service_name %>"
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Description of the service"
-DAEMON=$APPLICATION_HOME/script/$SCRIPT
-DAEMON_ARGS="-M <%= @proc_manager %> -n <%= @nproc %> -l <%= @socket >"
+DAEMON=<%= @application_home %>/script/<%= @application_script %>
+DAEMON_ARGS="-M <%= @proc_manager %> -n <%= @nproc %> -l <%= @socket %>"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
+
+<%- vars = [] %>
+<%- @envvars.each do |k,v| %>
+    <%- vars << "#{k}=#{v}" %>
+<%- end %>
+ENVVARS='<%= vars.join(" ") %>'
+
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -50,10 +66,13 @@ do_start()
 	#   2 if daemon could not be started
 	start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON --test > /dev/null \
 		|| return 1
+        eval "$ENVVARS" \
+        CATALYST_CONFIG="${CATALYST_CONFIG}" \
+        PERL5LIB="${PERL5LIB}" \
 	start-stop-daemon -d $APPLICATION_HOME \
 	--chuid $APPLICATION_USER \
-	--background --make_pidfile \
-	--start --quiet --pidfile $PIDFILE \
+	--background --make-pidfile \
+	--start --verbose --pidfile $PIDFILE \
 	--env "PERL5LIB=${PERL5LIB}" \
 	--env "CATALYST_CONFIG=${CATALYST_CONFIG}" \
 	--exec $DAEMON -- \
@@ -121,7 +140,7 @@ case "$1" in
 	esac
 	;;
   status)
-       status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+       status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME" && exit 0 || exit $?
        ;;
   #reload|force-reload)
 	#
