@@ -1,5 +1,3 @@
-CATALYST_APPLICATION_PATH = '/etc/init.d/catalyst_application'
-
 def load_current_resource
  
  
@@ -22,12 +20,15 @@ end
 
 action :install do
 
- cookbook_file CATALYST_APPLICATION_PATH do
-   source "catalyst_application"
-   mode '0775'
-   cookbook 'catalyst'
-   action :create_if_missing
+ if platform == 'gentoo' # special case for gentoo
+     cookbook_file '/etc/init.d/catalyst_application' do
+	source "catalyst_application"
+	mode '0775'
+        cookbook 'catalyst'
+     action :create_if_missing
  end
+ end
+ 
 
  link "/etc/init.d/#{service_name}"  do
    to CATALYST_APPLICATION_PATH
@@ -53,7 +54,7 @@ def install_confd_template
  service service_name
 
  template "/etc/conf.d/#{service_name}" do
-  source   'application-config.erb'
+  source   'catalyst_application.erb'
   cookbook 'catalyst'
   variables(
     :application_home => application_home,
