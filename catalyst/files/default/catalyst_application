@@ -17,18 +17,16 @@ fi
 
 
 #default proc manager
-if [ ! $PROC_MANAGER ]; then
- PROC_MANAGER="Adriver::FCGI::ProcManager"
-fi
+#if [ ! $PROC_MANAGER ]; then
+# PROC_MANAGER="Adriver::FCGI::ProcManager"
+#fi
 
 #default PERL5LIB
-if [ ! ${PERL5LIB} ]; then
-  PERL5LIB='/usr/local/rle/lib/perl:${PERL5LIB}'
-fi
+#if [ ! ${PERL5LIB} ]; then
+#  PERL5LIB='/usr/local/rle/lib/perl:${PERL5LIB}'
+#fi
 
 ENVVARSOPTS=`perl -e 'if($ARGV[0]) {chomp $ARGV[0]; print join " ", map {" --env $_"} split /\s+/, $ARGV[0]} ' "${ENVVARS}"`
-
-
 
 opts="${opts} getconfig"
 
