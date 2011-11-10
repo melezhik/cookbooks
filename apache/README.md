@@ -2,18 +2,18 @@ Description
 ===========
 various apache server related resource provides (LWRP)
 
-* `apache_fastcgi` - install fastcgi server via name based virtual host, now only `external` mode available
+* `apache_fastcgi` - configure fastcgi server via apache name based virtual host, now only `external` mode available
 
 Systems supported
 =================
 
 * gentoo
+* ubuntu
    
 Requirements
 ============
 
-* apache server
-* mod_fastcgi
+* apache2 cookbook - https://github.com/opscode/cookbooks/tree/master/apache2
 
 Resource Attributes
 ===================

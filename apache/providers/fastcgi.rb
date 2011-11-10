@@ -14,25 +14,44 @@ end
 
 action :install do
 
- server_name = @res.server_name
- socket = @res.socket
- timeout = @res.timeout
- 
+ server_name_attr = @res.server_name
+ socket_attr = @res.socket
+ timeout_attr = @res.timeout
+ access_log_attr = access_log
+ error_log_attr = error_log
+ virtual_file_attr = virtual_file
+
  service 'apache2'
 
- template vhost_config_path do
-    source 'fast-cgi-vhost.erb'
-    variables(
-       :server_name => server_name,
-       :socket => socket,
-       :virtual_file => virtual_file,
-       :timeout => timeout,
-       :access_log => access_log,
-       :error_log => error_log
-    )
-    cookbook 'apache'
-    notifies :restart, resources(:service =>'apache2')
-  end
+ case node.platform # sorry for this case, but gentoo still not supported in apache2 cookbook
+		    # http://tickets.opscode.com/browse/COOK-817
+ when 'gentoo'
+    template vhost_config_path do
+	source 'fast-cgi-vhost.erb'
+        variables(
+	   :server_name => server_name_attr,
+           :socket => socket_attr,
+	   :virtual_file => virtual_file_attr,
+           :idle_timeout => timeout_attr,
+	   :access_log => access_log_attr,
+           :error_log => error_log_attr
+	)
+        cookbook 'apache'
+	notifies :restart, resources(:service =>'apache2')
+    end
+  else 
+    web_app vhost_id do # definition goes with apache2 cookbook, see OS supports there ((:
+	template 'fast-cgi-vhost.erb'
+	cookbook 'apache'
+	server_name server_name_attr
+        socket socket_attr
+	virtual_file virtual_file_attr
+        idle_timeout timeout_attr
+	access_log access_log_attr
+        error_log  error_log_attr
+    end      
+ end
+ 
   
  new_resource.updated_by_last_action(true)
 end
@@ -42,16 +61,16 @@ def vhost_config_path
  "#{APACHE_VHOST_DIR}#{vhost_id}.conf"
 end
 
-def virtual_file 
+def virtual_file
  "/tmp/#{vhost_id}-application"
 end
 
-def access_log 
- @res.access_log.nil? ? "/var/log/apache2/#{vhost_id}-access.log" : @res.access_log
+def access_log
+ @res.access_log.nil? ? "#{node.apache.dir}/#{vhost_id}-access.log" : @res.access_log
 end
 
-def error_log 
- @res.error_log.nil? ? "/var/log/apache2/#{vhost_id}-error.log" : @res.error_log
+def error_log
+ @res.error_log.nil? ? "#{node.apache.dir}/#{vhost_id}-error.log" : @res.error_log
 end
 
 def check_input_params 
