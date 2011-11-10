@@ -5,8 +5,8 @@ catalyst application resource provider (LWRP)
 
 * start your catalyst application as fast cgi server
 
-Supports OS
-===========
+Platforms
+=========
 
 * gentoo (tested with Calculate Linux Desktop 9.6)
 * ubuntu (tested with 11.10 server amd64)
@@ -14,7 +14,10 @@ Supports OS
 Requirements
 ============
 
-* Catalyst
+* This cookbook doesn't have direct dependencies on other cookbooks. 
+But you have to be sure that your catalyst application your are going to run 
+as fast cgi server at least installed and tested. 
+
 
 RESOURCE ACTIONS
 ================
@@ -64,5 +67,7 @@ Links
 ToDo
 ====
 
- * fulfil cucumber tests for ubuntu
+* add more platforms support 
+* add more tests
+* add wiki and howtos
 

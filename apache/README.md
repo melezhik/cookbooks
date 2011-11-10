@@ -4,8 +4,8 @@ various apache server related resource provides (LWRP)
 
 * `apache_fastcgi` - configure fastcgi server via apache name based virtual host, now only `external` mode available
 
-Systems supported
-=================
+Platfroms
+=========
 
 * gentoo
 * ubuntu
@@ -46,6 +46,11 @@ Links
 ToDo
 ====
 
- * fulfil cucumber tests for ubuntu
+ * add more platforms support 
+ * add more tests
+ * add wiki and howtos
+ 
+ 
+ 
  
  
