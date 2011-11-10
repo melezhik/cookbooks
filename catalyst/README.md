@@ -44,6 +44,8 @@ RESOURCE ATTRIBUTES
 Usage
 =====
 
+## 1. Create your catalyst application from scratch ##
+
     $ cd /tmp/ 
     $ catalyst.pl Foo
     $ cd Foo
@@ -51,6 +53,8 @@ Usage
     $ make
     $ make test
     $ make install
+
+## 2. Deploy it via catalyst  cookbook ##
         
     catalyst_application 'foo' do
         application_user 'alex'
@@ -61,7 +65,7 @@ Usage
         action 'install'
     end
 
-Now you may do this:
+## 3. Now you may do this: ##
 
     /etc/init.d/foo start
     /etc/init.d/foo stop
