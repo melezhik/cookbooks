@@ -46,5 +46,6 @@ Links
 ToDo
 ====
 
- * support for ubuntu
+ * fulfil cucumber tests for ubuntu
+ 
  

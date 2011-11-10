@@ -20,7 +20,7 @@ end
 action :install do
 
  if node.platform == 'gentoo' # special case for gentoo
-     cookbook_file '/etc/init.d/catalyst_application' do
+     template '/etc/init.d/catalyst_application' do
 	source 'catalyst_application'
 	mode '0775'
         cookbook 'catalyst'
