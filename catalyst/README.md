@@ -15,7 +15,7 @@ Requirements
 ============
 
 * This cookbook doesn't have direct dependencies on other cookbooks. 
-But you have to be sure that your catalyst application your are going to run 
+But you have to be sure that the catalyst application your are going to run 
 as fast cgi server at least installed and tested. 
 
 
