@@ -44,7 +44,7 @@ RESOURCE ATTRIBUTES
 Usage
 =====
 
-## 1. Create your catalyst application from scratch ##
+## 1. Create your catalyst application  ##
 
     $ cd /tmp/ 
     $ catalyst.pl Foo
@@ -54,7 +54,7 @@ Usage
     $ make test
     $ make install
 
-## 2. Deploy it via catalyst  cookbook ##
+## 2. Deploy it as fast cgi server via catalyst cookbook  ##
         
     catalyst_application 'foo' do
         application_user 'alex'
