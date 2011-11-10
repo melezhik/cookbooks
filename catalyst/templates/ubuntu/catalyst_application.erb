@@ -29,7 +29,7 @@ PERL5LIB="<%= @perl5lib.join(':') %>"
 
 NAME="<%= @service_name %>"
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="Description of the service"
+DESC="fastcgi catalyst application"
 DAEMON=<%= @application_home %>/script/<%= @application_script %>
 DAEMON_ARGS="-M <%= @proc_manager %> -n <%= @nproc %> -l <%= @socket %>"
 PIDFILE=/var/run/$NAME.pid
@@ -102,10 +102,10 @@ do_stop()
 	# that waits for the process to drop all resources that could be
 	# needed by services started subsequently.  A last resort is to
 	# sleep for some time.
-	start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --exec --pidfile $PIDFILE
+	start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --pidfile $PIDFILE
 	[ "$?" = 2 ] && return 2
 	# Many daemons don't delete their pidfiles when they exit.
-	# rm -f $PIDFILE
+	rm -f $PIDFILE
 	return "$RETVAL"
 }
 
@@ -140,7 +140,7 @@ case "$1" in
 	esac
 	;;
   status)
-       status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME" && exit 0 || exit $?
+       status_of_proc "<%= @application_script %>" && exit 0 || exit $?
        ;;
   #reload|force-reload)
 	#
