@@ -29,12 +29,14 @@ action :install do
     template vhost_config_path do
 	source 'fast-cgi-vhost.erb'
         variables(
-	   :server_name => server_name_attr,
-           :socket => socket_attr,
-	   :virtual_file => virtual_file_attr,
-           :idle_timeout => timeout_attr,
-	   :access_log => access_log_attr,
-           :error_log => error_log_attr
+           :params => {
+	        :server_name => server_name_attr,
+                :socket => socket_attr,
+		:virtual_file => virtual_file_attr,
+    	        :idle_timeout => timeout_attr,
+		:access_log => access_log_attr,
+        	:error_log => error_log_attr
+           }
 	)
         cookbook 'apache'
 	notifies :restart, resources(:service =>'apache2')
