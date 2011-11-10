@@ -44,12 +44,20 @@ RESOURCE ATTRIBUTES
 Usage
 =====
 
+    $ cd /tmp/ 
+    $ catalyst.pl Foo
+    $ cd Foo
+    $ perl Makefile.PL
+    $ make
+    $ make test
+    $ make install
+        
     catalyst_application 'foo' do
         application_user 'alex'
         application_group 'users'
-        application_home '/home/alex/catalyst-applications/foo'
+        application_home '/tmp/Foo'
         application_script 'foo_fastcgi.pl'
-        catalyst_config '/home/alex/catalyst-applications/foo.conf'
+        catalyst_config '/tmp/Foo/foo.conf'
         action 'install'
     end
 
