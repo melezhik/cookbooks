@@ -140,7 +140,7 @@ case "$1" in
 	esac
 	;;
   status)
-       status_of_proc "<%= @application_script %>" && exit 0 || exit $?
+       status_of_proc "<%= @application_script %>-fcgi" "$NAME"  && exit 0 || exit $?
        ;;
   #reload|force-reload)
 	#
