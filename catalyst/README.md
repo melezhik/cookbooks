@@ -33,8 +33,8 @@ Resource Attributes
 * obligatory attrubutes
     * `application_user` - a user name that we should change to before starting application
     * `application_group` - a group name that we should change to before starting application
-    * `application_home` - a name of script to start application, an absolute path to your application  will be constructed with application_home/script/application_script
-    * `application_script` - a name of script to start application
+    * `application_home` - a dir where catalyst application resides
+    * `application_script` - a name of script to start application, an absolute path to your application  will be constructed with application_home/script/application_script
     * `catalyst_config` - a path to catalyst config file
 * optional attributes
     * `start_service` - true|false, whether to try to start application when configuring is done, default value `true`
