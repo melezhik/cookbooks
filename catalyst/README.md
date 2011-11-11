@@ -18,13 +18,16 @@ Requirements
 But you have to be sure that the catalyst application your are going to run 
 as fast cgi server at least installed and tested. 
 
+Resources
+=========
+catalyst_application
 
-RESOURCE ACTIONS
+
 ================
 
 * `install` - install catalyst application
 
-RESOURCE ATTRIBUTES
+Resource Attributes
 ===================
 
 * obligatory attrubutes
@@ -44,7 +47,7 @@ RESOURCE ATTRIBUTES
 Usage
 =====
 
-## 1. Create your catalyst application  ##
+## 1. Create your catalyst application from the scratch ##
 
     $ cd /tmp/ 
     $ catalyst.pl Foo
@@ -65,7 +68,7 @@ Usage
         action 'install'
     end
 
-## 3. Now you may do this: ##
+## 3. Now you get it as fastcgi server  ##
 
     /etc/init.d/foo start
     /etc/init.d/foo stop
@@ -79,7 +82,7 @@ Links
 ToDo
 ====
 
-* add more platforms support 
+* add support for more platforms
 * add more tests
-* add wiki and howtos
+* add wikis and howtos
 
