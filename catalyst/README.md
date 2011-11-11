@@ -33,7 +33,7 @@ Resource Attributes
 * obligatory attrubutes
     * `application_user` - a user name that we should change to before starting application
     * `application_group` - a group name that we should change to before starting application
-    * `application_home` - a directory where application and all it's prerequsites live
+    * `application_home` - a name of script to start application, an absolute path to your application  will be constructed with application_home/application_script
     * `application_script` - a name of script to start application
     * `catalyst_config` - a path to catalyst config file
 * optional attributes
