@@ -22,8 +22,8 @@ Resources
 =========
 catalyst_application
 
-
-================
+Resources Actions
+=================
 
 * `install` - install catalyst application
 
