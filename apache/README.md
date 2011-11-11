@@ -25,7 +25,7 @@ Resource Attributes
     * `timeout` - Integer, a time to wait for fast cgi server response, in seconds, default value `180`
     * `access_log` - a path to apache access log file
     * `error_log` - a path to apache error log file
-    
+    * `start_service` - true|false, whether to try to restart apache when configuring is done, default value `true`    
  
 Usage
 =====

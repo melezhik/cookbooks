@@ -4,3 +4,4 @@ attribute :socket, :kind_of => String
 attribute :timeout, :kind_of => Integer, :default => 180
 attribute :access_log, :kind_of => String
 attribute :error_log, :kind_of => String
+attribute :start_service, :kind_of => [TrueClass,FalseClass], :default => true

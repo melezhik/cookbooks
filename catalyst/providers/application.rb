@@ -11,7 +11,8 @@ def load_current_resource
  @resource.socket(new_resource.socket)
  @resource.nproc(new_resource.nproc)
  @resource.proc_manager(new_resource.proc_manager)
-
+ @resource.start_service(new_resource.start_service)
+ 
  check_input_params
  
 end
@@ -47,7 +48,8 @@ def install_confd_template
  socket = @resource.socket
  nproc = @resource.nproc
  proc_manager = @resource.proc_manager
-
+ start_service = @resource.start_service
+ 
  service service_name
 
  template "#{node.catalyst.initscript.template.dir}/#{service_name}" do
@@ -66,12 +68,14 @@ def install_confd_template
     :proc_manager => proc_manager
   )
   mode node.catalyst.initscript.template.mode
-  notifies :restart, resources( :service => service_name )
+  notifies :restart, resources( :service => service_name ) unless start_service == false
  end 
 
  # start for first time
- service service_name do
-  action 'start'
+ if start_service == true
+     service service_name do
+      action 'start'
+     end
  end
 
 end

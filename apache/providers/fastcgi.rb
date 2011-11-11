@@ -8,6 +8,7 @@ def load_current_resource
     @res.timeout(new_resource.timeout)
     @res.access_log(new_resource.access_log)
     @res.error_log(new_resource.error_log)
+    @res.start_service(new_resource.start_service)
     check_input_params
 end
 
@@ -17,10 +18,12 @@ action :install do
  server_name_attr = @res.server_name
  socket_attr = @res.socket
  timeout_attr = @res.timeout
+ start_service_attr = @res.start_service
+
  access_log_attr = access_log
  error_log_attr = error_log
  virtual_file_attr = virtual_file
-
+ 
  service 'apache2'
 
  case node.platform # sorry for this case, but gentoo still not supported in apache2 cookbook
@@ -39,7 +42,7 @@ action :install do
            }
 	)
         cookbook 'apache'
-	notifies :restart, resources(:service =>'apache2')
+	notifies :restart, resources(:service =>'apache2') if start_service_attr == true
     end
   else 
     web_app vhost_id do # definition goes with apache2 cookbook, see OS supports there ((:

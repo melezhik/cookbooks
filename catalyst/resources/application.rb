@@ -9,4 +9,5 @@ attribute :envvars, :kind_of => Hash, :default => {}
 attribute :socket, :kind_of => String
 attribute :nproc, :kind_of => Integer, :default => 1
 attribute :proc_manager, :kind_of => String, :default => 'FCGI::ProcManager'
+attribute :start_service, :kind_of => [TrueClass,FalseClass], :default => true
 
