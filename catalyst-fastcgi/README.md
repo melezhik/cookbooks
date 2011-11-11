@@ -7,8 +7,8 @@
 - gentoo
 
 # Requirements
-[apache cookbook](https://github.com/opscode/cookbooks/tree/master/apache2)
-[catalyst cookbook](https://github.com/opscode/cookbooks/tree/master/catalyst)
+- [apache cookbook](https://github.com/opscode/cookbooks/tree/master/apache2)
+- [catalyst cookbook](https://github.com/opscode/cookbooks/tree/master/catalyst)
 
 
 # Attributes
