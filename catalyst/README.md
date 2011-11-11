@@ -1,7 +1,7 @@
 Description
 ===========
 
-catalyst application resource provider (LWRP)
+catalyst application resource provider (LWRP) 
 
 * start your catalyst application as fastcgi server
 * configuration of apache is beyond the scope, but you may consider [my apache cookbook](https://github.com/melezhik/cookbooks/tree/master/apache)
@@ -15,9 +15,8 @@ Platforms
 Requirements
 ============
 
-* This cookbook doesn't have direct dependencies on other cookbooks. 
-But you have to be sure that the catalyst application your are going to run 
-as fastcgi server at least installed and tested. 
+* This cookbook doesn't have direct dependencies on other cookbooks. But you have to be sure 
+that the catalyst application you are going to run at least installed and tested. 
 
 Resources
 =========
