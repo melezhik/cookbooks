@@ -1,9 +1,10 @@
-DESCRIPTION
+Description
 ===========
 
 catalyst application resource provider (LWRP)
 
-* start your catalyst application as fast cgi server
+* start your catalyst application as fastcgi server
+* configuration of apache is beyond the scope, but you may consider [my apache cookbook](https://github.com/melezhik/cookbooks/tree/master/apache)
 
 Platforms
 =========
@@ -16,7 +17,7 @@ Requirements
 
 * This cookbook doesn't have direct dependencies on other cookbooks. 
 But you have to be sure that the catalyst application your are going to run 
-as fast cgi server at least installed and tested. 
+as fastcgi server at least installed and tested. 
 
 Resources
 =========
@@ -25,7 +26,7 @@ catalyst_application
 Resources Actions
 =================
 
-* `install` - install catalyst application
+* `install` - install catalyst application as fastcgi server
 
 Resource Attributes
 ===================
@@ -60,15 +61,13 @@ Usage
 ## 2. Deploy it as fast cgi server via catalyst cookbook  ##
         
     catalyst_application 'foo' do
-        application_user 'alex'
-        application_group 'users'
         application_home '/tmp/Foo'
         application_script 'foo_fastcgi.pl'
         catalyst_config '/tmp/Foo/foo.conf'
         action 'install'
     end
 
-## 3. Now you get it as fastcgi server  ##
+## 3. Now you have catalyst application running as fastcgi server  ##
 
     /etc/init.d/foo start
     /etc/init.d/foo stop
@@ -77,7 +76,7 @@ Usage
 Links
 =====
 
-* http://search.cpan.org/perldoc?Catalyst::Engine::FastCGI
+* http://search.cpan.org/perldoc?Catalyst::Engine::FastCGI - running catalyst app as fastcgi server
 
 ToDo
 ====
