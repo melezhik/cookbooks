@@ -12,18 +12,20 @@ USAGE
         mode '0644'
         owner 'root'
         group 'root'
+        variables({ :email => 'melezhik@gmail.com' })
     end
 
 PARAMETERS
 ==========
-well, this is [chef definition](http://wiki.opscode.com/display/chef/Definitions) so you can pass some
-parametes here:
+well, this is [chef definition](http://wiki.opscode.com/display/chef/Definitions) so you can pass
+arbitrary parametes here:
 
 * `source`
 * `mode`
 * `owner`
 * `group`
 * `variables`
+
 see explanations for them in http://wiki.opscode.com/display/chef/Resources#Resources-Template
 
     
