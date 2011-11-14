@@ -23,7 +23,7 @@ parametes here:
 * `mode`
 * `owner`
 * `group`
-
+* `variables`
 see explanations for them in http://wiki.opscode.com/display/chef/Resources#Resources-Template
 
     

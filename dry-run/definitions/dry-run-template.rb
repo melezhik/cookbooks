@@ -4,6 +4,7 @@ define :dry_run_template do
 
  template dry_run_conf do
    source    params[:source]
+   variables params[:variables] unless params[:variables].nil?
    mode params[:mode] unless params[:source].nil?
    owner params[:owner] unless params[:owner].nil?
    group params[:group] unless params[:group].nil?
