@@ -26,6 +26,12 @@ Resource Attributes
     * `access_log` - a path to apache access log file
     * `error_log` - a path to apache error log file
     * `start_service` - true|false, whether to try to restart apache when configuring is done, default value `true`    
+* optional for ssl mode
+    * `ssl` - true|false, make virtual host ssl enabled, default value false
+    * `ssl_cipher_suite`
+    * `ssl_certificate_file`
+    * `ssl_certificate_key_file`
+
  
 Usage
 =====
@@ -46,6 +52,7 @@ Links
 ToDo
 ====
 
+ * test ssl mode for ubuntu
  * add more platforms support 
  * add more tests
  * add wiki and howtos

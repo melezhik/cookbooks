@@ -9,6 +9,10 @@ def load_current_resource
     @res.access_log(new_resource.access_log)
     @res.error_log(new_resource.error_log)
     @res.start_service(new_resource.start_service)
+    @res.ssl(new_resource.ssl)
+    @res.ssl_cipher_suite(new_resource.ssl_cipher_suite)
+    @res.ssl_certificate_file(new_resource.ssl_certificate_file)
+    @res.ssl_certificate_key_file(new_resource.ssl_certificate_key_file)
     check_input_params
 end
 
@@ -20,12 +24,18 @@ action :install do
  timeout_attr = @res.timeout
  start_service_attr = @res.start_service
 
+ ssl_attr = @res.ssl
+ ssl_cipher_suite_attr = @res.ssl_cipher_suite
+ ssl_certificate_file_attr = @res.ssl_certificate_file
+ ssl_certificate_key_file_attr = @res.ssl_certificate_key_file
+ 
  access_log_attr = access_log
  error_log_attr = error_log
  virtual_file_attr = virtual_file
  
  service 'apache2'
 
+ 
  case node.platform # sorry for this case, but gentoo still not supported in apache2 cookbook
 		    # http://tickets.opscode.com/browse/COOK-817
  when 'gentoo'
@@ -33,19 +43,23 @@ action :install do
 	source 'fast-cgi-vhost.erb'
         variables(
            :params => {
-	        :server_name => server_name_attr,
-                :socket => socket_attr,
-		:virtual_file => virtual_file_attr,
-    	        :idle_timeout => timeout_attr,
-		:access_log => access_log_attr,
-        	:error_log => error_log_attr
+	        :server_name 	=> server_name_attr,
+                :socket 	=> socket_attr,
+		:virtual_file 	=> virtual_file_attr,
+    	        :idle_timeout 	=> timeout_attr,
+		:access_log 	=> access_log_attr,
+        	:error_log 	=> error_log_attr,
+        	:ssl       	=> ssl_attr,
+        	:ssl_cipher_suite 		=> ssl_cipher_suite_attr,
+        	:ssl_certificate_file 		=> ssl_certificate_file_attr,
+        	:ssl_certificate_key_file 	=> ssl_certificate_key_file_attr
            }
 	)
         cookbook 'apache'
 	notifies :restart, resources(:service =>'apache2') if start_service_attr == true
     end
   else 
-    web_app vhost_id do # definition goes with apache2 cookbook, see OS supports there ((:
+    web_app vhost_id do # definition goes with apache2 cookbook, see OS supported there ((:
 	template 'fast-cgi-vhost.erb'
 	cookbook 'apache'
 	server_name server_name_attr
@@ -54,6 +68,10 @@ action :install do
         idle_timeout timeout_attr
 	access_log access_log_attr
         error_log  error_log_attr
+        ssl ssl_attr
+        ssl_cipher_suite ssl_cipher_suite_attr
+        ssl_certificate_file ssl_certificate_file_attr
+        ssl_certificate_key_file ssl_certificate_key_file
     end      
  end
  

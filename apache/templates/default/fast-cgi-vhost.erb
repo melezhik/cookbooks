@@ -1,8 +1,21 @@
-<VirtualHost *:80>
+<VirtualHost *:<%= @params[:ssl] == false ? 80 : 443 %>>
 
      ServerName <%= @params[:server_name] %>
      FastCgiExternalServer <%= @params[:virtual_file] %>  -socket <%= @params[:socket] %> -idle-timeout <%= @params[:idle_timeout] %>
      Alias / <%= @params[:virtual_file] %>/
+
+     <%- if @params[:ssl] == true %>
+     <%= "SSLEngine on" %>
+     <%- if @params[:ssl_cipher_suite] %>
+     <%= "SSLCipherSuite #{@params[:ssl_cipher_suite]}" %>
+     <%- end %>
+     <%- if @params[:ssl_certificate_file] %>
+     <%= "SSLCertificateFile #{@params[:ssl_certificate_file]}" %>
+     <%- end %>
+     <%- if @params[:ssl_certificate_key_file] %>
+     <%= "SSLCertificateKeyFile #{@params[:ssl_certificate_key_file]}" %>
+     <%- end %>
+     <%- end %>
 
      <Location />
         order allow,deny
