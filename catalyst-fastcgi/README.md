@@ -27,8 +27,9 @@
     * `catalyst_fastcgi.envvars` - a hash of environment vars, passed to application environment, default is { :CATALYST_DEBUG => 1 }
     * `catalyst_fastcgi.proc_manager` - a perl class, implimenting Fast CGI Process ProcManager
 * optional for ssl mode, see explanation in [apache cookbook](https://github.com/melezhik/cookbooks/tree/master/apache)
-    * `ssl`
-    * `ssl_cipher_suite`
-    * `ssl_certificate_file`
-    * `ssl_certificate_key_file`
+    * `ssl`, default value false
+    * `ssl_cipher_suite`, default value nil
+    * `ssl_certificate_file`, default value nil
+    * `ssl_certificate_key_file`, default value nil
+    
 

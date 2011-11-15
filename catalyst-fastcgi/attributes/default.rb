@@ -15,4 +15,9 @@ default.catalyst_fastcgi.proc_manager = 'Adriver::FCGI::ProcManager'
 
 default.catalyst_fastcgi.start_service = false
 
+default.catalyst_fastcgi.ssl = false
+default.catalyst_fastcgi.ssl_cipher_suite = nil 
+default.catalyst_fastcgi.ssl_certificate_file = nil 
+default.catalyst_fastcgi.ssl_certificate_key_file = nil
+
 

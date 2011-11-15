@@ -6,13 +6,13 @@
 
      <%- if @params[:ssl] == true %>
      <%= "SSLEngine on" %>
-     <%- if @params[:ssl_cipher_suite] %>
+     <%- unless @params[:ssl_cipher_suite].nil? %>
      <%= "SSLCipherSuite #{@params[:ssl_cipher_suite]}" %>
      <%- end %>
-     <%- if @params[:ssl_certificate_file] %>
+     <%- unless @params[:ssl_certificate_file].nil? %>
      <%= "SSLCertificateFile #{@params[:ssl_certificate_file]}" %>
      <%- end %>
-     <%- if @params[:ssl_certificate_key_file] %>
+     <%- unless @params[:ssl_certificate_key_file].nil? %>
      <%= "SSLCertificateKeyFile #{@params[:ssl_certificate_key_file]}" %>
      <%- end %>
      <%- end %>
