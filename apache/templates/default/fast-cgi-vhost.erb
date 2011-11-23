@@ -1,6 +1,9 @@
 <VirtualHost *:<%= @params[:ssl] == false ? 80 : 443 %>>
 
      ServerName <%= @params[:server_name] %>
+     <%- @params[:server_alias].each do |a| %>
+     ServerAlias <%= a %>
+     <%- end %>
      FastCgiExternalServer <%= @params[:virtual_file] %>  -socket <%= @params[:socket] %> -idle-timeout <%= @params[:idle_timeout] %>
      Alias / <%= @params[:virtual_file] %>/
 

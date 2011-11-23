@@ -1,5 +1,6 @@
 default.catalyst_fastcgi.service_name 'foo'
 default.catalyst_fastcgi.server_name 'foo.x'
+default.catalyst_fastcgi.server_alias []
 
 default.catalyst_fastcgi.application.user = 'foo'
 default.catalyst_fastcgi.application.group = 'foo'

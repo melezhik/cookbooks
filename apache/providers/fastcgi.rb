@@ -4,6 +4,7 @@ def load_current_resource
     @res = Chef::Resource::ApacheFastcgi.new(new_resource)
     @res.name(new_resource.name)
     @res.server_name(new_resource.server_name)
+    @res.server_alias(new_resource.server_alias)
     @res.socket(new_resource.socket)
     @res.timeout(new_resource.timeout)
     @res.access_log(new_resource.access_log)
@@ -20,6 +21,7 @@ end
 action :install do
 
  server_name_attr = @res.server_name
+ server_alias_attr = @res.server_alias
  socket_attr = @res.socket
  timeout_attr = @res.timeout
  start_service_attr = @res.start_service
@@ -44,6 +46,7 @@ action :install do
         variables(
            :params => {
 	        :server_name 	=> server_name_attr,
+	        :server_alias 	=> server_alias_attr,
                 :socket 	=> socket_attr,
 		:virtual_file 	=> virtual_file_attr,
     	        :idle_timeout 	=> timeout_attr,

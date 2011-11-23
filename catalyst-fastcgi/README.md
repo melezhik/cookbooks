@@ -21,6 +21,7 @@
     * `catalyst_fastcgi.catalyst_config` - a path to catalyst config file, default is '/tmp/foo/foo.conf'
     * `catalyst_fastcgi.socket` - a socket, application will be binded to, default is '/tmp/foo.socket'
 * optional
+    * `catalyst_fastcgi.server_alias` - Array, a list of server aliases, default value is `[]`
     * `catalyst_fastcgi.start_service` - true|false, whether to try to start application when configuring is done, default value `false`
     * `catalyst_fastcgi.application.perl5lib` - an array of perl5lib pathes, default is []
     * `catalyst_fastcgi.nproc` - Integer, a number of processes will be launched when application start in fastcgi mode, default is 2

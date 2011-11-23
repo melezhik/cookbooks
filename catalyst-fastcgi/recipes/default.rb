@@ -15,6 +15,7 @@ end
 
 apache_fastcgi node.catalyst_fastcgi.service_name do
  server_name node.catalyst_fastcgi.server_name
+ server_alias node.catalyst_fastcgi.server_alias
  socket node.catalyst_fastcgi.socket
  ssl node.catalyst_fastcgi.ssl
  ssl_cipher_suite  node.catalyst_fastcgi.ssl_cipher_suite
