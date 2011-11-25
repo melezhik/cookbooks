@@ -39,6 +39,7 @@ RESOURCE ATTRIBUTES
 * `user` - a user name that we should change to before installing
 * `group` - a group name that we should change to before installing
 * `version` - a version of module, if 0 then install only if module does not exist, default nil
+* `inc` - an Array passed to PERL5LIB environment variable (@INC), default value []
 * `install_base` - install base for your installation 
 * `install_path` - install path, array of install pathes
 * `dry_run` - whether to run installation process in dryrun mode or not, default - false 
