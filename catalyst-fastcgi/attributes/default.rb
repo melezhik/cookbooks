@@ -14,6 +14,10 @@ default.catalyst_fastcgi.envvars  = { :CATALYST_DEBUG => 1 }
 default.catalyst_fastcgi.nproc  = 2
 default.catalyst_fastcgi.proc_manager = 'Adriver::FCGI::ProcManager'
 
+default.catalyst_fastcgi.apache.access_log = nil
+default.catalyst_fastcgi.apache.error_log = nil
+
+
 default.catalyst_fastcgi.start_service = false
 
 default.catalyst_fastcgi.ssl = false

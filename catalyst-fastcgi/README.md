@@ -27,6 +27,9 @@
     * `catalyst_fastcgi.nproc` - Integer, a number of processes will be launched when application start in fastcgi mode, default is 2
     * `catalyst_fastcgi.envvars` - a hash of environment vars, passed to application environment, default is { :CATALYST_DEBUG => 1 }
     * `catalyst_fastcgi.proc_manager` - a perl class, implimenting Fast CGI Process ProcManager
+    * `catalyst_fastcgi.apache.access_log` - a path to apache access log
+    * `catalyst_fastcgi.apache.error_log` - a path to apache error log
+    
 * optional for ssl mode, see explanation in [apache cookbook](https://github.com/melezhik/cookbooks/tree/master/apache)
     * `ssl`, default value false
     * `ssl_cipher_suite`, default value nil

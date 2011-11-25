@@ -17,6 +17,8 @@ apache_fastcgi node.catalyst_fastcgi.service_name do
  server_name node.catalyst_fastcgi.server_name
  server_alias node.catalyst_fastcgi.server_alias
  socket node.catalyst_fastcgi.socket
+ access_log node.catalyst_fastcgi.apache.access_log
+ error_log  node.catalyst_fastcgi.apache.error_log
  ssl node.catalyst_fastcgi.ssl
  ssl_cipher_suite  node.catalyst_fastcgi.ssl_cipher_suite
  ssl_certificate_file node.catalyst_fastcgi.ssl_certificate_file
