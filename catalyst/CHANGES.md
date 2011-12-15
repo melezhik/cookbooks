@@ -1,5 +1,6 @@
 # 0.0.4
-- various bug fixes, actually I don't remember ((:
+- ... actually I don't remember the diferrence b/w version 0.0.32 , but it does exist ((:
+
 
 
 
