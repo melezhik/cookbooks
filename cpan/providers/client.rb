@@ -27,21 +27,17 @@ def header
   version = @installer.version
   cwd = @installer.cwd
   
-  ruby_block 'info' do 
-    block do
-      print "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module} "
-      print "cpan_client has started with rights: user=#{user} group=#{group} "
-      print "install-base : #{install_base_print} "
-      print "cwd : #{cwd} "
-      print "install_version : #{version} "
-      print "install_base: #{local_lib_stack} "
-      print "perl5lib stack: #{perl5lib_stack} "
-      print "install path : #{get_install_path} " unless get_install_path.empty?
-      print "install_perl_code : #{install_perl_code} "
-      print "environment : #{cpan_env_print} "
-      print "install log file #{install_log_file} "
-    end
-  end
+      log "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module} "
+      log "cpan_client has started with rights: user=#{user} group=#{group} "
+      log "install-base : #{install_base_print} "
+      log "cwd : #{cwd} "
+      log "install_version : #{version} "
+      log "install_base: #{local_lib_stack} "
+      log "perl5lib stack: #{perl5lib_stack} "
+      log "install path : #{get_install_path} " unless get_install_path.empty?
+      log "install_perl_code : #{install_perl_code} "
+      log "environment : #{cpan_env_print} "
+      log "install log file #{install_log_file} "
   
 end
 
