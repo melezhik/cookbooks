@@ -12,7 +12,7 @@ default.catalyst_fastcgi.catalyst_config = '/tmp/foo/foo.conf'
 default.catalyst_fastcgi.socket = '/tmp/foo.socket'
 default.catalyst_fastcgi.envvars  = { :CATALYST_DEBUG => 1 } 
 default.catalyst_fastcgi.nproc  = 2
-default.catalyst_fastcgi.proc_manager = 'Adriver::FCGI::ProcManager'
+default.catalyst_fastcgi.proc_manager = 'FCGI::ProcManager'
 
 default.catalyst_fastcgi.apache.access_log = nil
 default.catalyst_fastcgi.apache.error_log = nil
