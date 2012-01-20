@@ -1,0 +1,131 @@
+#!<%= `which runscript`.chomp! %>
+# Copyright 1999-2004 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+PIDFILE="/var/run/${SVCNAME}.pid"
+
+
+# default socket
+if [ ! $SOCKET ]; then
+SOCKET="/tmp/${SVCNAME}.socket"
+fi
+
+#default NPROC
+if [ ! $NPROC ]; then
+ NPROC=1
+fi
+
+
+#default proc manager
+#if [ ! $PROC_MANAGER ]; then
+# PROC_MANAGER="Adriver::FCGI::ProcManager"
+#fi
+
+#default PERL5LIB
+#if [ ! ${PERL5LIB} ]; then
+#  PERL5LIB='/usr/local/rle/lib/perl:${PERL5LIB}'
+#fi
+
+ENVVARSOPTS=`perl -e 'if($ARGV[0]) {chomp $ARGV[0]; print join " ", map {" --env $_"} split /\s+/, $ARGV[0]} ' "${ENVVARS}"`
+
+opts="${opts} getconfig"
+
+checkconfig() {
+
+    if [ ! "${APPLICATION_HOME}" ]; then
+        eerror "APPLICATION_HOME is not set!"
+        return 1
+    fi
+
+    if [ ! -d "${APPLICATION_HOME}" ]; then
+        eerror "application home dir is set to ${APPLICATION_HOME}, but this directory not found!"
+        return 1
+    fi
+
+    if [ ! -f "${APPLICATION_HOME}/script/${SCRIPT}" ]; then
+        eerror "application script ${APPLICATION_HOME}/script/${SCRIPT} not found!"
+        return 1
+    fi
+
+    if [ ! -x "${APPLICATION_HOME}/script/${SCRIPT}" ]; then
+        eerror "application script ${APPLICATION_HOME}/script/${SCRIPT} is found but it's not executable!"
+        return 1
+    fi
+
+    if [ ! "${CATALYST_CONFIG}" ]; then
+        eerror "CATALYST_CONFIG parameter has to be set!"
+        return 1
+    fi
+
+    if [ ! "${APPLICATION_USER}" ]; then
+        eerror "APPLICATION_USER parameter has to be set!"
+        return 1
+    fi
+
+	return 0
+}
+
+start() {
+
+	checkconfig || return 1
+
+	ebegin "Starting catalyst application"
+    cd $APPLICATION_HOME &&
+    eval "$ENVVARS" \
+    CATALYST_CONFIG="${CATALYST_CONFIG}" \
+    PERL5LIB="${PERL5LIB}" start-stop-daemon --verbose --start \
+    --chuid $APPLICATION_USER \
+    --pidfile $PIDFILE \
+	--background \
+    --make-pidfile \
+    --exec ${APPLICATION_HOME}/script/$SCRIPT \
+    --env "PERL5LIB=${PERL5LIB}" \
+    --env "CATALYST_CONFIG=${CATALYST_CONFIG}" \
+    -d $APPLICATION_HOME \
+    -- -M "${PROC_MANAGER}" -n "${NPROC}" -l "${SOCKET}"  \
+    >> /tmp/log.txt 2>&1
+	eend $?
+}
+#    --background \
+
+stop() {
+
+	# checkconfig || return 1
+	ebegin "Stopping catalyst application"
+
+    if [  -f "${PIDFILE}" ]; then
+      ebegin "stop pid ${PIDFILE}"
+      start-stop-daemon --stop --pidfile "${PIDFILE}" 
+    else
+      ewarn "pid file [${PIDFILE}] does not exist - cannot stop the process"
+      ewarn "you may found pid by process name [${SCRIPT}]"
+    fi
+
+	eend $?
+}
+
+getconfig() {
+
+  # checkconfig || return 1
+
+  ebegin "APPLICATION_HOME : ${APPLICATION_HOME} "
+  ebegin "SCRIPT : ${SCRIPT} "
+  ebegin "APPLICATION_USER : ${APPLICATION_USER} "
+  ebegin "CATALYST_CONFIG : ${CATALYST_CONFIG} "
+  ebegin "ENVVARS : ${ENVVARS} "
+  ebegin "ENVVARSOPTS : ${ENVVARSOPTS} "
+  ebegin "SVCNAME : ${SVCNAME} "
+
+    if [  -f "${PIDFILE}" ]; then
+      ebegin "PIDFILE : ${PIDFILE} "
+      ebegin "PID : `cat ${PIDFILE}` " 
+    else
+      ewarn "PIDFILE : [${PIDFILE}] does not exist"
+    fi
+  
+  ebegin "SOCKET : ${SOCKET} "
+  ebegin "NPROC : ${NPROC} "
+  ebegin "PROC_MANAGER : ${PROC_MANAGER} "
+  ebegin "PERL5LIB : ${PERL5LIB} "
+
+}
