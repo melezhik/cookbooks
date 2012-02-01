@@ -92,11 +92,11 @@ def virtual_file
 end
 
 def access_log
- @res.access_log.nil? ? "#{node.apache.dir}/#{vhost_id}-access.log" : @res.access_log
+ @res.access_log.nil? ? "#{node.apache.log_dir}/#{vhost_id}-access.log" : @res.access_log
 end
 
 def error_log
- @res.error_log.nil? ? "#{node.apache.dir}/#{vhost_id}-error.log" : @res.error_log
+ @res.error_log.nil? ? "#{node.apache.log_dir}/#{vhost_id}-error.log" : @res.error_log
 end
 
 def check_input_params 
