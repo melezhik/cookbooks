@@ -4,6 +4,14 @@
      <%- @params[:server_alias].each do |a| %>
      ServerAlias <%= a %>
      <%- end %>
+
+    # http://www.opennet.ru/opennews/art.shtml?num=31582
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^(HEAD|GET) [NC]
+    RewriteCond %{HTTP:Range} ([0-9]*-[0-9]*)(\s*,\s*[0-9]*-[0-9]*)+
+    RewriteRule .* - [F]
+
+
      FastCgiExternalServer <%= @params[:virtual_file] %>  -socket <%= @params[:socket] %> -idle-timeout <%= @params[:idle_timeout] %>
      Alias / <%= @params[:virtual_file] %>/
 
