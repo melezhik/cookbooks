@@ -27,17 +27,16 @@ def header
   version = @installer.version
   cwd = @installer.cwd
   
-      log "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module} "
-      log "cpan_client has started with rights: user=#{user} group=#{group} "
-      log "install-base : #{install_base_print} "
-      log "cwd : #{cwd} "
-      log "install_version : #{version} "
-      log "install_base: #{local_lib_stack} "
-      log "perl5lib stack: #{perl5lib_stack} "
-      log "install path : #{get_install_path} " unless get_install_path.empty?
-      log "install_perl_code : #{install_perl_code} "
-      log "environment : #{cpan_env_print} "
-      log "install log file #{install_log_file} "
+      log "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version}"
+      log("cpan_client has started with rights: user=#{user} group=#{group}")  { level :debug }
+      log("install-base : #{install_base_print}") { level :debug }
+      log("cwd : #{cwd} ") { level :debug }
+      log("install_base: #{local_lib_stack}") { level :debug }
+      log("perl5lib stack: #{perl5lib_stack}") { level :debug }
+      log("install path : #{get_install_path}") { level :debug } unless get_install_path.empty?
+      log("install_perl_code : #{install_perl_code}") { level :debug }
+      log("environment : #{cpan_env_print}") { level :debug }
+      log("install log file #{install_log_file}") { level :debug }
   
 end
 
@@ -57,7 +56,7 @@ def cpan_env_print
   st
 end
 
-def install_log_file 
+def install_log_file
   "/tmp/local-lib/#{installed_module}-install.log"
 end
 
@@ -167,6 +166,11 @@ action :install do
   group = @installer.group
   cwd = @installer.cwd
   home = get_home
+
+  file install_log_file do
+    owner user
+    group group
+  end
   
   header
   @installer.dry_run == true ? install_dry_run : install_real
@@ -180,6 +184,11 @@ action :test do
 
   header
   log 'don*t install, run tests only'
+
+  file install_log_file do
+    owner user
+    group group
+  end
 
   install_real
 
