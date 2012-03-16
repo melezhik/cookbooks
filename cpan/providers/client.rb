@@ -27,16 +27,16 @@ def header
   version = @installer.version
   cwd = @installer.cwd
   
-      log "#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version}"
-      log("cpan_client has started with rights: user=#{user} group=#{group}")  { level :debug }
-      log("install-base : #{install_base_print}") { level :debug }
-      log("cwd : #{cwd} ") { level :debug }
-      log("install_base: #{local_lib_stack}") { level :debug }
-      log("perl5lib stack: #{perl5lib_stack}") { level :debug }
-      log("install path : #{get_install_path}") { level :debug } unless get_install_path.empty?
-      log("install_perl_code : #{install_perl_code}") { level :debug }
-      log("environment : #{cpan_env_print}") { level :debug }
-      log("install log file #{install_log_file}") { level :debug }
+      Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version}")
+      Chef::Log.debug("cpan_client has started with rights: user=#{user} group=#{group}")
+      Chef::Log.debug("install-base: #{install_base_print}")
+      Chef::Log.debug("cwd: #{cwd}")
+      Chef::Log.debug("install_base: #{local_lib_stack}")
+      Chef::Log.debug("perl5lib stack: #{perl5lib_stack}")
+      Chef::Log.debug("install path: #{get_install_path}") unless get_install_path.empty?
+      Chef::Log.debug("install_perl_code: #{install_perl_code}")
+      Chef::Log.debug("environment: #{cpan_env_print}")
+      Chef::Log.debug("install log file: #{install_log_file}")
   
 end
 
