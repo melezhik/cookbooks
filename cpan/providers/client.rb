@@ -276,11 +276,11 @@ def install_dry_run_application
   cmd << "echo ' -- OK dry-run mode only enabled for Module::Build based distributions' > #{install_log_file}"
   cmd << 'fi'
 
-  execute "install_dry_run_application" do
+  execute "install application dry-run" do
     user user
     group group
     cwd cwd
-    code cmd.join("\n")
+    command cmd.join("\n")
     environment cpan_env
   end
 
@@ -341,7 +341,8 @@ def install_cpan_module
       raise "bad version : #{@installer.version}"      
   end
   
-  execute cmd.join(" ") do
+  execute 'install cpan module' do
+    command cmd.join(" ")
     user user
     group group
     cwd cwd
@@ -394,7 +395,8 @@ def install_tarball
   end
 
         
-  execute cmd.join(' ') do
+  execute 'install from tarball' do
+    command cmd.join(' ')
     user user
     group group
     cwd "/tmp/local-lib/install/#{installed_module}"
@@ -418,7 +420,8 @@ def install_application
   cmd << install_perl_code('"."')
   cmd << "' 2>&1 > #{install_log_file}"
 
-  execute  cmd.join(" ") do
+  execute 'install application' do
+    command cmd.join(" ")
     user user
     group group
     cwd cwd
