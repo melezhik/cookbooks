@@ -8,7 +8,7 @@ PREREQUISITES
   I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
   Run recipe cpan_client::bootstrap to ensure this:
   
-    include_recipe 'cpan_client::bootstrap'
+    include_recipe 'cpan::bootstrap'
 
 ## ATTRIBUTES used in bootstrap recipe
 
