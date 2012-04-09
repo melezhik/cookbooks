@@ -6,7 +6,7 @@ DESCRIPTION
 PREREQUISITES
 =============
   I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
-  Run recipe cpan_client::bootstrap to ensure this:
+  Run recipe cpan::bootstrap to ensure this:
   
     include_recipe 'cpan::bootstrap'
 
