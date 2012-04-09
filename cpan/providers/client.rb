@@ -65,9 +65,11 @@ def install_log
   my_installed_module = installed_module
   ruby_block 'install-log' do
     block do
-        print " *** #{my_installed_module} *** "
+        print " *** #{my_installed_module} install summary *** "
+        tarball = nil
         IO.foreach(install_log_file) do |l|
-            print l if /\s--\s(OK|NOT OK)/.match(l)
+            tarball = l.chomp if /\.tar\.gz$/.match(l)
+            print "#{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
             print l if /Writing.*for/.match(l) 
             print l if /Going to build/.match(l)
             print l if /^Warning:/.match(l)
@@ -276,11 +278,11 @@ def install_dry_run_application
   cmd << "echo ' -- OK dry-run mode only enabled for Module::Build based distributions' > #{install_log_file}"
   cmd << 'fi'
 
-  execute "install application dry-run" do
+  bash "install application dry-run" do
     user user
     group group
     cwd cwd
-    command cmd.join("\n")
+    code cmd.join("\n")
     environment cpan_env
   end
 
@@ -325,7 +327,7 @@ def install_cpan_module
       cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) { '
       cmd << install_perl_code
       cmd << ' } '
-      cmd << ' else { print $ARGV[0], " -- OK already installed " }'
+      cmd << ' else { print "\t", $ARGV[0], " -- OK already installed " }'
       cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
   elsif @installer.version != "0" # not install if have higher or equal version
       v = @installer.version
@@ -341,8 +343,8 @@ def install_cpan_module
       raise "bad version : #{@installer.version}"      
   end
   
-  execute 'install cpan module' do
-    command cmd.join(" ")
+  bash 'install cpan module' do
+    code cmd.join(" ")
     user user
     group group
     cwd cwd
@@ -384,7 +386,7 @@ def install_tarball
   cmd << '$cpan_dist = CPAN::Shell->expand("Distribution","/\/$dist_name-.*\.tar\.gz/");'
   cmd << 'eval{ for $m ($cpan_dist->containsmods) { $cpan_mod = CPAN::Shell->expand("Module", $m);'
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
-  cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
+  cmd << 'if ($res == 0) { print "\t", " -- OK : exact version already installed \n"; exit(0) } } };'
   cmd << install_perl_code('"."')
   cmd << "' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file}"
   
@@ -395,11 +397,11 @@ def install_tarball
   end
 
         
-  execute 'install from tarball' do
+  bash 'install from tarball' do
     command cmd.join(' ')
     user user
     group group
-    cwd "/tmp/local-lib/install/#{installed_module}"
+    code "/tmp/local-lib/install/#{installed_module}"
     environment cpan_env
   end
 
@@ -420,8 +422,8 @@ def install_application
   cmd << install_perl_code('"."')
   cmd << "' 2>&1 > #{install_log_file}"
 
-  execute 'install application' do
-    command cmd.join(" ")
+  bash 'install application' do
+    code cmd.join(" ")
     user user
     group group
     cwd cwd
