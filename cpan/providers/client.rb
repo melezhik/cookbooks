@@ -410,11 +410,11 @@ def install_tarball
 
         
   bash 'install from tarball' do
-    command cmd.join(' ')
     user user
     group group
-    code "/tmp/local-lib/install/#{installed_module}"
+    code cmd.join(' ')
     environment cpan_env
+    cwd "/tmp/local-lib/install/#{installed_module}"
   end
 
   install_log
