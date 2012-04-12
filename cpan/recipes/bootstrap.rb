@@ -1,6 +1,5 @@
 include_recipe 'cpan'
 
-
 upgrade_command = 'rm -rf /tmp/cpan-client-download/ && mkdir -p /tmp/cpan-client-download/ '
 upgrade_command << " && cd /tmp/cpan-client-download/ && wget #{node.cpan_client.download_url} "
 upgrade_command << ' && tar -zxf *.tar.gz  && cd *.* '

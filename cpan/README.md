@@ -5,8 +5,8 @@ DESCRIPTION
   
 PREREQUISITES
 =============
-  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
-  Run recipe cpan::bootstrap to ensure this:
+-  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
+-  Run recipe cpan::bootstrap to ensure all dependencies are met:
   
     include_recipe 'cpan::bootstrap'
 
@@ -41,8 +41,8 @@ RESOURCE ATTRIBUTES
 * `version` - a version of module, if 0 then install only if module does not exist, default nil
 * `inc` - an Array passed to PERL5LIB environment variable (@INC), default value []
 * `install_base` - install base for your installation 
-* `install_path` - install path, array of install pathes
-* `dry_run` - whether to run installation process in dryrun mode or not, default - false 
+* `install_path` - install path, array of install paths
+* `dry_run` - whether to run installation process in dry-run mode or not, default - false 
 * `force` - whether to run installation process in force mode, default - false
 * `from_cookbook` - whether to look up distributive in [cookbook file](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
 * `environment` - hash which holds environment vars exporting to installation process

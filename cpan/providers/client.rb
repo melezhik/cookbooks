@@ -27,7 +27,7 @@ def header
   version = @installer.version
   cwd = @installer.cwd
   
-      Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version}")
+      Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version_print}")
       Chef::Log.debug("cpan_client has started with rights: user=#{user} group=#{group}")
       Chef::Log.debug("install-base: #{install_base_print}")
       Chef::Log.debug("cwd: #{cwd}")
@@ -56,6 +56,21 @@ def cpan_env_print
   st
 end
 
+def version_print
+  retval = nil
+  if @installer.version.nil? # not install if uptodate
+      retval = 'highest'
+  elsif @installer.version == "0" # not install if any version already installed
+      retval = 'any'
+  elsif @installer.version != "0" # not install if have higher or equal version
+      v = @installer.version
+      retval = "#{v}"
+  else
+      raise "bad version : #{@installer.version}"      
+  end
+  retval
+end
+
 def install_log_file
   "/tmp/local-lib/#{installed_module}-install.log"
 end
@@ -69,7 +84,7 @@ def install_log
         tarball = nil
         IO.foreach(install_log_file) do |l|
             tarball = l.chomp if /\.tar\.gz$/.match(l)
-            print "#{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
+            print "*** #{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
             print l if /Writing.*for/.match(l) 
             print l if /Going to build/.match(l)
             print l if /^Warning:/.match(l)
@@ -314,24 +329,21 @@ def install_cpan_module
   cmd << local_lib_stack
 
   if @installer.version.nil? # not install if uptodate
-      log 'version required : highest'
       cmd << 'perl -MCPAN -e \''
       cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->uptodate){'
       cmd << install_perl_code
       cmd << ' } '
-      cmd << ' else { print $ARGV[0], " -- OK is uptodate : ".(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) }'
+      cmd << ' else { print $ARGV[0], " -- OK is uptodate : ".(CPAN::Shell->expand("Module",$ARGV[0])->inst_version)."\n" }'
       cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
   elsif @installer.version == "0" # not install if any version already installed
-      log 'version required : any'
       cmd << 'perl -MCPAN -e \''
       cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) { '
       cmd << install_perl_code
       cmd << ' } '
-      cmd << ' else { print "\t", $ARGV[0], " -- OK already installed " }'
+      cmd << ' else { print $ARGV[0], " -- OK already installed \n" }'
       cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
   elsif @installer.version != "0" # not install if have higher or equal version
       v = @installer.version
-      log "version required : #{v}"
       cmd << 'perl -MCPAN -MCPAN::Version -e \''
       cmd << '$inst_v = CPAN::Shell->expand("Module",$ARGV[0])->inst_version;'
       cmd << 'unless ( CPAN::Version->vcmp($inst_v, $ARGV[1]) >=0 ) { '
@@ -386,7 +398,7 @@ def install_tarball
   cmd << '$cpan_dist = CPAN::Shell->expand("Distribution","/\/$dist_name-.*\.tar\.gz/");'
   cmd << 'eval{ for $m ($cpan_dist->containsmods) { $cpan_mod = CPAN::Shell->expand("Module", $m);'
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
-  cmd << 'if ($res == 0) { print "\t", " -- OK : exact version already installed \n"; exit(0) } } };'
+  cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
   cmd << install_perl_code('"."')
   cmd << "' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file}"
   

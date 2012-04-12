@@ -1,3 +1,7 @@
+# version 0.0.6
+ - replace execute resource by bash resources for less verbosity in logs
+ - improve after-install summary
+ 
 # version 0.0.5
  - compact log messages
 
