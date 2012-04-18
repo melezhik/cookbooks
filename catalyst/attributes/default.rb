@@ -9,6 +9,6 @@ end
 case platform
 when 'gentoo'
     set[:catalyst][:initscript][:template][:mode] = '0664'
-when 'ubuntu'
+when 'ubuntu', 'debian'
     set[:catalyst][:initscript][:template][:mode] = '0755'
 end
