@@ -1,3 +1,6 @@
+# version 0.0.8
+ - create '/tmp/local_lib/' before doing install
+
 # version 0.0.7
  - bugfix for install from tarball (forgot about cwd while refactoring)
  

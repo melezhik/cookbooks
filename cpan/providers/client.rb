@@ -184,6 +184,11 @@ action :install do
   cwd = @installer.cwd
   home = get_home
 
+  directory '/tmp/local-lib/' do
+    owner user
+    group group
+  end
+  
   file install_log_file do
     owner user
     group group
@@ -201,6 +206,11 @@ action :test do
 
   header
   log 'don*t install, run tests only'
+
+  directory '/tmp/local-lib/' do
+    owner user
+    group group
+  end
 
   file install_log_file do
     owner user
