@@ -1,7 +1,7 @@
 case platform
 when 'gentoo'
     set[:catalyst][:initscript][:template][:dir] = '/etc/conf.d'
-when 'ubuntu'
+when 'ubuntu', 'debian'
     set[:catalyst][:initscript][:template][:dir] = '/etc/init.d'
 end
 
