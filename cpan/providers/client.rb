@@ -15,6 +15,8 @@ def load_current_resource
   @installer.group(new_resource.group)
   @installer.version(new_resource.version)
   @installer.environment(new_resource.environment)
+  @installer.cpan_home(new_resource.cpan_home)
+
   nil
 end
 
@@ -30,6 +32,7 @@ def header
       Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version_print}")
       Chef::Log.debug("cpan_client has started with rights: user=#{user} group=#{group}")
       Chef::Log.debug("install-base: #{install_base_print}")
+      Chef::Log.debug("cpan_home: #{get_home}")
       Chef::Log.debug("cwd: #{cwd}")
       Chef::Log.debug("install_base: #{local_lib_stack}")
       Chef::Log.debug("perl5lib stack: #{perl5lib_stack}")
@@ -113,7 +116,8 @@ end
 def get_home 
   user = @installer.user
   group = @installer.group
-  home = user == 'root' ? "/root/" : "/home/#{user}/"
+  cpan_home = @installer.cpan_home
+  home = user == 'root' ? "/root/" : ( cpan_home.nil? ? "/home/#{user}/" : cpan_home)
   return home
 end 
 
@@ -190,6 +194,15 @@ action :install do
   end
   
   file install_log_file do
+    owner user
+    group group
+  end
+
+  cookbook_file '/tmp/local-lib/.modulebuildrc' do
+    cookbook 'cpan'
+    action :create
+    source '.modulebuildrc'
+    mode '0644'
     owner user
     group group
   end

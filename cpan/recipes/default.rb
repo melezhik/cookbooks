@@ -22,9 +22,4 @@ directory '/tmp/local-lib/install' do
   mode '0777'
 end
 
-cookbook_file '/tmp/local-lib/.modulebuildrc' do
- action :create
- source '.modulebuildrc'
- mode '0644'
-end
 

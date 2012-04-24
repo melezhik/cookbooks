@@ -1,4 +1,6 @@
 # version 0.0.8
+ - .modulebuildrc create in :install action instead of cpan::default recipe
+ - add cpan_home optional attribute
  - create '/tmp/local_lib/' before doing install
 
 # version 0.0.7
