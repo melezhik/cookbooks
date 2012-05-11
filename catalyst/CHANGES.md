@@ -1,4 +1,8 @@
+# 0.0.6
+- group attribute may be of Integer class
+
 # 0.0.5
+- service enabled bug fix
 - support for debian platrform
 - bug fix in config templates for ubuntu and debian
 

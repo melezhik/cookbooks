@@ -50,7 +50,9 @@ def install_confd_template
  proc_manager = @resource.proc_manager
  start_service = @resource.start_service
  
- service service_name
+ service service_name do
+    action :enable
+ end
 
  template "#{node.catalyst.initscript.template.dir}/#{service_name}" do
   source   'catalyst_application.erb'

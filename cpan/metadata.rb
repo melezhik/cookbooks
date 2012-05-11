@@ -1,5 +1,5 @@
-maintainer       "YOUR_COMPANY_NAME"
-maintainer_email "YOUR_EMAIL"
+maintainer       "Alexey Melezhik"
+maintainer_email "melezhik@gmail.com"
 license          "All rights reserved"
 description      "CPAN modules provider (cpan_client provider LWRP)"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
