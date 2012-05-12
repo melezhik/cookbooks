@@ -1,7 +1,7 @@
 actions :install
 attribute :application_home, :kind_of => String
 attribute :application_user, :kind_of => String
-attribute :application_group, :kind_of => [String,Integer]
+attribute :application_group, :kind_of => String
 attribute :application_script, :kind_of => String
 attribute :catalyst_config, :kind_of => String
 attribute :perl5lib, :kind_of => Array, :default => []

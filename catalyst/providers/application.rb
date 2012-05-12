@@ -51,7 +51,7 @@ def install_confd_template
  start_service = @resource.start_service
  
  service service_name do
-    action :enable
+    action :nothing
  end
 
  template "#{node.catalyst.initscript.template.dir}/#{service_name}" do
@@ -70,8 +70,12 @@ def install_confd_template
     :proc_manager => proc_manager
   )
   mode node.catalyst.initscript.template.mode
-  notifies :restart, resources( :service => service_name ) unless start_service == false
+  notifies [:enable, :restart], resources( :service => service_name ) unless start_service == false
  end 
+
+ service service_name do
+    action :enable
+ end
 
  # start for first time
  if start_service == true
