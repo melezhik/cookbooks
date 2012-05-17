@@ -11,6 +11,8 @@ server {
         <%- if s[:ssl] == true %>
             include <%= s[:ssl_include_path] %>;
         <%- end %>
+        expires <%= @expires %>;
+
         location / {
             include fastcgi_params;
         <%- if s[:ssl_on] == true %>

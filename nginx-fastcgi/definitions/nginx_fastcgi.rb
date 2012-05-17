@@ -15,7 +15,8 @@ define :nginx_fastcgi do
         source 'nginx-site.erb'
         cookbook params[:cookbook] || 'nginx-fastcgi'
         variables({
-            :servers => params[:servers],
+            :expires => params[:expires] || 'max',
+            :servers => params[:servers] || [],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name]))
         })
     end
