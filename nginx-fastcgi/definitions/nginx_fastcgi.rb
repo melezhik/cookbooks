@@ -9,6 +9,7 @@ define :nginx_fastcgi do
             message << "virtual host string passed : #{s.inspect}"
             raise message
         end
+        s[:static] ||= []
     end
 
     template params[:name] do

@@ -26,6 +26,14 @@ server {
             access_log /var/log/nginx/<%= @site_name %>.access.log;
             error_log  /var/log/nginx/<%= @site_name %>.error.log;
         }
+        
+        <%- s[:static].each do |st| %>
+        location <%= st[:location] %> {
+            add_header Cache-control public;
+            root <%= st[:root] %>;
+            expires <%= st[:expires] || '-1s' %>;
+        }            
+        <%- end %>
 }
 <%- end %>
 

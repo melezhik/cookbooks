@@ -1,4 +1,4 @@
-Feature: nginx-fastcgi should be able to set expires header
+Feature: nginx-fastcgi should be able to set expires header in installed site config
 
 Scenario: install nginx site config, expires is '30d'
     Given I run 'rm -rf /tmp/foo.site.conf'
