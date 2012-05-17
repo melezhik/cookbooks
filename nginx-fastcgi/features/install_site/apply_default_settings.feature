@@ -29,7 +29,8 @@ Scenario: install nginx ssl site config, default port is 443
                 {
                     :ip => '127.0.0.1',
                     :server_name => 'foo.site.x',
-                    :ssl => true
+                    :ssl => true,
+                    :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
         end

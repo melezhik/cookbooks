@@ -9,6 +9,11 @@ define :nginx_fastcgi do
             message << "virtual host string passed : #{s.inspect}"
             raise message
         end
+        if s[:ssl] == true and ( s[:ssl_include_path].nil? || s[:ssl_include_path].empty? )
+            message = 'you should setup ssl_include_path for your virtual host. '
+            message << "virtual host string passed : #{s.inspect}"
+            raise message
+        end
         s[:static] ||= []
     end
 

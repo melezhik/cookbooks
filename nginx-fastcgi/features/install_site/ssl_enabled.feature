@@ -12,7 +12,8 @@ Scenario: install nginx ssl site config
                 {
                     :ip => '127.0.0.1',
                     :server_name => 'foo.site.x',
-                    :ssl => true
+                    :ssl => true,
+                    :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
         end
@@ -20,7 +21,7 @@ Scenario: install nginx ssl site config
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
 
-Scenario: install nginx ssl site config, not standart https port
+Scenario: install nginx ssl site config, non standart https port
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do
@@ -29,7 +30,8 @@ Scenario: install nginx ssl site config, not standart https port
                     :ip => '127.0.0.1',
                     :server_name => 'foo.site.x',
                     :ssl => true,
-                    :port => 444
+                    :port => 444,
+                    :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
         end

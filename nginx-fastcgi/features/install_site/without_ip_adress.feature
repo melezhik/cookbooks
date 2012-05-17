@@ -26,7 +26,8 @@ Scenario: install nginx https site config, without ip adress
             servers [
                 {
                     :server_name => 'foo.site.x',
-                    :ssl => true
+                    :ssl => true,
+                    :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
         end
