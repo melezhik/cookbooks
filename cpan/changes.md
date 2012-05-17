@@ -1,3 +1,6 @@
+# version 0.0.9
+ - add documentation
+ 
 # version 0.0.8
  - .modulebuildrc create in :install action instead of cpan::default recipe
  - add cpan_home optional attribute
