@@ -30,7 +30,7 @@ Usage
 
 To install nginx site config for http virtual host 127.0.0.1:80 with hostname foo.site.x:
     
-    nginx_fastcgi '/tmp/foo.site.conf' do
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         servers [
             {
                 :ip => '127.0.0.1',
@@ -42,7 +42,7 @@ To install nginx site config for http virtual host 127.0.0.1:80 with hostname fo
 
 To install nginx site config for https virtual host with hostname bar.site.x:
     
-    nginx_fastcgi '/tmp/foo.site.conf' do
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         servers [
             {
                 :server_name => 'bar.site.x',
@@ -55,7 +55,7 @@ To install nginx site config for https virtual host with hostname bar.site.x:
 
 To install nginx site config with static files handle by nginx:
 
-    nginx_fastcgi '/tmp/foo.site.conf' do
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         servers [
             {
                 :server_name => 'foo.site.x',
@@ -71,7 +71,7 @@ To install nginx site config with static files handle by nginx:
 
 To install nginx site config with `expires` parameter:
 
-    nginx_fastcgi '/tmp/foo.site.conf' do
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         servers [
             {
                 :server_name => 'foo.site.x',
@@ -82,7 +82,7 @@ To install nginx site config with `expires` parameter:
 
 To install nginx site config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
     
-    nginx_fastcgi '/tmp/foo.site.conf' do
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         servers [
             {
                 :ip => '127.0.0.1',
