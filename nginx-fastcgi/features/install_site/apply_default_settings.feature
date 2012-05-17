@@ -1,8 +1,10 @@
 Feature: nginx-fastcgi should be able to apply default settings 
 
-Scenario: install nginx site config, default port is 80, default expires is 'max'
+Backgound: delete old configs
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
+
+Scenario: install nginx site config, default port is 80, default expires is 'max'
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do
@@ -20,8 +22,6 @@ Scenario: install nginx site config, default port is 80, default expires is 'max
     And a file named '/tmp/foo.site.conf' should contain 'expires max;'
 
 Scenario: install nginx ssl site config, default port is 443
-    Given I run 'rm -rf /tmp/foo.site.conf'
-    Then a file named '/tmp/foo.site.conf' should not exist
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do

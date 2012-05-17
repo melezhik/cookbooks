@@ -1,16 +1,30 @@
-Feature: nginx-fastcgi should be able to install ssl enabled nginx site config
+Feature: nginx-fastcgi should be able to install nginx site config without ip adress
 
 Backgound: delete old configs
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
 
-Scenario: install nginx ssl site config
+Scenario: install nginx site config, without ip adress
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do
             servers [
                 {
-                    :ip => '127.0.0.1',
+                    :server_name => 'foo.site.x'
+                }
+            ]
+        end
+    """
+    When I run chef recipe on my node
+    Then a file named '/tmp/foo.site.conf' should exist
+    And a file named '/tmp/foo.site.conf' should contain 'listen 80;'
+
+Scenario: install nginx https site config, without ip adress
+    And I have chef recipe:
+    """
+        nginx_fastcgi '/tmp/foo.site.conf' do
+            servers [
+                {
                     :server_name => 'foo.site.x',
                     :ssl => true
                 }
@@ -19,22 +33,5 @@ Scenario: install nginx ssl site config
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-
-Scenario: install nginx ssl site config, not standart https port
-    And I have chef recipe:
-    """
-        nginx_fastcgi '/tmp/foo.site.conf' do
-            servers [
-                {
-                    :ip => '127.0.0.1',
-                    :server_name => 'foo.site.x',
-                    :ssl => true,
-                    :port => 444
-                }
-            ]
-        end
-    """
-    When I run chef recipe on my node
-    Then a file named '/tmp/foo.site.conf' should exist
-    Then a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:444;'
+    And a file named '/tmp/foo.site.conf' should contain 'listen 443;'
 

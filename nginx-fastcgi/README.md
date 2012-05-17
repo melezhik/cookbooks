@@ -31,7 +31,6 @@ Usage
 To install nginx site config for virtual host 127.0.0.1:80 with hostname foo.site.x:
     
     nginx_fastcgi '/tmp/foo.site.conf' do
-        site_name 'foo.site'
         servers [
             {
                 :ip => '127.0.0.1',
@@ -40,6 +39,16 @@ To install nginx site config for virtual host 127.0.0.1:80 with hostname foo.sit
         ]
     end
 
+
+To install nginx site config for https virtual host with hostname bar.site.x:
+    
+    nginx_fastcgi '/tmp/foo.site.conf' do
+        servers [
+            {
+                :server_name => 'bar.site.x'
+            }
+        ]
+    end
 
 Features
 ===
