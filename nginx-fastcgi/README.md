@@ -28,7 +28,7 @@ See USAGE below.
 Usage
 ===
 
-To install nginx site config for virtual host 127.0.0.1:80 with hostname foo.site.x:
+To install nginx site config for http virtual host 127.0.0.1:80 with hostname foo.site.x:
     
     nginx_fastcgi '/tmp/foo.site.conf' do
         servers [
@@ -45,7 +45,10 @@ To install nginx site config for https virtual host with hostname bar.site.x:
     nginx_fastcgi '/tmp/foo.site.conf' do
         servers [
             {
-                :server_name => 'bar.site.x'
+                :server_name => 'bar.site.x',
+                :ssl => true,
+                :ssl_include_path => 'nginx_ssl_settings.conf'
+                
             }
         ]
     end
