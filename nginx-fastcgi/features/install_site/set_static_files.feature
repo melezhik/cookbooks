@@ -18,6 +18,7 @@ Scenario: install nginx site config with static files
                     ]
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node

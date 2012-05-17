@@ -16,6 +16,7 @@ Scenario: install nginx ssl site config
                     :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node
@@ -34,6 +35,7 @@ Scenario: install nginx ssl site config, non standart https port
                     :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node

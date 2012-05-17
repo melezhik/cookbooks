@@ -1,5 +1,10 @@
 define :nginx_fastcgi do
 
+    if params[:socket].nil? || params[:socket].empty?
+        message = 'you should setup socket param. '
+        raise message
+    end
+
     params[:servers].each do |s|
         s[:server_alias] ||= []
         s[:ssl] ||= false
@@ -21,6 +26,7 @@ define :nginx_fastcgi do
         source 'nginx-site.erb'
         cookbook params[:cookbook] || 'nginx-fastcgi'
         variables({
+            :socket => params[:socket],
             :expires => params[:expires] || 'max',
             :servers => params[:servers] || [],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name]))

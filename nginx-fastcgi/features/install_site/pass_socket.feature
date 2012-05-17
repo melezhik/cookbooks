@@ -1,6 +1,6 @@
-Feature: nginx-fastcgi should be able to set expires header in installed site config
+Feature: nginx-fastcgi should be able to set socket parameter
 
-Scenario: install nginx site config, expires is '30d'
+Scenario: install nginx site config with socket
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
     And I have chef recipe:
@@ -12,12 +12,11 @@ Scenario: install nginx site config, expires is '30d'
                     :server_name => 'foo.site.x'
                 }
             ]
-            expires '30d'
             socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-    And a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:80;'
-    And a file named '/tmp/foo.site.conf' should contain 'expires 30d;'
+    And a file named '/tmp/foo.site.conf' should contain 'unix:/tmp/application.socket;'
+
 

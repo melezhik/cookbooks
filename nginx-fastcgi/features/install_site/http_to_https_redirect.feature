@@ -22,6 +22,7 @@ Scenario: install nginx ssl site config
                     
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node

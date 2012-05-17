@@ -22,6 +22,7 @@ The definition takes the following params:
 * servers: specifies all virtual hosts to be included into site config
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
 * expires: specify `expires` parameter of HttpHeadersModule, see http://wiki.nginx.org/NginxHttpHeadersModule#expires. Default value is 'max'
+* socket: specify the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass
 
 See USAGE below.
 
@@ -37,6 +38,7 @@ To install nginx site config for http virtual host 127.0.0.1:80 with hostname fo
                 :server_name => 'foo.site.x'
             }
         ]
+        socket '/tmp/application.socket'
     end
 
 
@@ -51,6 +53,7 @@ To install nginx site config for https virtual host with hostname bar.site.x:
                 
             }
         ]
+        socket '/tmp/application.socket'
     end
 
 To install nginx site config with static files handle by nginx:
@@ -67,6 +70,7 @@ To install nginx site config with static files handle by nginx:
                 ]
             }
         ]
+        socket '/tmp/application.socket'
     end
 
 To install nginx site config with `expires` parameter:
@@ -78,6 +82,7 @@ To install nginx site config with `expires` parameter:
             }
         ]
         expires '+30d'
+        socket '/tmp/application.socket'
     end
 
 To install nginx site config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
@@ -97,6 +102,7 @@ To install nginx site config for http/https virtual hosts with hostname bar.site
                 
             }
         ]
+        socket '/tmp/application.socket'
     end
 
 Features

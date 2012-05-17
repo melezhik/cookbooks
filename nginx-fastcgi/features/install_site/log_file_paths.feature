@@ -12,6 +12,7 @@ Scenario: install nginx site config
                     :server_name => 'foo.site.x'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node

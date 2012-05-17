@@ -13,6 +13,7 @@ Scenario: install nginx site config, without ip adress
                     :server_name => 'foo.site.x'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node
@@ -30,6 +31,7 @@ Scenario: install nginx https site config, without ip adress
                     :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node

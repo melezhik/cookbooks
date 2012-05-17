@@ -14,6 +14,7 @@ Scenario: install nginx site config, default port is 80, default expires is 'max
                     :server_name => 'foo.site.x'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node
@@ -33,6 +34,7 @@ Scenario: install nginx ssl site config, default port is 443
                     :ssl_include_path => 'nginx_ssl_settings.conf'
                 }
             ]
+            socket '/tmp/application.socket'
         end
     """
     When I run chef recipe on my node
