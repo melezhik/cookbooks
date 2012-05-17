@@ -50,6 +50,33 @@ To install nginx site config for https virtual host with hostname bar.site.x:
         ]
     end
 
+To install nginx site config with static files handle by nginx:
+
+    nginx_fastcgi '/tmp/foo.site.conf' do
+        servers [
+            {
+                :server_name => 'foo.site.x',
+                :static => [
+                    {
+                        :location => 'static/',
+                        :root => '/var/www/MyApp/root'
+                    }
+                ]
+            }
+        ]
+    end
+
+To install nginx site config with `expires` parameter:
+
+    nginx_fastcgi '/tmp/foo.site.conf' do
+        servers [
+            {
+                :server_name => 'foo.site.x',
+            }
+        ]
+        expires '+30d'
+    end
+
 Features
 ===
 
