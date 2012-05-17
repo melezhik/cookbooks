@@ -16,6 +16,11 @@ server {
         <%- if s[:ssl_on] == true %>
             fastcgi_param  HTTPS on;
         <%- end %>
+            # We also set some headers to prevent proxies
+            add_header Pragma "no-cache";
+            add_header Cache-control "no-cache, must-revalidate, private, no-store";
+            expires -1s;
+
             access_log /var/log/nginx/<%= @site_name %>.access.log;
             error_log  /var/log/nginx/<%= @site_name %>.error.log;
         }
