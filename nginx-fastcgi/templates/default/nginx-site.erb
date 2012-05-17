@@ -13,6 +13,7 @@ server {
         <%- end %>
         expires <%= @expires %>;
 
+        <%- if s[:redirect].nil? || s[:redirect].empty? %>
         location / {
             include fastcgi_params;
         <%- if s[:ssl_on] == true %>
@@ -33,6 +34,9 @@ server {
             root <%= st[:root] %>;
             expires <%= st[:expires] || '-1s' %>;
         }            
+        <%- end %>
+        <%- else %>
+        rewrite  ^ <%= s[:redirect] %>://$server_name$request_uri? permanent;
         <%- end %>
 }
 <%- end %>

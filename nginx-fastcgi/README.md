@@ -80,6 +80,25 @@ To install nginx site config with `expires` parameter:
         expires '+30d'
     end
 
+To install nginx site config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
+    
+    nginx_fastcgi '/tmp/foo.site.conf' do
+        servers [
+            {
+                :ip => '127.0.0.1',
+                :server_name => 'bar.site.x',
+                :redirect => 'https'                
+            },
+            {
+                :ip => '127.0.0.1',
+                :server_name => 'bar.site.x',
+                :ssl => true,
+                :ssl_include_path => 'nginx_ssl_settings.conf'
+                
+            }
+        ]
+    end
+
 Features
 ===
 
