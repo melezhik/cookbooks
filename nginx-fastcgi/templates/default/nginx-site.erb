@@ -16,8 +16,8 @@ server {
         <%- if s[:ssl_on] == true %>
             fastcgi_param  HTTPS on;
         <%- end %>
-            access_log /var/log/nginx/<%= s[:site_name] %>.access.log;
-            error_log  /var/log/nginx/<%= s[:site_name] %>.error.log;
+            access_log /var/log/nginx/<%= @site_name %>.access.log;
+            error_log  /var/log/nginx/<%= @site_name %>.error.log;
         }
 }
 <%- end %>

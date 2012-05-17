@@ -1,4 +1,4 @@
-Feature: Workaround for strange Segmentation fault bug 
+Feature: Workaround for strange Segmentation fault bug of cucumber-nagios
 
 Scenario: just meaningless command
 

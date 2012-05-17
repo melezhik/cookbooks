@@ -1,6 +1,6 @@
-Feature: nginx-fastcgi должен уметь валидировать входные параметры 
+Feature: nginx-fastcgi should be able to validate it's input parameters
 
-Scenario: установить nginx сайт без server_name
+Scenario: try to install without server_name 
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
     And I have chef recipe:

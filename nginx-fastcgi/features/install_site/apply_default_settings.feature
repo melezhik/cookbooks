@@ -1,6 +1,6 @@
-Feature: nginx-fastcgi должен применять дефолтные настройки
+Feature: nginx-fastcgi should be able to apply default settings 
 
-Scenario: установить nginx сайт
+Scenario: install nginx site config
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
     And I have chef recipe:

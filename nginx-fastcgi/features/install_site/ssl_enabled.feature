@@ -1,6 +1,6 @@
-Feature: nginx-fastcgi должен уметь устанавливать nginx сайты c ssl
+Feature: nginx-fastcgi should be able to install ssl enabled nginx site config
 
-Scenario: установить nginx сайт c ssl
+Scenario: install nginx ssl site config
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
     And I have chef recipe:
