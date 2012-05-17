@@ -1,1 +1,1 @@
-- add cpan cache cleal up after install
+- add cpan cache clean up after install

@@ -192,6 +192,11 @@ action :install do
     owner user
     group group
   end
+
+  directory '/tmp/local-lib/install' do
+    owner user
+    group group
+  end
   
   file install_log_file do
     owner user
