@@ -6,7 +6,6 @@ Scenario: install nginx site config
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do
-            site_name 'foo.site'
             servers [
                 {
                     :ip => '127.0.0.1',

@@ -20,7 +20,6 @@ The definition takes the following params:
  
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
 * servers: specifies all virtual hosts to be included into site config
-* sitename: sets the name of nginx site.
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
 
 See USAGE below.

@@ -8,7 +8,7 @@ server {
         <%- end %>
         
         server_name  <%= s[:server_name] %> <%= s[:server_alias].join(' ') %>;
-        <%- if s[:ssl_on] == true %>
+        <%- if s[:ssl] == true %>
             include <%= s[:ssl_include_path] %>;
         <%- end %>
         location / {
