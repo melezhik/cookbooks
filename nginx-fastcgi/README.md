@@ -1,10 +1,14 @@
 Description
 ===
-Configure nginx to operate with fastcgi application
+Create nginx site to run your fastcgi application under nginx front-end
 
 Requirements
 ===
-Should work on any platform where nginx is installed. Tested on Ubuntu, Debian.
+Should work on any platform where nginx is installed. Tested on Ubuntu.
+
+Limitations
+===
+fastcgi standalone server mode is only supported
 
 DEFINITIONS
 ===
@@ -40,5 +44,5 @@ To install nginx site config for virtual host 127.0.0.1:80 with hostname foo.sit
 Features
 ===
 
-For complete examples of the usage see cucumber features in features/ dir
+For complete examples of usage see cucumber features in features/ dir
 

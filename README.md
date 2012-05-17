@@ -1,5 +1,5 @@
 DESCRIPTION
-===========
+===
 
 collection of chef cookbooks written by me
 
@@ -7,8 +7,8 @@ collection of chef cookbooks written by me
 - *catalyst* - catalyst application provider (LWRP)
 - *catalyst-fastcgi* - configures catalyst as fastcgi server and configure apache virtual host for it
 - *cpan* - cpan modules provider (LWRP)
-- *dry-run* - run chef templates in dryrun mode
-
+- *dry-run* - run chef templates in dry-run mode
+- *nginx-fastcgi* - create nginx site to run your fastcgi application under nginx front-end
 
 
 
