@@ -1,6 +1,6 @@
 Feature: cpan_client should be able to reload cpan index
 
-Scenario: install cpan module
+Scenario: reload cpan index
     Given I have chef recipe:
     """
     cpan_client 'index reload' do
