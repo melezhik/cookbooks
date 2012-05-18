@@ -1,4 +1,4 @@
-Feature: cpan_client should be able to operate in fake mode 
+Feature: cpan_client should be able to run test against cpan module
 
 Scenario: install cpan module
     * I run 'pm-uninstall -nf Bundler'
@@ -12,13 +12,12 @@ Scenario: install cpan module
         install_type 'cpan_module'
         user 'root'
         group 'root'
-        dry_run true 
-        action 'install'
+        action 'test'
     end
     """
     When I run chef recipe on my node
-    Then 'stderr' should have 'DRYRUN install cpan_module Bundler'
-    And 'stdout' should have 'WOULD install cpan module Bundler'
+    Then 'stderr' should have 'don\*t install, run tests only'
+    Then 'stdout' should have '\./Build test -- OK'
     And I run 'perl -MBundler -e 1'
     Then it should exit '2'
     And 'stderr' should have 'Can't locate Bundler\.pm'
