@@ -1,10 +1,10 @@
 DESCRIPTION
-===========
+===
 
 [cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
   
 PREREQUISITES
-=============
+===
 -  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
 -  Run recipe `cpan::bootstrap` to ensure all dependencies are met:
 
@@ -16,8 +16,7 @@ PREREQUISITES
 * `cpan.download_url` - url to download fresh cpan client 
 
 BASIC USAGE
-===========
-    include_recipe 'cpan'
+===
     cpan_client 'CGI' do
         action 'install'
         install_type 'cpan_module'
@@ -26,14 +25,14 @@ BASIC USAGE
     end
 
 RESOURCE ACTIONS
-================
+===
 
 * `install` - install module or application 
 * `test` - test module, don't install it
 * `reload_cpan_index` - reload cpan client indexes
 
 RESOURCE ATTRIBUTES
-===================
+===
 
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
 * `user` - a user name that we should change to before installing
@@ -49,7 +48,7 @@ RESOURCE ATTRIBUTES
 * `cwd` - sets the current working directory before running installation process
 
 EXAMPLES OF USAGE
-=================
+===
 
 fake install
 ------------
@@ -190,4 +189,10 @@ reload cpan indexes
         user 'user'
         group 'users'
     end
+
+
+Features
+===
+
+For complete examples of usage see cucumber features in features/ dir
 
