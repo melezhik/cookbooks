@@ -34,9 +34,8 @@ def header
       Chef::Log.debug("install-base: #{install_base_print}")
       Chef::Log.debug("cpan_home: #{get_home}")
       Chef::Log.debug("cwd: #{cwd}")
-      Chef::Log.debug("install_base: #{local_lib_stack}")
+      Chef::Log.debug("local::lib stack: #{local_lib_stack}")
       Chef::Log.debug("perl5lib stack: #{perl5lib_stack}")
-      Chef::Log.debug("install path: #{get_install_path}") unless get_install_path.empty?
       Chef::Log.debug("install_perl_code: #{install_perl_code}")
       Chef::Log.debug("environment: #{cpan_env_print}")
       Chef::Log.debug("install log file: #{install_log_file}")
@@ -49,13 +48,12 @@ def cpan_env
   c_env['HOME'] = get_home
   c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
   c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
-  c_env['PERL5LIB'] = "PERL_MB_OPT=$PERL_MB_OPT' #{get_install_path}'" unless get_install_path.empty?
   c_env
 end
 
 def cpan_env_print
   st = ''
-  cpan_env.each {|key, value| st << "#{key}  #{value}\n" }
+  cpan_env.each {|key, value| st << " #{key}  #{value}\n" }
   st
 end
 
@@ -130,10 +128,22 @@ def perl5lib_stack
   
 end
 
+def evaluate_mb_opt
+  string = ''
+  install_paths = []
+  @installer.install_path.each do |i|
+    install_paths << "--install_path #{i}"
+  end
+  string << "PERL_MB_OPT=\"${PERL_MB_OPT} #{install_paths.join(' ')}\" " unless install_paths.empty?
+  string  
+end
+
+
 def local_lib_stack
-  stack = nil
   unless  @installer.install_base.nil?
-   stack = "eval $(perl -Mlocal::lib=#{real_install_base}); "
+    stack = "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}"
+  else
+    stack = "#{evaluate_mb_opt}"
   end
   return stack
 end
@@ -150,14 +160,6 @@ end
 
 def install_base_print 
  @installer.install_base.nil? ? 'default::install::base' : real_install_base
-end
-
-def get_install_path
-  install_path = ''
-  @installer.install_path.each do |i|
-    install_path << " --install_path #{i} "
-  end
-  install_path
 end
 
 
