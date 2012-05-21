@@ -262,6 +262,9 @@ def installed_module
     installed_module.gsub!(' ','-')
   else
     mat = /([a-z\d\.-]+)\.tar\.gz$/i.match(@installer.name)
+    if mat.nil?
+        raise "distributive name #{@installer.name} does not match ([a-z\d\.-]+)\.tar\.gz$ pattern"
+    end
     installed_module = mat[1]
   end
   return installed_module

@@ -29,6 +29,4 @@ Scenario: install cpan module
     Then it should exit '0'
     And the file named '/tmp/foo/bar/lib/perl5/' should be owned by 'melezhik'
     And the file named '/tmp/foo/bar/lib/perl5/Bundler.pm' should be owned by 'melezhik'
-    And I run 'perl -MBundler -e 1'
-    Then it should exit '0'
 
