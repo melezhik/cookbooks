@@ -1,6 +1,7 @@
 # version 0.0.11
  - add cucumber features
-
+ - bugfix for install_path cases
+ 
 # version 0.0.10
  - bugfix : before install create /tmp/local-lib/install directory
 
