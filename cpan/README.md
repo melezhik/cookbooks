@@ -194,5 +194,5 @@ reload cpan indexes
 Features
 ===
 
-For complete examples of usage see cucumber features in features/ dir
+For complete examples of usage see cucumber features at https://github.com/melezhik/cookbooks/tree/master/cpan/features/
 
