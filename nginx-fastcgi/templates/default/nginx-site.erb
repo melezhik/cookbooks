@@ -17,7 +17,7 @@ server {
         location / {
             include fastcgi_params;
             fastcgi_pass  unix:<%= @socket %>;
-        <%- if s[:ssl_on] == true %>
+        <%- if s[:ssl] == true %>
             fastcgi_param  HTTPS on;
         <%- end %>
             # We also set some headers to prevent proxies
