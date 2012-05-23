@@ -1,7 +1,7 @@
 <%- @servers.each do |s| %>
 server {
 
-        <%- if  s[:ip].nil? %>
+        <%- if  s[:ip].nil? || s[:ip].empty? %>
         listen <%= s[:port] %>;
         <%- else %>
         listen <%= "#{s[:ip]}:#{s[:port]}" %>;
