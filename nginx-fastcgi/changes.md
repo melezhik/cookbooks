@@ -1,3 +1,7 @@
+0.0.4
+===
+- now one my set alternative location for fastcgi application, default one is '/'
+
 0.0.3
 ===
 - handling empty ips

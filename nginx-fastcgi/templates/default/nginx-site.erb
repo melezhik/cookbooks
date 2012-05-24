@@ -14,7 +14,7 @@ server {
         expires <%= @expires %>;
 
         <%- if s[:redirect].nil? || s[:redirect].empty? %>
-        location / {
+        location <%= s[:location] %> {
             include fastcgi_params;
             fastcgi_pass  unix:<%= @socket %>;
         <%- if s[:ssl] == true %>

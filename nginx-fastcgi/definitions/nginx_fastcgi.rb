@@ -9,6 +9,8 @@ define :nginx_fastcgi do
         s[:server_alias] ||= []
         s[:ssl] ||= false
         s[:port] ||= (s[:ssl] == true ? 443 : 80)
+        s[:location] ||= '/'
+
         if s[:server_name].nil? || s[:server_name].empty?
             message = 'you should setup server_name for your virtual host. '
             message << "virtual host string passed : #{s.inspect}"
