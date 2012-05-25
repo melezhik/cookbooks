@@ -1,3 +1,7 @@
+# version 0.0.12
+ - cpan-client: redirect stderr to stdout 
+ - made logs more clear
+ 
 # version 0.0.11
  - add cucumber features
  - bugfix for install_path cases

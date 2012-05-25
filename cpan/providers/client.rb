@@ -81,17 +81,17 @@ def install_log
   my_installed_module = installed_module
   ruby_block 'install-log' do
     block do
-        print " *** #{my_installed_module} install summary *** "
+        print ">>> #{my_installed_module} install summary <<<\n"
         tarball = nil
         IO.foreach(install_log_file) do |l|
             tarball = l.chomp if /\.tar\.gz$/.match(l)
-            print "*** #{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
+            next if /^Warning:/.match(l)
+            print "   #{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
             print l if /Writing.*for/.match(l) 
             print l if /Going to build/.match(l)
             print l if /^Warning:/.match(l)
             
         end
-        print " *** "
     end
   end
 end
@@ -317,13 +317,13 @@ def install_dry_run_application
   cmd << local_lib_stack
   cmd << 'if test -f Build.PL; then'
   cmd << 'perl Build.PL && ./Build'
-  cmd << " echo './Build fakeinstall' > #{install_log_file}"
-  cmd << " ./Build fakeinstall >> #{install_log_file}"
-  cmd << " echo './Build prereq_report' >> #{install_log_file}"
-  cmd << " ./Build prereq_report >> #{install_log_file}"
+  cmd << " echo './Build fakeinstall' 1>#{install_log_file} 2>&1"
+  cmd << " ./Build fakeinstall 1>>#{install_log_file} 2>&1"
+  cmd << " echo './Build prereq_report' 1>>#{install_log_file} 2>&1"
+  cmd << " ./Build prereq_report 1>>#{install_log_file} 2>&1"
   cmd << 'else'
   cmd << 'perl Makefile.PL && make'
-  cmd << "echo ' -- OK dry-run mode only enabled for Module::Build based distributions' > #{install_log_file}"
+  cmd << "echo ' -- OK dry-run mode only enabled for Module::Build based distributions' 1>#{install_log_file} 2>&1"
   cmd << 'fi'
 
   bash "install application dry-run" do
@@ -367,14 +367,14 @@ def install_cpan_module
       cmd << install_perl_code
       cmd << ' } '
       cmd << ' else { print $ARGV[0], " -- OK is uptodate : ".(CPAN::Shell->expand("Module",$ARGV[0])->inst_version)."\n" }'
-      cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
+      cmd << "' #{@installer.name}  1>#{install_log_file} 2>&1"  
   elsif @installer.version == "0" # not install if any version already installed
       cmd << 'perl -MCPAN -e \''
       cmd << 'unless(CPAN::Shell->expand("Module",$ARGV[0])->inst_version) { '
       cmd << install_perl_code
       cmd << ' } '
       cmd << ' else { print $ARGV[0], " -- OK already installed \n" }'
-      cmd << "' #{@installer.name}  2>&1 > #{install_log_file}"  
+      cmd << "' #{@installer.name}  1>#{install_log_file} 2>&1"  
   elsif @installer.version != "0" # not install if have higher or equal version
       v = @installer.version
       cmd << 'perl -MCPAN -MCPAN::Version -e \''
@@ -383,7 +383,7 @@ def install_cpan_module
       cmd << install_perl_code
       cmd << ' } '
       cmd << ' else { print $ARGV[0], " -- OK have higher or equal version [$inst_v]"  }'
-      cmd << "' #{@installer.name} #{@installer.version}  2>&1 > #{install_log_file}"  
+      cmd << "' #{@installer.name} #{@installer.version}  1>#{install_log_file} 2>&1"  
   else
       raise "bad version : #{@installer.version}"      
   end
@@ -433,7 +433,7 @@ def install_tarball
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
   cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
   cmd << install_perl_code('"."')
-  cmd << "' /tmp/local-lib/install/#{@installer.name} 2>&1 > #{install_log_file}"
+  cmd << "' /tmp/local-lib/install/#{@installer.name} 1>#{install_log_file} 2>&1"
   
   file "#{install_log_file}" do
     action :touch
@@ -465,7 +465,7 @@ def install_application
   cmd << local_lib_stack
   cmd << "perl -MCPAN -e '"
   cmd << install_perl_code('"."')
-  cmd << "' 2>&1 > #{install_log_file}"
+  cmd << "' 1>#{install_log_file} 2>&1"
 
   bash 'install application' do
     code cmd.join(" ")
