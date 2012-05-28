@@ -102,6 +102,21 @@ To install nginx site config with static files handle by nginx:
         ]
     end
 
+To install nginx site config with addtional fastcgi_params:
+
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
+        socket '/tmp/application.socket'
+        fastcgi_param  [
+            { :name => 'SCRIPT_NAME', :value => "\"\"" },
+            { :name => 'PATH_INFO' , :value => '$uri' }
+        ]
+        servers [
+            {
+                :server_name => 'foo.site.x',
+            }
+        ]
+    end
+
 Features
 ===
 

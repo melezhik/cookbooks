@@ -4,7 +4,8 @@
    - static parameter is not array now, and not in servers list
    - add root parameter 
    - ignore :expire parameter
-
+   - add optional fastcgi_param parameter
+   
 0.0.4
 ===
 - now one my set alternative location for fastcgi application, default one is '/'

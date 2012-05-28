@@ -1,4 +1,4 @@
-define :nginx_fastcgi, :root => nil, :static => nil do
+define :nginx_fastcgi, :servers => [], :root => nil, :static => nil, :fastcgi_param => [] do
 
     if params[:socket].nil? || params[:socket].empty?
         message = 'you should setup socket param. '
@@ -31,7 +31,8 @@ define :nginx_fastcgi, :root => nil, :static => nil do
             :static => params[:static],
             :root => params[:root],
             :socket => params[:socket],
-            :servers => params[:servers] || [],
+            :servers => params[:servers],
+            :fastcgi_param => params[:fastcgi_param],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name]))
         })
     end
