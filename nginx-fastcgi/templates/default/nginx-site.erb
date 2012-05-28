@@ -13,6 +13,12 @@ server {
         root <%= @root %>;
         <%- end %>
 
+        <%- unless  @static.nil? || @static.empty? %>
+        location <%= @static[:location] %> {
+            root <%= @static[:root] %>;
+        }
+        <%- end %>
+
         <%- if s[:ssl] == true %>
         include <%= s[:ssl_include_path] %>;
         <%- end %>

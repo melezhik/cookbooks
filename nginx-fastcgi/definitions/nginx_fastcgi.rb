@@ -1,4 +1,4 @@
-define :nginx_fastcgi, :root => nil do
+define :nginx_fastcgi, :root => nil, :static => nil do
 
     if params[:socket].nil? || params[:socket].empty?
         message = 'you should setup socket param. '
@@ -28,6 +28,7 @@ define :nginx_fastcgi, :root => nil do
         source 'nginx-site.erb'
         cookbook params[:cookbook] || 'nginx-fastcgi'
         variables({
+            :static => params[:static],
             :root => params[:root],
             :socket => params[:socket],
             :servers => params[:servers] || [],

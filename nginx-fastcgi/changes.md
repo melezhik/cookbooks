@@ -1,8 +1,8 @@
 0.0.5
 ===
 - changes in interafce: 
-   - ignore :static parameters
-   - root parameter now in :servers array
+   - static parameter is not array now, and not in servers list
+   - add root parameter 
    - ignore :expire parameter
 
 0.0.4
