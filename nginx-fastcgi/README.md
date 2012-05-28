@@ -91,10 +91,10 @@ To install nginx site config with static files handle by nginx:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
-        static => {
+        static(
                 :location => 'static/',
                 :root => '/var/www/MyApp/root'
-        }
+        )
         servers [
             {
                 :server_name => 'foo.site.x',
