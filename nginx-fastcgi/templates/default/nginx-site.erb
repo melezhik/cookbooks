@@ -9,8 +9,8 @@ server {
         
         server_name  <%= s[:server_name] %> <%= s[:server_alias].join(' ') %>;
 
-        <%- unless  s[:root].nil? || s[:root].empty? %>
-        root <%= s[:root] %>;
+        <%- unless  @root.nil? || @root.empty? %>
+        root <%= @root %>;
         <%- end %>
 
         <%- if s[:ssl] == true %>

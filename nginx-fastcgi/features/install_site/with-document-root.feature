@@ -9,10 +9,10 @@ Scenario: install nginx site config
             servers [
                 {
                     :server_name => 'foo.site.x',
-                    :root => '/var/www/foo/bar/baz/'
                 }
             ]
             socket '/tmp/application.socket'
+            root '/var/www/foo/bar/baz/'
         end
     """
     When I run chef recipe on my node

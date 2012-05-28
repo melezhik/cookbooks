@@ -61,9 +61,9 @@ To install nginx site config with static files handle by nginx:
         servers [
             {
                 :server_name => 'foo.site.x',
-                :root => '/var/www/MyApp/root'
             }
         ]
+        root  '/var/www/MyApp/root'
         socket '/tmp/application.socket'
     end
 
