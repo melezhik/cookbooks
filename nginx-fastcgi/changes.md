@@ -1,3 +1,10 @@
+0.0.5
+===
+- changes in interafce: 
+   - ignore :static parameters
+   - root parameter now in :servers array
+   - ignore :expire parameter
+
 0.0.4
 ===
 - now one my set alternative location for fastcgi application, default one is '/'

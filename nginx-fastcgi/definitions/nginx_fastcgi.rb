@@ -29,7 +29,6 @@ define :nginx_fastcgi do
         cookbook params[:cookbook] || 'nginx-fastcgi'
         variables({
             :socket => params[:socket],
-            :expires => params[:expires] || 'max',
             :servers => params[:servers] || [],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name]))
         })

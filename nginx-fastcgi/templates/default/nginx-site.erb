@@ -8,10 +8,14 @@ server {
         <%- end %>
         
         server_name  <%= s[:server_name] %> <%= s[:server_alias].join(' ') %>;
+
+        <%- unless  s[:root].nil? || s[:root].empty? %>
+        root <%= s[:root] %>;
+        <%- end %>
+
         <%- if s[:ssl] == true %>
         include <%= s[:ssl_include_path] %>;
         <%- end %>
-        expires <%= @expires %>;
 
         <%- if s[:redirect].nil? || s[:redirect].empty? %>
         location <%= s[:location] %> {
@@ -20,25 +24,13 @@ server {
         <%- if s[:ssl] == true %>
             fastcgi_param  HTTPS on;
         <%- end %>
-            # We also set some headers to prevent proxies
-            add_header Pragma "no-cache";
-            add_header Cache-control "no-cache, must-revalidate, private, no-store";
-            expires -1s;
-
-            access_log /var/log/nginx/<%= @site_name %>.access.log;
-            error_log  /var/log/nginx/<%= @site_name %>.error.log;
         }
-        
-        <%- s[:static].each do |st| %>
-        location <%= st[:location] %> {
-            add_header Cache-control public;
-            root <%= st[:root] %>;
-            expires <%= st[:expires] || '-1s' %>;
-        }            
-        <%- end %>
         <%- else %>
         rewrite  ^ <%= s[:redirect] %>://$server_name$request_uri? permanent;
         <%- end %>
+        access_log /var/log/nginx/<%= @site_name %>.access.log;
+        error_log  /var/log/nginx/<%= @site_name %>.error.log;
+
 }
 <%- end %>
 

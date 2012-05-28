@@ -4,7 +4,7 @@ Backgound: delete old configs
     Given I run 'rm -rf /tmp/foo.site.conf'
     Then a file named '/tmp/foo.site.conf' should not exist
 
-Scenario: install nginx site config, default port is 80, default expires is 'max'
+Scenario: install nginx site config, default port is 80
     And I have chef recipe:
     """
         nginx_fastcgi '/tmp/foo.site.conf' do
@@ -20,7 +20,6 @@ Scenario: install nginx site config, default port is 80, default expires is 'max
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
     And a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:80;'
-    And a file named '/tmp/foo.site.conf' should contain 'expires max;'
 
 Scenario: install nginx ssl site config, default port is 443
     And I have chef recipe:

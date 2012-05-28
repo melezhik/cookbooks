@@ -21,7 +21,6 @@ The definition takes the following params:
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
 * servers: specifies all virtual hosts to be included into site config
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
-* expires: specify `expires` parameter of HttpHeadersModule, see http://wiki.nginx.org/NginxHttpHeadersModule#expires. Default value is 'max'
 * socket: specify the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass
 
 See USAGE below.
@@ -62,26 +61,9 @@ To install nginx site config with static files handle by nginx:
         servers [
             {
                 :server_name => 'foo.site.x',
-                :static => [
-                    {
-                        :location => 'static/',
-                        :root => '/var/www/MyApp/root'
-                    }
-                ]
+                :root => '/var/www/MyApp/root'
             }
         ]
-        socket '/tmp/application.socket'
-    end
-
-To install nginx site config with `expires` parameter:
-
-    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
-        servers [
-            {
-                :server_name => 'foo.site.x',
-            }
-        ]
-        expires '+30d'
         socket '/tmp/application.socket'
     end
 
@@ -99,7 +81,6 @@ To install nginx site config for http/https virtual hosts with hostname bar.site
                 :server_name => 'bar.site.x',
                 :ssl => true,
                 :ssl_include_path => 'nginx_ssl_settings.conf'
-                
             }
         ]
         socket '/tmp/application.socket'
