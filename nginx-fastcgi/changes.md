@@ -1,10 +1,10 @@
 0.0.5
 ===
 - changes in interafce: 
-   - static parameter is not array now, and not in servers list
-   - add root parameter 
-   - ignore :expire parameter
-   - add optional fastcgi_param parameter
+   - `static` parameter is not array now, and not in servers list
+   - add `root` parameter 
+   - `:expire` parameter is no longer in use
+   - add optional `fastcgi_param` parameter
    
 0.0.4
 ===

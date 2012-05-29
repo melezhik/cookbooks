@@ -19,10 +19,11 @@ This definition can be used to create nginx site to run your fastcgi application
 The definition takes the following params:
  
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
-* socket: specifies the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass
+* socket: specifies the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass. No default, this must be specified.
 * static: specifies location of static files (not handled by application, but nginx)
 * servers: specifies all virtual hosts to be included into site config
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
+* fastcgi_param: specifies additional fastcgi_params to be included into location block
 
 See USAGE below.
 
@@ -102,7 +103,7 @@ To install nginx site config with static files handle by nginx:
         ]
     end
 
-To install nginx site config with addtional fastcgi_params:
+To install nginx site config with additional fastcgi_params:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
