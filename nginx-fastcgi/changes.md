@@ -1,14 +1,17 @@
 0.0.5
 ===
-- changes in interafce: 
-   - `static` parameter is not array now, and not in servers list
-   - add `root` parameter 
-   - `:expire` parameter is no longer in use
-   - add optional `fastcgi_param` parameter
+- changes in interface: 
+   - new parameters:
+     - `fastcgi_param`
+     - `root`
+   - removed parameters:
+     - `:expire`
+   - modified parameters:
+       - `static` is not array now and not in servers list
    
 0.0.4
 ===
-- now one my set alternative location for fastcgi application, default one is '/'
+- now one may set alternative location for fastcgi application, default one is '/'
 
 0.0.3
 ===
