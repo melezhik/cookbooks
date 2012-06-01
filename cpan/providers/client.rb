@@ -79,13 +79,16 @@ end
 def install_log 
 
   my_installed_module = installed_module
+  force_mode = @installer.force
   ruby_block 'install-log' do
     block do
         print ">>> #{my_installed_module} install summary <<<\n"
         prev_line = ''
         IO.foreach(install_log_file) do |l|
             print "   #{l.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
-            raise "#{l}[#{prev_line}]\n" if /Stopping: 'install' failed/.match(l)
+            unless force_mode == true
+                raise "#{l}[#{prev_line}]\n" if /Stopping: 'install' failed/.match(l)
+            end   
             prev_line = l.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
         end
     end
