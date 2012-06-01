@@ -1,3 +1,6 @@
+# version 0.0.14
+- raise exception if found "Stopping: 'install' failed" in install_log - workaround for https://github.com/andk/cpanpm/issues/32
+
 # version 0.0.13
 - install summary:
  - impoved, fixed and simplified

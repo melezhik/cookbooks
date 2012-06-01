@@ -82,15 +82,16 @@ def install_log
   ruby_block 'install-log' do
     block do
         print ">>> #{my_installed_module} install summary <<<\n"
-        tarball = nil
-        previous_line = nil
+        prev_line = ''
         IO.foreach(install_log_file) do |l|
-            print "   #{l.chomp} [#{previous_line.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")}]\n" if /\s--\s(OK|NOT OK)/.match(l)
-            previous_line = l
+            print "   #{l.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
+            raise "#{l}[#{prev_line}]\n" if /Stopping: 'install' failed/.match(l)
+            prev_line = l.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
         end
     end
   end
 end
+
 
 
 def install_perl_code install_thing = '$ARGV[0]'

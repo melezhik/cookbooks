@@ -1,4 +1,4 @@
-# in version 0.0.14 - future release
+# to do in future releases
 - add cpan cache clean up after install
 - add /tmp/local_lib/ clean up by request or with recipe
 - install tarball from http url
