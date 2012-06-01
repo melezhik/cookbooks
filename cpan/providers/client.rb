@@ -83,14 +83,10 @@ def install_log
     block do
         print ">>> #{my_installed_module} install summary <<<\n"
         tarball = nil
+        previous_line = nil
         IO.foreach(install_log_file) do |l|
-            tarball = l.chomp if /\.tar\.gz$/.match(l)
-            next if /^Warning:/.match(l)
-            print "   #{tarball} #{l}" if /\s--\s(OK|NOT OK)/.match(l)
-            print l if /Writing.*for/.match(l) 
-            print l if /Going to build/.match(l)
-            print l if /^Warning:/.match(l)
-            
+            print "#{previous_line}#{l}" if /\s--\s(OK|NOT OK)/.match(l)
+            previous_line = l
         end
     end
   end

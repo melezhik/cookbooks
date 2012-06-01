@@ -30,7 +30,7 @@ Scenario: install cpan module
     end
     """
     When I run chef recipe on my node
-    Then 'stdout' should have ' Bundler -- OK already installed' 
+    Then 'stdout' should have 'Bundler -- OK already installed' 
     And I run 'perl -MBundler -e 1'
     Then it should exit '0'
 

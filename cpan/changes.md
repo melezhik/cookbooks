@@ -1,3 +1,7 @@
+# version 0.0.13
+- install summary:
+ - impoved, fixed and simplified
+
 # version 0.0.12
  - cpan-client: redirect stderr to stdout 
  - made logs more clear
