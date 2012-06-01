@@ -85,7 +85,7 @@ def install_log
         tarball = nil
         previous_line = nil
         IO.foreach(install_log_file) do |l|
-            print "   #{l.chomp} [#{previous_line.chomp}]\n" if /\s--\s(OK|NOT OK)/.match(l)
+            print "   #{l.chomp} [#{previous_line.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")}]\n" if /\s--\s(OK|NOT OK)/.match(l)
             previous_line = l
         end
     end
