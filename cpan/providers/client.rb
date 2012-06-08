@@ -86,9 +86,14 @@ def install_log
         prev_line = ''
         IO.foreach(install_log_file) do |l|
             print "   #{l.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
-            unless force_mode == true
-                raise "#{l}[#{prev_line}]\n" if /Stopping: 'install' failed/.match(l)
-            end   
+            if /Stopping: 'install' failed/.match(l)
+                if force_mode == true
+                    Chef::Log.warn("error occured : #{l}[#{prev_line}]") 
+                    Chef::Log.info("will continue because we are in force_mode = true mode") 
+                else
+                    raise "#{l}[#{prev_line}]\n"
+                end   
+            end
             prev_line = l.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
         end
     end
