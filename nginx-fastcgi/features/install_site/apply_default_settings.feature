@@ -38,5 +38,5 @@ Scenario: install nginx ssl site config, default port is 443
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-    Then a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:443;'
+    Then a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:443 ssl;'
 

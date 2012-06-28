@@ -2,9 +2,17 @@
 server {
 
         <%- if  s[:ip].nil? || s[:ip].empty? %>
+            <%- if s[:ssl] == true %> 
+        listen <%= s[:port] %> ssl;
+            <%- else %>
         listen <%= s[:port] %>;
+            <%- end %>
         <%- else %>
+            <%- if s[:ssl] == true %> 
+        listen <%= "#{s[:ip]}:#{s[:port]}" %> ssl;
+            <%- else %>
         listen <%= "#{s[:ip]}:#{s[:port]}" %>;
+            <%- end %>
         <%- end %>
         
         server_name  <%= s[:server_name] %> <%= s[:server_alias].join(' ') %>;

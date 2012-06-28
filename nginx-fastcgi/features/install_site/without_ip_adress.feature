@@ -36,5 +36,5 @@ Scenario: install nginx https site config, without ip adress
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-    And a file named '/tmp/foo.site.conf' should contain 'listen 443;'
+    And a file named '/tmp/foo.site.conf' should contain 'listen 443 ssl;'
 

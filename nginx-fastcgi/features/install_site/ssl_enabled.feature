@@ -40,4 +40,4 @@ Scenario: install nginx ssl site config, non standart https port
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-    Then a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:444;'
+    Then a file named '/tmp/foo.site.conf' should contain 'listen 127.0.0.1:444 ssl;'
