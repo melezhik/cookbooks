@@ -414,6 +414,8 @@ def install_tarball
   tarball_name = @installer.name
   from_cookbook = @installer.from_cookbook
 
+  execute "rm -rf /tmp/local-lib/install/#{installed_module}"
+  
   cookbook_file "/tmp/local-lib/install/#{@installer.name}" do
     action 'create_if_missing'
     mode "0644"
