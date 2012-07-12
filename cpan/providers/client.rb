@@ -147,7 +147,7 @@ end
 def local_lib_stack
 
   stack = '';
-  stack  << "#{perl5lib_stack}; " unless perl5lib_stack.nil?
+  stack  << "#{perl5lib_stack}; " unless ( perl5lib_stack.nil? || perl5lib_stack.empty? )
 
   unless  @installer.install_base.nil?
     stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}"
