@@ -1,6 +1,8 @@
 # version 0.0.14
 - raise exception if found "Stopping: 'install' failed" in install_log - workaround for https://github.com/andk/cpanpm/issues/32
 - does `rm -rf "/tmp/local-lib/install/#{installed_module}"` in install from tarball to delete already unpacked distro
+- bugfix : user, group added to :action `test`
+- moved `PERL5LIB` from `environment` parameter to `local_lib_stack` string # workaround for strange bug  
 
 # version 0.0.13
 - install summary:

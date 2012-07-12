@@ -47,7 +47,7 @@ def cpan_env
   c_env = @installer.environment
   c_env['HOME'] = get_home
   c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
-  c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
+  #c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
   c_env
 end
 
@@ -145,10 +145,14 @@ end
 
 
 def local_lib_stack
+
+  stack = '';
+  stack  << "#{perl5lib_stack}; " unless perl5lib_stack.nil?
+
   unless  @installer.install_base.nil?
-    stack = "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}"
+    stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}"
   else
-    stack = "#{evaluate_mb_opt}"
+    stack << "#{evaluate_mb_opt}"
   end
   return stack
 end
@@ -231,6 +235,9 @@ action :test do
 
   header
   log 'don*t install, run tests only'
+
+  user = @installer.user
+  group = @installer.group
 
   directory '/tmp/local-lib/' do
     owner user
@@ -473,6 +480,7 @@ def install_application
   cmd << "perl -MCPAN -e '"
   cmd << install_perl_code('"."')
   cmd << "' 1>#{install_log_file} 2>&1"
+
 
   bash 'install application' do
     code cmd.join(" ")
