@@ -31,14 +31,14 @@ def header
   
       Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version_print}")
       Chef::Log.debug("cpan_client has started with rights: user=#{user} group=#{group}")
-      Chef::Log.debug("install-base: #{install_base_print}")
       Chef::Log.debug("cpan_home: #{get_home}")
       Chef::Log.debug("cwd: #{cwd}")
-      Chef::Log.debug("local::lib stack: #{local_lib_stack}")
-      Chef::Log.debug("perl5lib stack: #{perl5lib_stack}")
-      Chef::Log.debug("install_perl_code: #{install_perl_code}")
+      Chef::Log.debug("install-base: #{install_base_print}")
+      Chef::Log.debug("local::lib expresion: #{local_lib_stack}")
+      Chef::Log.debug("perl5lib variable: #{perl5lib_stack}")
+      Chef::Log.debug("install command: #{install_perl_code}")
       Chef::Log.debug("environment: #{cpan_env_print}")
-      Chef::Log.debug("install log file: #{install_log_file}")
+      Chef::Log.info("install log file: #{install_log_file}")
   
 end
 
@@ -47,13 +47,13 @@ def cpan_env
   c_env = @installer.environment
   c_env['HOME'] = get_home
   c_env['MODULEBUILDRC'] = '/tmp/local-lib/.modulebuildrc'        
-  #c_env['PERL5LIB'] = perl5lib_stack unless perl5lib_stack.nil?
+  c_env['PERL5LIB'] = perl5lib_stack unless (perl5lib_stack.nil? || perl5lib_stack.empty?)
   c_env
 end
 
 def cpan_env_print
   st = ''
-  cpan_env.each {|key, value| st << " #{key}  #{value}\n" }
+  cpan_env.each {|key, value| st << " #{key}=#{value}; " }
   st
 end
 
@@ -147,12 +147,12 @@ end
 def local_lib_stack
 
   stack = '';
-  stack  << "#{perl5lib_stack}; " unless ( perl5lib_stack.nil? || perl5lib_stack.empty? )
+  #stack  << "#{perl5lib_stack}; " unless ( perl5lib_stack.nil? || perl5lib_stack.empty? )
 
   unless  @installer.install_base.nil?
-    stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}"
+    stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}; "
   else
-    stack << "#{evaluate_mb_opt}"
+    stack << "#{evaluate_mb_opt}; "
   end
   return stack
 end

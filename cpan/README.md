@@ -136,7 +136,7 @@ install into given install_base
 install into given install_base + cwd
 -------------------------------------
 
-    # would install into '/home/alex/mydir'
+    # will install into '/home/alex/mydir'
     cpan_client 'CGI' do
         action 'install'
         install_type 'cpan_module'
@@ -151,12 +151,13 @@ install into given install_base + cwd
 install with given install_path
 -------------------------------
 
+    # will override settings for `htdocs` and `config` elements
     cpan_client 'Module' do
         action 'install'
         install_type 'cpan_module'
         user 'root'
         group 'root'
-        install_path ["htdocs=#{ENV['PWD']}/htdocs/"]
+        install_path ["htdocs=#{ENV['PWD']}/htdocs/", "config=#{ENV['PWD']}/etc/"]
     end
 
 install application from current working directory
@@ -172,7 +173,7 @@ install application from current working directory
 install under not privileged user
 ---------------------------------
 
-    # would install into $PWD/cpanlib directory
+    # will install into $PWD/cpanlib directory
     cpan_client 'my application' do
         action 'install'
         install_type 'application'
