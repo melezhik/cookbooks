@@ -139,7 +139,7 @@ def evaluate_mb_opt
   @installer.install_path.each do |i|
     install_paths << "--install_path #{i}"
   end
-  string << "PERL_MB_OPT=\"${PERL_MB_OPT} #{install_paths.join(' ')}\" " unless install_paths.empty?
+  string << "PERL_MB_OPT=\"${PERL_MB_OPT} #{install_paths.join(' ')}\"; " unless install_paths.empty?
   string  
 end
 
@@ -150,9 +150,9 @@ def local_lib_stack
   #stack  << "#{perl5lib_stack}; " unless ( perl5lib_stack.nil? || perl5lib_stack.empty? )
 
   unless  @installer.install_base.nil?
-    stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt}; "
+    stack << "eval $(perl -Mlocal::lib=#{real_install_base}); #{evaluate_mb_opt} "
   else
-    stack << "#{evaluate_mb_opt}; "
+    stack << "#{evaluate_mb_opt} "
   end
   return stack
 end
