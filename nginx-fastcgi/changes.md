@@ -1,3 +1,7 @@
+0.0.7
+===
+now nginx site config mode is `0664`
+
 0.0.6
 ===
 now `ssl;` is appended for ssl enabled ips according to http://nginx.org/ru/docs/http/ngx_http_core_module.html#listen

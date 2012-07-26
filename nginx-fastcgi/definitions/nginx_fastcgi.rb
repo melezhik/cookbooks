@@ -27,6 +27,7 @@ define :nginx_fastcgi, :servers => [], :root => nil, :static => nil, :fastcgi_pa
     template params[:name] do
         source 'nginx-site.erb'
         cookbook params[:cookbook] || 'nginx-fastcgi'
+        mode 0664
         variables({
             :static => params[:static],
             :root => params[:root],
@@ -35,5 +36,6 @@ define :nginx_fastcgi, :servers => [], :root => nil, :static => nil, :fastcgi_pa
             :fastcgi_param => params[:fastcgi_param],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name]))
         })
+        
     end
 end

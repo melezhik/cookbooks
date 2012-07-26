@@ -1,3 +1,6 @@
+# version 0.0.15
+- install from remote tarball by http/ftp url
+
 # version 0.0.14
 - raise exception if found "Stopping: 'install' failed" in install_log - workaround for https://github.com/andk/cpanpm/issues/32
 - does `rm -rf "/tmp/local-lib/install/#{installed_module}"` in install from tarball to delete already unpacked distro

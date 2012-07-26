@@ -15,6 +15,7 @@ Scenario: install cpan module
         user 'root'
         group 'root'
         action 'install'
+        install_base '/tmp/'
         install_path ["lib=/tmp/foo/lib/","libdoc=/tmp/baz/man"]
     end
     """

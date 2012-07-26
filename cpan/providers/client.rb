@@ -111,7 +111,7 @@ def install_perl_code install_thing = '$ARGV[0]'
     cmd = "CPAN::Shell->install(#{install_thing})" 
  end 
  else
-   cmd = "CPAN::Shell->test(#{install_thing})" 
+   cmd = "print \"PERL_MB_OPT : $ENV{PERL_MB_OPT}\n\"; CPAN::Shell->test(#{install_thing})" 
  end
  cmd
 end
@@ -263,7 +263,10 @@ def install_dry_run
 end
 
 def install_real
- return install_tarball if @installer.from_cookbook
+ if @installer.from_cookbook or /([a-z\d\.-]+)\.tar\.gz$/i.match(@installer.name) or /^(http:\/\/)/i.match(@installer.name)
+    return install_tarball 
+ end
+ 
  return install_cpan_module if @installer.install_type == 'cpan_module'
  return install_cpan_module if @installer.install_type == 'cpan_module'
  return install_application if @installer.install_type == 'application'
@@ -399,6 +402,8 @@ def install_cpan_module
   else
       raise "bad version : #{@installer.version}"      
   end
+
+  Chef::Log.debug "cmd: [#{cmd}]"
   
   bash 'install cpan module' do
     code cmd.join(" ")
@@ -418,17 +423,27 @@ def install_tarball
   user = @installer.user
   group = @installer.group
   home = get_home
-  tarball_name = @installer.name
-  from_cookbook = @installer.from_cookbook
 
   execute "rm -rf /tmp/local-lib/install/#{installed_module}"
   
-  cookbook_file "/tmp/local-lib/install/#{@installer.name}" do
-    action 'create_if_missing'
-    mode "0644"
-    cookbook from_cookbook
-    owner user
-    group group
+  if @installer.name.match('^http:\/\/')
+    tarball_name = @installer.name.split('/').last
+    remote_file "/tmp/local-lib/install/#{tarball_name}" do
+        source @installer.name
+        mode "0644"
+        owner user
+        group group
+    end        
+  else
+    tarball_name = @installer.name
+    from_cookbook = @installer.from_cookbook
+    cookbook_file "/tmp/local-lib/install/#{tarball_name}" do
+        action 'create_if_missing'
+        mode "0644"
+        cookbook from_cookbook
+        owner user
+        group group
+        end
   end
 
   execute "tar -zxf #{tarball_name}" do
@@ -447,8 +462,9 @@ def install_tarball
   cmd << 'eval { $res = CPAN::Version->vcmp($dist->version,$cpan_mod->inst_version)}; next if $@;'
   cmd << 'if ($res == 0) { print " -- OK : exact version already installed \n"; exit(0) } } };'
   cmd << install_perl_code('"."')
-  cmd << "' /tmp/local-lib/install/#{@installer.name} 1>#{install_log_file} 2>&1"
+  cmd << "' /tmp/local-lib/install/#{@tarball_name} 1>#{install_log_file} 2>&1"
   
+  Chef::Log.debug "cmd: [#{cmd}]"
   file "#{install_log_file}" do
     action :touch
     owner user

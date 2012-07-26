@@ -5,12 +5,12 @@ DESCRIPTION
   
 PREREQUISITES
 ===
--  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system. 
--  Run recipe `cpan::bootstrap` to ensure all dependencies are met:
+1)  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system.
+2)  Run recipe `cpan::bootstrap` to ensure all dependencies are met:
 
       include_recipe 'cpan::bootstrap'
 
-## ATTRIBUTES used in bootstrap recipe
+## ATTRIBUTES used in cpan::bootstrap recipe
 
 * `cpan.minimal_version` - minimal required version of cpan client 
 * `cpan.download_url` - url to download fresh cpan client 
@@ -119,6 +119,16 @@ install from tarball stored in cookbook
         user 'root'
         group 'root'
         from_cookbook  'moose'
+    end
+
+install from tarball remotely stored somewhere
+-------------------------------------------------
+    # only http protocol now is supported:
+    
+    cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
+        action 'install'
+        user 'root'
+        group 'root'
     end
 
 install into given install_base
