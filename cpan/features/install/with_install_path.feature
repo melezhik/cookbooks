@@ -1,7 +1,7 @@
 Feature: cpan_client should be able to install cpan module into give install_base
 
 Scenario: install cpan module
-    * I run 'pm-uninstall -nf Bundler'
+    * I run 'pm-uninstall -nf Bundler -l /tmp/'
     * it should exit '0'
     * I run 'rm -rf /tmp/foo/ /tmp/baz/'
     * it should exit '0'

@@ -274,15 +274,17 @@ def install_real
 end
 
 def installed_module
-  unless @installer.from_cookbook
-    installed_module = @installer.name
+  if /([a-z\d\.-]+)\.tar\.gz$/i.match(@installer.name) or ! @installer.from_cookbook.nil?
+    installed_module = @installer.name.split('/').last
     installed_module.gsub!(' ','-')
-  else
-    mat = /([a-z\d\.-]+)\.tar\.gz$/i.match(@installer.name)
+    mat = /([a-z\d\.-]+)\.tar\.gz$/i.match(installed_module)
     if mat.nil?
         raise "distributive name #{@installer.name} does not match ([a-z\d\.-]+)\.tar\.gz$ pattern"
     end
     installed_module = mat[1]
+  else
+    installed_module = @installer.name
+    installed_module.gsub!(' ','-')
   end
   return installed_module
 end
@@ -424,12 +426,17 @@ def install_tarball
   group = @installer.group
   home = get_home
 
-  execute "rm -rf /tmp/local-lib/install/#{installed_module}"
+  Chef::Log.debug "installed_module: #{installed_module}"
+
+  execute "rm -rf /tmp/local-lib/install/#{installed_module}/"
   
   if @installer.name.match('^http:\/\/')
     tarball_name = @installer.name.split('/').last
+    execute "rm -rf /tmp/local-lib/install/#{tarball_name}"
+    source_name = @installer.name
+    Chef::Log.debug "tarball_name: #{tarball_name}"
     remote_file "/tmp/local-lib/install/#{tarball_name}" do
-        source @installer.name
+        source source_name
         mode "0644"
         owner user
         group group
@@ -437,6 +444,7 @@ def install_tarball
   else
     tarball_name = @installer.name
     from_cookbook = @installer.from_cookbook
+    execute "rm -rf /tmp/local-lib/install/#{tarball_name}"
     cookbook_file "/tmp/local-lib/install/#{tarball_name}" do
         action 'create_if_missing'
         mode "0644"
