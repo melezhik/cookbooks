@@ -5,8 +5,8 @@ DESCRIPTION
   
 PREREQUISITES
 ===
-1)  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system.
-2)  Run recipe `cpan::bootstrap` to ensure all dependencies are met:
+ - 1)  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system.
+ - 2)  Run recipe `cpan::bootstrap` to ensure all dependencies are met:
 
       include_recipe 'cpan::bootstrap'
 
@@ -124,7 +124,6 @@ install from tarball stored in cookbook
 install from tarball remotely stored somewhere
 -------------------------------------------------
     # only http protocol now is supported:
-    
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
         action 'install'
         user 'root'
