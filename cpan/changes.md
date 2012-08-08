@@ -1,3 +1,6 @@
+# version 0.0.16
+- небольшой рефакторинг кода 
+
 # version 0.0.15
 - install from remote tarball by http/ftp url
 

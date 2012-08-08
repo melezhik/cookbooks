@@ -210,6 +210,7 @@ action :install do
   end
   
   file install_log_file do
+    action :create
     owner user
     group group
   end
@@ -245,6 +246,7 @@ action :test do
   end
 
   file install_log_file do
+    action :create
     owner user
     group group
   end
@@ -369,8 +371,8 @@ def install_cpan_module
   group = @installer.group
   home = get_home
 
-  file "#{install_log_file}" do
-    action :touch
+  file install_log_file do
+    action :create
     owner user
     group group
   end
@@ -473,8 +475,8 @@ def install_tarball
   cmd << "' /tmp/local-lib/install/#{@tarball_name} 1>#{install_log_file} 2>&1"
   
   Chef::Log.debug "cmd: [#{cmd}]"
-  file "#{install_log_file}" do
-    action :touch
+  file install_log_file do
+    action :create
     owner user
     group group
   end

@@ -1,3 +1,6 @@
+# 0.0.7
+- --proc-title parameter (only works with Catalyst 5.90015)
+
 # 0.0.6
 - bug fixes for 'Provides:' header in ubuntu/debian init scripts
 

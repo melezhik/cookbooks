@@ -31,7 +31,7 @@ NAME="<%= @service_name %>"
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="fastcgi catalyst application"
 DAEMON=<%= @application_home %>/script/<%= @application_script %>
-DAEMON_ARGS="-M <%= @proc_manager %> -n <%= @nproc %> -l <%= @socket %>"
+DAEMON_ARGS="-M <%= @proc_manager %> -n <%= @nproc %> -l <%= @socket %> --proc_title <%= @application_script %>-fcgi"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
