@@ -22,7 +22,7 @@ server {
         <%- end %>
 
         <%- @error_page.each do |page| %>
-        error_page <%= @page[:code] %> <%= @page[:handler] %>;
+        error_page <%= page[:code] %> <%= page[:handler] %>;
         <%- end %>
 
         <%- unless  @static.nil? || @static.empty? %>
