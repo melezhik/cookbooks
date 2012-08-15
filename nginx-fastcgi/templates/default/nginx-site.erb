@@ -21,6 +21,10 @@ server {
         root <%= @root %>;
         <%- end %>
 
+        <%- @error_page.each do |page| %>
+        error_page <%= @page[:code] %> <%= @page[:handler] %>;
+        <%- end %>
+
         <%- unless  @static.nil? || @static.empty? %>
         location <%= @static[:location] %> {
             root <%= @static[:root] %>;

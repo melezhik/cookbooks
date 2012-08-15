@@ -20,6 +20,7 @@ The definition takes the following parameters:
 * servers: specifies all virtual hosts to be included into site config
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
 * fastcgi_param: specifies additional fastcgi_params to be included into location block
+* error_page - see http://wiki.nginx.org/HttpCoreModule#error_page
 
 ## servers parameters
 * ip
@@ -29,15 +30,14 @@ The definition takes the following parameters:
 * error_page
 * redirect
 
-### error_page parameters
+## error_page parameters
 * code
-* path
+* handler
 
-see http://wiki.nginx.org/HttpCoreModule#error_page
 
 # Usage cases
 
-## named virtual host port 80
+## named virtual host, port 80
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -48,7 +48,6 @@ see http://wiki.nginx.org/HttpCoreModule#error_page
             }
         ]
     end
-
 
 ## ssl enabled named virtual host
     
@@ -123,6 +122,23 @@ see http://wiki.nginx.org/HttpCoreModule#error_page
         servers [
             {
                 :server_name => 'foo.site.x',
+            }
+        ]
+    end
+
+## setup error_page, code 500
+
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
+        socket '/tmp/application.socket'
+        servers [
+            {
+                :server_name => 'foo.site.x'
+            }
+        ]
+        error_page [
+            {
+                :code       => 500,
+                :handler    => '/500.html'
             }
         ]
     end

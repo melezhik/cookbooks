@@ -1,3 +1,7 @@
+0.0.8
+===
+add `error_page` parameter
+
 0.0.7
 ===
 now nginx site config mode is `0664`
