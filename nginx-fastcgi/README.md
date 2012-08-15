@@ -35,13 +35,10 @@ The definition takes the following parameters:
 
 see http://wiki.nginx.org/HttpCoreModule#error_page
 
-See USAGE below.
-
 # Usage cases
 
+## named virtual host port 80
 
-## Installs nginx site config for http virtual host 127.0.0.1:80 with hostname foo.site.x:
-    
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
         servers [
@@ -53,7 +50,7 @@ See USAGE below.
     end
 
 
-## Installs config for https virtual host with hostname bar.site.x:
+## ssl enabled named virtual host
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -67,7 +64,7 @@ See USAGE below.
         ]
     end
 
-## Installs config with static files handled by nginx:
+## setting document root
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         root  '/var/www/MyApp/root'
@@ -79,7 +76,9 @@ See USAGE below.
         ]
     end
 
-## Installs config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
+## doing http -> https redirect
+
+ # all http traffic get redirected to https host:
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -98,7 +97,7 @@ See USAGE below.
         ]
     end
 
-# Installs config with static files handle by nginx:
+## handling static files by nginx
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -113,7 +112,7 @@ See USAGE below.
         ]
     end
 
-# Installs config with additional fastcgi_params:
+## setup specific fastcgi_params:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
