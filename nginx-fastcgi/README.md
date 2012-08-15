@@ -1,22 +1,18 @@
-Description
-===
+# Description
 Create nginx site to run your fastcgi application under nginx front-end
 
-Requirements
-===
+# Requirements
 Should work on any platform where nginx is installed. Tested on Ubuntu.
 
-Limitations
-===
+# Limitations
 fastcgi standalone server mode is only supported
 
-DEFINITIONS
-===
+# DEFINITIONS
 ``nginx_fastcgi``
 
 This definition can be used to create nginx site to run your fastcgi application under nginx front-end.
  
-The definition takes the following params:
+The definition takes the following parameters:
  
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
 * socket: specifies the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass. No default, this must be specified.
@@ -25,12 +21,26 @@ The definition takes the following params:
 * cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
 * fastcgi_param: specifies additional fastcgi_params to be included into location block
 
+## servers parameters
+* ip
+* server_name
+* ssl
+* ssl_include_path
+* error_page
+* redirect
+
+### error_page parameters
+* code
+* path
+
+see http://wiki.nginx.org/HttpCoreModule#error_page
+
 See USAGE below.
 
-Usage
-===
+# Usage cases
 
-To install nginx site config for http virtual host 127.0.0.1:80 with hostname foo.site.x:
+
+## Installs nginx site config for http virtual host 127.0.0.1:80 with hostname foo.site.x:
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -43,7 +53,7 @@ To install nginx site config for http virtual host 127.0.0.1:80 with hostname fo
     end
 
 
-To install nginx site config for https virtual host with hostname bar.site.x:
+## Installs config for https virtual host with hostname bar.site.x:
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -57,7 +67,7 @@ To install nginx site config for https virtual host with hostname bar.site.x:
         ]
     end
 
-To install nginx site config with static files handle by nginx:
+## Installs config with static files handled by nginx:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         root  '/var/www/MyApp/root'
@@ -69,7 +79,7 @@ To install nginx site config with static files handle by nginx:
         ]
     end
 
-To install nginx site config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
+## Installs config for http/https virtual hosts with hostname bar.site.x, with all http traffic get redirected to https host:
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -88,7 +98,7 @@ To install nginx site config for http/https virtual hosts with hostname bar.site
         ]
     end
 
-To install nginx site config with static files handle by nginx:
+# Installs config with static files handle by nginx:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -103,7 +113,7 @@ To install nginx site config with static files handle by nginx:
         ]
     end
 
-To install nginx site config with additional fastcgi_params:
+# Installs config with additional fastcgi_params:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -118,8 +128,6 @@ To install nginx site config with additional fastcgi_params:
         ]
     end
 
-Features
-===
-
-For complete examples of usage see cucumber features in features/ dir
+# Features
+For complete examples of usage see https://github.com/melezhik/cookbooks/tree/master/nginx-fastcgi/features
 
