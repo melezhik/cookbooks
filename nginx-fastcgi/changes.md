@@ -1,6 +1,8 @@
 0.0.8
 ===
-add `error_page` parameter
+- new parameter - `error_page`
+- 
+
 
 0.0.7
 ===

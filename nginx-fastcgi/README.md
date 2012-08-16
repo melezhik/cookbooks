@@ -16,23 +16,21 @@ The definition takes the following parameters:
  
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
 * socket: specifies the port or socket on which the FastCGI-server is listening, see http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass. No default, this must be specified.
-* static: specifies location of static files (not handled by application, but nginx)
-* servers: specifies all virtual hosts to be included into site config
-* cookbook: select the template source from the specified cookbook. By default it will use the cookbook where the definition is used.
+* static: specifies location of static files (not handled by application, but nginx), is either array or hash with following keys:
+   * location
+   * root
+* servers: specifies all virtual hosts to be included into site config, is the array of hashes with following keys:
+   * ip
+   * server_name
+   * ssl
+   * ssl_include_path
+   * error_page
+   * redirect
+* cookbook: specifies the cookbook name where template source comes from. By default it will use the cookbook where the definition is used.
 * fastcgi_param: specifies additional fastcgi_params to be included into location block
-* error_page - see http://wiki.nginx.org/HttpCoreModule#error_page
-
-## servers parameters
-* ip
-* server_name
-* ssl
-* ssl_include_path
-* error_page
-* redirect
-
-## error_page parameters
-* code
-* handler
+* error_page - specifies custom error pages. See http://wiki.nginx.org/HttpCoreModule#error_page for details. Is the array of hashes with following keys:
+ * code
+ * handler
 
 
 # Usage cases
