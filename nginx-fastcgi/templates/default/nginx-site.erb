@@ -26,9 +26,11 @@ server {
         <%- end %>
 
         <%- unless  @static.nil? || @static.empty? %>
-        location <%= @static[:location] %> {
-            root <%= @static[:root] %>;
+            <%- @static.each do |item| %>
+        location <%= item[:location] %> {
+            root <%= item[:root] %>;
         }
+            <%- end %>
         <%- end %>
 
         <%- if s[:ssl] == true %>

@@ -1,4 +1,4 @@
-define :nginx_fastcgi, :servers => [], :root => nil, :static => nil, :fastcgi_param => [], :error_page => [] do
+define :nginx_fastcgi, :servers => [], :root => nil, :static => [], :fastcgi_param => [], :error_page => [] do
 
     if params[:socket].nil? || params[:socket].empty?
         message = 'you should setup socket param. '
@@ -29,7 +29,7 @@ define :nginx_fastcgi, :servers => [], :root => nil, :static => nil, :fastcgi_pa
         cookbook params[:cookbook] || 'nginx-fastcgi'
         mode 0664
         variables({
-            :static => params[:static],
+            :static => ( (params[:static].is_a? Hash) ? [params[:static]] : params[:static] ),
             :root => params[:root],
             :socket => params[:socket],
             :servers => params[:servers],

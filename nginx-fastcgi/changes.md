@@ -1,8 +1,7 @@
 0.0.8
 ===
 - new parameter - `error_page`
-- 
-
+- `static` may be an Array
 
 0.0.7
 ===
