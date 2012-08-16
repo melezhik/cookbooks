@@ -15,8 +15,8 @@ This definition can be used to create nginx site to run your fastcgi application
 The definition takes the following parameters:
  
 * name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
-* socket: specifies the port or socket on which the FastCGI-server is listening. No default, this must be specified.
-See http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
+* socket: specifies the port or socket on which the FastCGI-server is listening. No default, this must be specified. 
+  See http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
 * static: specifies location of static files (not handled by application, but nginx), is either array or hash with following keys:
    * location
    * root
@@ -29,10 +29,10 @@ See http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
    * redirect
 * cookbook: specifies the cookbook name where template source comes from. By default it will use the cookbook where the definition is used.
 * fastcgi_param: specifies additional fastcgi_params to be included into location block
-* error_page - specifies custom error pages. Is the array of hashes with following keys:
+* error_page - specifies custom error pages. Is the array of hashes with following keys (See http://wiki.nginx.org/HttpCoreModule#error_page for details):
  * code
  * handler
-See http://wiki.nginx.org/HttpCoreModule#error_page for details
+
 
 # Usage cases
 
