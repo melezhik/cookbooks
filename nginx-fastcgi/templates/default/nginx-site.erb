@@ -47,6 +47,10 @@ server {
         <%- @fastcgi_param.each do |f| %>
             fastcgi_param <%= f[:name] %> <%= f[:value] %>;
         <%- end %>
+        <%- if @fastcgi_intercept_errors == true %>
+        fastcgi_intercept_errors on;
+        <%- end %>
+        
         }
         <%- else %>
         rewrite  ^ <%= s[:redirect] %>://$server_name$request_uri? permanent;

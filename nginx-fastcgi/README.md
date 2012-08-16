@@ -32,7 +32,8 @@ The definition takes the following parameters:
 * error_page - specifies custom error pages. Is an Array of Hashes with following keys (check out http://wiki.nginx.org/HttpCoreModule#error_page for details):
  * code
  * handler
-
+* fastcgi_intercept_errors - specify value for fastcgi_intercept_errors, 
+check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for datails. Default value is false
 
 # Usage cases
 

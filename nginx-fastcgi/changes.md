@@ -1,6 +1,7 @@
 0.0.8
 ===
 - new parameter - `error_page`
+- new parameter `fastcgi_intercept_errors`
 - `static` may be an Array
 
 0.0.7
