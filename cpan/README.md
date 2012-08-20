@@ -35,12 +35,12 @@ RESOURCE ATTRIBUTES
 ===
 
 * `cwd` - specifies current working directory where installation process runs
-* `dry_run` - whether to run installation process in dry-run mode or not, default - false 
-* `environment` - hash which holds environment variables exported to installation process
+* `dry_run` - specifies whether to run installation process in dry-run mode or not, default - false 
+* `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false
-* `from_cookbook` - specifies cookbook, where distributive stored at [check out cookbook file resource documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
+* `from_cookbook` - specifies cookbook, where distributive stored at. [Check out cookbook file resource documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
 * `group` - specifies a group name for installation process
-* `inc` - an Array passed to PERL5LIB environment variable (@INC), default value []
+* `inc` - specifies an Array passed to PERL5LIB environment variable (@INC), default value []
 * `install_base` - specifies install base for installation 
 * `install_path` - specifies install paths for installation, Array of Strings
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
