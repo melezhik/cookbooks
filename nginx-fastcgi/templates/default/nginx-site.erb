@@ -48,7 +48,7 @@ server {
             fastcgi_param <%= f[:name] %> <%= f[:value] %>;
         <%- end %>
         <%- if @fastcgi_intercept_errors == true %>
-        fastcgi_intercept_errors on;
+            fastcgi_intercept_errors on;
         <%- end %>
         
         }

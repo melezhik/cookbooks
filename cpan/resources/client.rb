@@ -10,6 +10,7 @@ attribute :inc, :default => [], :kind_of => Array
 attribute :install_base, :kind_of => String
 attribute :install_path, :default => [], :kind_of => Array
 attribute :install_type, :kind_of => String, :default => 'application'
+attribute :module_name , :kind_of => String
 attribute :name , :kind_of => String
 attribute :reload_cpan_index, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :user , :kind_of => String
