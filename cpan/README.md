@@ -46,6 +46,7 @@ RESOURCE ATTRIBUTES
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
 * `module_name` - specifies the name of cpan module to check against when doing install, useful when doing install from http url or cookbook
 * `group` - specifies a user name for installation process
+* `url` - specifies http url with distibutive
 * `version` - specifies version of module, if 0 install if only module does not exist, default nil. see also module_name
 
 EXAMPLES OF USAGE
