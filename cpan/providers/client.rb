@@ -104,17 +104,17 @@ end
 
 
 def install_perl_code install_thing = '$ARGV[0]'
- cmd = nil
- if @test_mode.nil?
-  if @installer.force == true
-    cmd = "CPAN::Shell->force(\"install\",#{install_thing})"
-  else
-    cmd = "CPAN::Shell->install(#{install_thing})" 
- end 
- else
-   cmd = "print \"PERL_MB_OPT : $ENV{PERL_MB_OPT}\n\"; CPAN::Shell->test(#{install_thing})" 
- end
- cmd
+    cmd = Array.new
+    if @test_mode.nil?
+        if @installer.force == true
+            cmd << "CPAN::Shell->force(\"install\",#{install_thing})"
+        else
+            cmd << "CPAN::Shell->install(#{install_thing})"
+        end 
+    else
+        cmd << "CPAN::Shell->test(#{install_thing})" 
+    end
+    cmd.join ('; ')
 end
 
 def get_home 
@@ -368,137 +368,110 @@ end
 
 def install_cpan_module args = { }
 
-  user = @installer.user
-  group = @installer.group
+    user = @installer.user
+    group = @installer.group
 
-  cwd = args[:cwd] || @installer.cwd
-  module_name = args[:module_name] || @installer.name
-  module_version = args[:module_version] || @installer.version
-  install_object = args[:install_object] || @installer.name
+    cwd = args[:cwd] || @installer.cwd
+    module_name = args[:module_name] || @installer.name
+    module_version = args[:module_version] || @installer.version
+    install_object = args[:install_object] || @installer.name
 
-  file install_log_file do
-    action :touch
-    owner user
-    group group
-    content ''
-  end
+    execute  "rm #{install_log_file}" 
 
- if module_name != '.' 
-     perl "checking if module exists at CPAN" do
-        code <<-CODE
-            BEGIN {
-              if ('#{real_install_base}') {
-                use local::lib '#{real_install_base}';
-              }
-            }
-            use CPAN;
-            my $m = CPAN::Shell->expand("Module","#{module_name}");
-            exit(2) unless defined $m;
-        CODE
-        user user
-        group group
-        cwd cwd
-        environment cpan_env
-     end
- end
- 
-  if @installer.version.nil? && module_name != '.' && @test_mode.nil? # not install if uptodate
-      perl "checking if module installed" do
+    if module_name != '.' 
+        bash "checking if module exists at CPAN" do
             code <<-CODE
-                BEGIN {
-                  if ('#{real_install_base}') {
-                    use local::lib '#{real_install_base}';
-                  }
-                }
-                use CPAN;
+                #{local_lib_stack}
+                perl -MCPAN -e '
                 my $m = CPAN::Shell->expand("Module","#{module_name}");
-                if ($m->uptodate){
-                    open F, ">", '#{install_log_file}' or die $!;
-                    print F "#{module_name} -- OK have higher or equal version [",$m->inst_version,"]\n";
-                    close F;
-                    exit(2);
-                }
+                exit(2) unless defined $m';
             CODE
-            ignore_failure true
             user user
             group group
             cwd cwd
             environment cpan_env
-            notifies :run, "bash[install cpan module]"
-      end
-  elsif @installer.version == "0" && module_name != '.' && @test_mode.nil? # not install if any version already installed
-      perl "checking if module installed" do
-          code <<-CODE
-          BEGIN {
-              if ('#{real_install_base}') {
-                use local::lib '#{real_install_base}';
-              }
-          }
-          use CPAN;
-          my $m = CPAN::Shell->expand("Module","#{module_name}");
-          if ($m->inst_version){
-                open F, ">", '#{install_log_file}' or die $!;
-                print F "#{module_name} -- OK already installed at version [",$m->inst_version,"]\n";
-                close F;
-                exit(2);
-          }
-          CODE
-          ignore_failure true
-          user user
-          group group
-          cwd cwd
-          environment cpan_env
-          notifies :run, "bash[install cpan module]"
-      end
-  elsif @installer.version != "0" && module_name != '.' && @test_mode.nil? # not install if have higher or equal version
-      v = @installer.version
-      perl "checking if module installed" do
-          code <<-CODE
-          BEGIN {
-              if ('#{real_install_base}') {
-                use local::lib '#{real_install_base}';
-              }
-          }
-          use CPAN;
-          use CPAN::Version;
-          my $m = CPAN::Shell->expand("Module","#{module_name}");
-          my $inst_v = CPAN::Shell->expand("Module","#{module_name}")->inst_version;
-          if (CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
-            open F, ">", '#{install_log_file}' or die $!;
-            print F "#{module_name} -- OK : have higher or equal version [$inst_v]\n";
-            close F;
-            exit(2);
-          }
-          CODE
-          ignore_failure true
-          user user
-          group group
-          cwd cwd
-          environment cpan_env
-      end
+        end
+    end
+ 
+    if @installer.version.nil? && module_name != '.' && @test_mode.nil? # not install if uptodate
+        bash "installing cpan module" do
+            code <<-CODE
+                #{local_lib_stack}
+                perl -MCPAN -e '
+                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                if ($m->uptodate){
+                     print "#{module_name} -- OK have higher or equal version [",$m->inst_version,"]","\n";
+                }else{
+                    #{install_perl_code}
+                }' #{install_object} 1>>#{install_log_file} 2>&1
+            CODE
+            user user
+            group group
+            cwd cwd
+            environment cpan_env
+        end
+    elsif @installer.version == "0" && module_name != '.' && @test_mode.nil? # not install if any version already installed
+        bash "installing cpan module" do
+            code <<-CODE
+                #{local_lib_stack}
+                perl -MCPAN -e '
+                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                if ($m->inst_version){
+                     print "#{module_name} -- OK already installed at version [",$m->inst_version,"]","\n";
+                }else{
+                    #{install_perl_code}
+                }' #{install_object} 1>>#{install_log_file} 2>&1
+            CODE
+            user user
+            group group
+            cwd cwd
+            environment cpan_env
+        end
+    elsif @installer.version != "0" && module_name != '.' && @test_mode.nil? # not install if have higher or equal version
+        v = @installer.version
+        bash "installing cpan module" do
+            code <<-CODE
+                #{local_lib_stack}
+                perl -MCPAN -MCPAN::Version -e '
+                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                my $inst_v = CPAN::Shell->expand("Module","#{module_name}")->inst_version;
+                if (CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
+                    print "#{module_name} -- OK : have higher or equal version [$inst_v]","\n";
+                }else{
+                    #{install_perl_code}
+                }' #{install_object} 1>>#{install_log_file} 2>&1
+            CODE
+            user user
+            group group
+            cwd cwd
+            environment cpan_env
+        end
   elsif ! @test_mode.nil? && @test_mode == 1
-      execute 'echo "run tests"' do
-          notifies :run, "bash[install cpan module]"
+      bash 'running tests on cpan module' do
+            code <<-CODE
+                #{local_lib_stack}
+                perl -MCPAN -e '
+                #{install_perl_code}' #{install_object} 1>>#{install_log_file} 2>&1
+            CODE
+            user user
+            group group
+            cwd cwd
+            environment cpan_env
       end
   elsif module_name == '.'
-      execute 'echo "run install"' do
-          notifies :run, "bash[install cpan module]"
+      bash 'installing cpan module as cpan_client .' do
+            code <<-CODE
+                #{local_lib_stack}
+                perl -MCPAN -e '
+                #{install_perl_code}' #{install_object} 1>>#{install_log_file} 2>&1
+            CODE
+            user user
+            group group
+            cwd cwd
+            environment cpan_env
       end
   else
       raise "bad version : #{@installer.version}"      
-  end
-
-  cmd = Array.new
-  cmd << local_lib_stack << "perl -MCPAN -e ' " << install_perl_code << "'" << install_object << " 1>#{install_log_file} 2>&1"
-  Chef::Log.debug "cmd: [#{cmd}]"
-
-  bash 'install cpan module' do
-    code cmd.join(" ")
-    user user
-    group group
-    cwd cwd
-    environment cpan_env
-    action :nothing
   end
 
   install_log
