@@ -435,8 +435,18 @@ def install_cpan_module args = { }
                 perl -MCPAN -MCPAN::Version -e '
                 my $m = CPAN::Shell->expand("Module","#{module_name}");
                 my $inst_v = CPAN::Shell->expand("Module","#{module_name}")->inst_version;
-                if (CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
+                my $version_required = "#{module_version}";
+                s/\s//g for $version_required;
+                my $exact_version_check = 0;
+                if ($version_required=~/=/){
+                    $exact_version_check =  1;
+                    s/=//g for $version_required;
+                }
+                
+                if ($exact_version_check == 0 && CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
                     print "#{module_name} -- OK : have higher or equal version [$inst_v] [",$m->inst_file,"]\n";
+                }elsif($exact_version_check == 1 &&  CPAN::Version->vcmp($inst_v, "#{module_version}") != 0){
+                    print "#{module_name} -- OK : have equal version [$inst_v] [",$m->inst_file,"]\n";
                 }else{
                     #{install_perl_code}
                 }' #{install_object} 1>>#{install_log_file} 2>&1

@@ -109,6 +109,27 @@ install only if module not exists
         action 'install'
     end
 
+install exact version
+---------------------
+    # exact version installed available only for install from cookbook or from http url
+
+    cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
+        user 'root'
+        group 'root'
+        module_name 'CGI'
+        version '=3.59'
+        action 'install'
+    end
+
+    cpan_client 'Moose-1.24.tar.gz' do
+        user 'root'
+        group 'root'
+        from_cookbook  'moose'
+        module_name 'Moose'
+        version '=1.24'
+        action 'install'
+    end
+
 
 install distributive stored in cookbook
 ---------------------------------------

@@ -1,6 +1,9 @@
 # version 0.0.17
+- check by exact version "=v" added
+
+# version 0.0.17
 - a big refactoring
-- `module_name` parameter added
+- `module_name` parameter added 
 - version check when doing install from cookbook/url
 - documentation cleaned up 
 
