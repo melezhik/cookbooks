@@ -114,7 +114,7 @@ def install_perl_code install_thing = '$ARGV[0]'
     else
         cmd << "CPAN::Shell->test(#{install_thing})" 
     end
-    cmd.join ('; ')
+    cmd.join('; ')
 end
 
 def get_home 
@@ -400,7 +400,7 @@ def install_cpan_module args = { }
                 perl -MCPAN -e '
                 my $m = CPAN::Shell->expand("Module","#{module_name}");
                 if ($m->uptodate){
-                     print "#{module_name} -- OK have higher or equal version [",$m->inst_version,"]","\n";
+                     print "#{module_name} -- OK have higher or equal version [",$m->inst_version,"] [",$m->inst_file,"]\n";
                 }else{
                     #{install_perl_code}
                 }' #{install_object} 1>>#{install_log_file} 2>&1
@@ -417,7 +417,7 @@ def install_cpan_module args = { }
                 perl -MCPAN -e '
                 my $m = CPAN::Shell->expand("Module","#{module_name}");
                 if ($m->inst_version){
-                     print "#{module_name} -- OK already installed at version [",$m->inst_version,"]","\n";
+                     print "#{module_name} -- OK already installed at version [",$m->inst_version,"] [",$m->inst_file,"]\n";
                 }else{
                     #{install_perl_code}
                 }' #{install_object} 1>>#{install_log_file} 2>&1
@@ -436,7 +436,7 @@ def install_cpan_module args = { }
                 my $m = CPAN::Shell->expand("Module","#{module_name}");
                 my $inst_v = CPAN::Shell->expand("Module","#{module_name}")->inst_version;
                 if (CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
-                    print "#{module_name} -- OK : have higher or equal version [$inst_v]","\n";
+                    print "#{module_name} -- OK : have higher or equal version [$inst_v] [",$m->inst_file,"]\n";
                 }else{
                     #{install_perl_code}
                 }' #{install_object} 1>>#{install_log_file} 2>&1

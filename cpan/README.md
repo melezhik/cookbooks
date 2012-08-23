@@ -39,13 +39,12 @@ RESOURCE ATTRIBUTES
 * `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false
 * `from_cookbook` - specifies cookbook, where distributive stored at. [Check out cookbook file resource documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
-* `group` - specifies a group name for installation process
+* `user`/`group` - specifies a user/group rights for installation process
 * `inc` - specifies an Array passed to PERL5LIB environment variable (@INC), default value []
 * `install_base` - specifies install base for installation 
 * `install_path` - specifies install paths for installation, Array of Strings
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
 * `module_name` - specifies the name of cpan module to check against when doing install, useful when doing install from http url or cookbook
-* `group` - specifies a user name for installation process
 * `version` - specifies version of module, if 0 install if only module does not exist, default nil. see also module_name
 
 EXAMPLES OF USAGE

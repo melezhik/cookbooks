@@ -1,5 +1,9 @@
 # version 0.0.17
-- серьезный рефакторинг
+- a big refactoring
+- `module_name` parameter added
+- version check when doing install from cookbook/url
+- documentation cleaned up 
+
 
 # version 0.0.16
 - небольшой рефакторинг кода 
