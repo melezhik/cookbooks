@@ -443,9 +443,9 @@ def install_cpan_module args = { }
                     s/=//g for $version_required;
                 }
                 
-                if ($exact_version_check == 0 && CPAN::Version->vcmp($inst_v, "#{module_version}") >= 0){
+                if ($exact_version_check == 0 && CPAN::Version->vcmp($inst_v, $version_required) >= 0){
                     print "#{module_name} -- OK : have higher or equal version [$inst_v] [",$m->inst_file,"]\n";
-                }elsif($exact_version_check == 1 &&  CPAN::Version->vcmp($inst_v, "#{module_version}") != 0){
+                }elsif($exact_version_check == 1 &&  CPAN::Version->vcmp($inst_v, $version_required) == 0){
                     print "#{module_name} -- OK : have equal version [$inst_v] [",$m->inst_file,"]\n";
                 }else{
                     #{install_perl_code}
