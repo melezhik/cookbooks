@@ -1,5 +1,5 @@
 # version 0.0.17
-- check by exact version "=v" added
+- installs exact version now available
 
 # version 0.0.17
 - a big refactoring
@@ -21,7 +21,7 @@
 
 # version 0.0.13
 - install summary:
- - impoved, fixed and simplified
+ - improved, fixed and simplified
 
 # version 0.0.12
  - cpan-client: redirect stderr to stdout 
