@@ -1,7 +1,7 @@
 DESCRIPTION
 ===
 
-collection of chef cookbooks written by me
+collection of chef cookbooks written by me, check out stable versions at http://community.opscode.com/users/melezhik
 
 - *apache* - various apache related resources providers (LWRP)
 - *catalyst* - catalyst application provider (LWRP)
