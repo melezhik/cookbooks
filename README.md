@@ -11,6 +11,7 @@ collection of chef cookbooks written by me, check out stable versions at http://
 - *nginx-fastcgi* - create nginx site to run your fastcgi application under nginx front-end
 
 
-
-
+LINKs
+====
+- (Cooking Perl with Chef site )[http://perlchef.com/]
 
