@@ -44,8 +44,11 @@ RESOURCE ATTRIBUTES
 * `install_base` - specifies install base for installation 
 * `install_path` - specifies install paths for installation, Array of Strings
 * `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
-* `module_name` - specifies the name of cpan module to check against when doing install, useful when doing install from http url or cookbook
-* `version` - specifies version of module, if 0 install if only module does not exist, default nil. see also module_name
+* `module_name` - specifies the name of cpan module to check version against when doing install, useful when doing install from http url or cookbook
+* `version` - specifies version of module, default value is nil. see also `module_name` parameter
+   * if version defined as `version '0'` - installs only if module is not installed yet. see examples further 
+   * if version defined as `version 'version-number'` - installs by version and higher. see examples further
+   * if version defined as `version '=version-number'` - installs exact version. see examples further
 
 EXAMPLES OF USAGE
 ===
@@ -86,8 +89,8 @@ force install
 
 
 
-install by version or higher
-----------------------------
+installs version or higher
+--------------------------
 
     cpan_client 'CGI' do
         user 'root'
@@ -98,8 +101,8 @@ install by version or higher
     end
 
 
-install only if module not exists
----------------------------------
+installs only if module is not installed yet
+--------------------------------------------
 
     cpan_client 'CGI' do
         user 'root'
@@ -109,9 +112,9 @@ install only if module not exists
         action 'install'
     end
 
-install exact version
----------------------
-    # exact version installed available only for install from cookbook or from http url
+installs exact version of module
+--------------------------------
+    # exact version installation is available only for install from cookbook or from http url
 
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
         user 'root'
@@ -131,8 +134,8 @@ install exact version
     end
 
 
-install distributive stored in cookbook
----------------------------------------
+installs distributive stored in cookbook
+----------------------------------------
 
     cpan_client 'Moose-1.24.tar.gz' do
         user 'root'
@@ -142,7 +145,7 @@ install distributive stored in cookbook
         action 'install'
     end
 
-install distributive stored in cookbook with version check
+installs distributive stored in cookbook with version check
 -----------------------------------------------------------
 
     cpan_client 'Moose-1.24.tar.gz' do
@@ -154,8 +157,8 @@ install distributive stored in cookbook with version check
         action 'install'
     end
 
-install from http url
----------------------
+installs from http url
+----------------------
     # only http protocol now is supported:
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
         user 'root'
@@ -163,8 +166,8 @@ install from http url
         action 'install'
     end
 
-install from http url with version check
-----------------------------------------
+installs from http url with version check
+-----------------------------------------
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.58.tar.gz' do
         user 'root'
         group 'root'
@@ -173,8 +176,8 @@ install from http url with version check
         action 'install'
     end
 
-install into given install_base
--------------------------------
+installs into given install_base
+--------------------------------
 
     cpan_client 'CGI' do
         user 'root'
@@ -185,8 +188,8 @@ install into given install_base
     end
 
 
-install into given install_base with relative_path
---------------------------------------------------
+installs into given install_base with relative_path
+---------------------------------------------------
 
     # will install into '/home/alex/mydir'
     cpan_client 'CGI' do
@@ -200,8 +203,8 @@ install into given install_base with relative_path
 
 
 
-install with given install_path
--------------------------------
+installs with given install path
+--------------------------------
 
     # will override settings for `htdocs` and `config` elements
     cpan_client 'Module' do
@@ -212,8 +215,8 @@ install with given install_path
         action 'install'
     end
 
-install application from current working directory
---------------------------------------------------
+installs distributive unpacked in current working directory
+-----------------------------------------------------------
 
     cpan_client 'my application' do
         user 'root'
@@ -222,8 +225,8 @@ install application from current working directory
         action 'install'
     end
 
-install under not privileged user
----------------------------------
+installs under not privileged user
+----------------------------------
 
     # will install into $PWD/cpanlib directory
     cpan_client 'my application' do
@@ -234,8 +237,8 @@ install under not privileged user
         action 'install'
     end
 
-reload cpan indexes
--------------------
+reloads cpan indexes
+--------------------
 
     cpan_client 'reload cpan index' do
         user 'user'
