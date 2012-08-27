@@ -1,6 +1,6 @@
 actions :install, :test, :reload_cpan_index
 attribute :cpan_home, :kind_of => String
-attribute :cwd , :kind_of => String, :default => ENV['PWD']
+attribute :cwd , :kind_of => String, :default => '/tmp/'
 attribute :dry_run, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :environment , :kind_of => Hash, :default => Hash.new
 attribute :force, :kind_of => [TrueClass, FalseClass], :default => false

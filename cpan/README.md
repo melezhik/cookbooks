@@ -34,7 +34,7 @@ RESOURCE ACTIONS
 RESOURCE ATTRIBUTES
 ===
 
-* `cwd` - specifies current working directory where installation process runs
+* `cwd` - specifies current working directory where installation process runs, default values is '/tmp/'
 * `dry_run` - specifies whether to run installation process in dry-run mode or not, default - false 
 * `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false

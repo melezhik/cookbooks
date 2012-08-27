@@ -1,4 +1,7 @@
-# version 0.0.17
+# version 0.0.19
+- default value for cwd is '/tmp/'
+
+# version 0.0.18
 - installs exact version now available
 
 # version 0.0.17
