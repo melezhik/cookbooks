@@ -6,7 +6,9 @@ default.cpan_client.bootstrap.deps = [
  { :module => 'CPAN::Meta::YAML' , :version => '0' },
  { :module =>  'File::Path' , :version => '2.08' },  
  { :module =>  'Dist::Metadata' , :version => '0' }, 
- { :module => 'Module::Build' , :version => '0.36_17' }
+ { :module => 'Module::Build' , :version => '0.36_17' },
+ { :module => 'Term::ReadLine::Perl' , :version => '0' },
+ { :module => 'Term::ReadKey' , :version => '0' }
 ]
 
 default.cpan_client.bootstrap.install_base = nil

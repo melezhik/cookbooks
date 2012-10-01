@@ -1,3 +1,6 @@
+# 0.0.8
+- checks if daemon already running before start
+
 # 0.0.7
 - --proc-title parameter (only works with Catalyst 5.90015)
 

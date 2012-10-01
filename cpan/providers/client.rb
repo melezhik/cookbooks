@@ -1,3 +1,5 @@
+require 'iconv'
+
 def load_current_resource
 
   @installer = Chef::Resource::CpanClient.new(new_resource.name)
@@ -79,6 +81,8 @@ end
 
 def install_log 
 
+  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+
   my_installed_module = installed_module
   force_mode = @installer.force
   ruby_block 'install-log' do
@@ -86,16 +90,17 @@ def install_log
         print ">>> #{my_installed_module} install summary <<<\n"
         prev_line = ''
         IO.foreach(install_log_file) do |l|
-            print "   #{l.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
-            if /Stopping: 'install' failed/.match(l)
+            valid_string = ic.iconv(l + ' ')[0..-2]
+            print "   #{valid_string.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(valid_string)
+            if /Stopping: 'install' failed/.match(valid_string)
                 if force_mode == true
-                    Chef::Log.warn("error occured : #{l}[#{prev_line}]") 
+                    Chef::Log.warn("error occured : #{valid_string}[#{prev_line}]") 
                     Chef::Log.info("will continue because we are in force_mode = true mode") 
                 else
-                    raise "#{l}[#{prev_line}]\n"
+                    raise "#{valid_string}[#{prev_line}]\n"
                 end   
             end
-            prev_line = l.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
+            prev_line = valid_string.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
         end
     end
   end
