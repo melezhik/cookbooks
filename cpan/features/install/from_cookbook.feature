@@ -20,7 +20,7 @@ Scenario: install cpan module
     And I run 'perl -MBundler -e 1'
     Then it should exit '0'
 
-Scenario: try to install cpan module with incorrect distibutive name
+Scenario: try to install cpan module with unexisted distributive 
     * I run 'pm-uninstall -nf Bundler'
     * it should exit '0'
     * I run 'perl -MBundler -e 1'
@@ -37,7 +37,7 @@ Scenario: try to install cpan module with incorrect distibutive name
     end
     """
     When I run chef recipe on my node
-    Then 'stdout' should have 'RuntimeError: distributive name Bundler does not match .* pattern'
+    Then 'stdout' should have 'Errno::ENOENT: No such file or directory'
     When I run 'perl -MBundler -e 1'
     Then it should exit '2'
     And 'stderr' should have 'Can't locate Bundler\.pm'
