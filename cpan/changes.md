@@ -1,3 +1,7 @@
+# version 0.0.21
+- turning 'ERRORS/WARNINGS FOUND IN PREREQUISITES' into exception
+- cpan::bootstrap - AUTOMATED_TESTING enabled (https://github.com/melezhik/cookbooks/issues/1)
+
 # version 0.0.20
 - cpan::bootstrap - added some vital Modules 
 - cpan_client - handling untrusted strings with Iconv when grep cpan logs

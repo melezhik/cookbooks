@@ -18,6 +18,7 @@ node.cpan_client.bootstrap.deps.each  do |m|
   version m[:version]
   action 'install'
   install_base node.cpan_client.bootstrap.install_base
+  environment({'AUTOMATED_TESTING' => '1'})
  end
 end
 

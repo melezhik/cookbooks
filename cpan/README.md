@@ -34,21 +34,21 @@ RESOURCE ACTIONS
 RESOURCE ATTRIBUTES
 ===
 
-* `cwd` - specifies current working directory where installation process runs, default values is '/tmp/'
-* `dry_run` - specifies whether to run installation process in dry-run mode or not, default - false 
+* `cwd` - specifies current working directory where installation process runs, default value is `/tmp/`
+* `dry_run` - specifies whether to run installation process in dry-run mode or not, default value is `false`
 * `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false
 * `from_cookbook` - specifies cookbook, where distributive stored at. [Check out cookbook file resource documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
-* `user`/`group` - specifies a user/group rights for installation process
-* `inc` - specifies an Array passed to PERL5LIB environment variable (@INC), default value []
-* `install_base` - specifies install base for installation 
-* `install_path` - specifies install paths for installation, Array of Strings
-* `install_type` - whether to install as cpan module or as application : cpan_module, application; default - application
-* `module_name` - specifies the name of cpan module to check version against when doing install, useful when doing install from http url or cookbook
-* `version` - specifies version of module, default value is nil. see also `module_name` parameter
-   * if version defined as `version '0'` - installs only if module is not installed yet. see examples further 
-   * if version defined as `version 'version-number'` - installs by version and higher. see examples further
-   * if version defined as `version '=version-number'` - installs exact version. see examples further
+* `user`/`group` - specifies a user/group for installation process
+* `inc` - specifies perl @INC array
+* `install_base` - specifies installation base
+* `install_path` - specifies installation paths
+* `install_type` - specifies installation type : cpan_module, application; default - application
+* `module_name` - specifies the name of cpan module to check version against when install, useful when installing from http url or cookbook
+* `version` - specifies version of module to install, see also `module_name` parameter
+   * if version defined as `version '0'` - installs only if module is not installed yet
+   * if version defined as `version 'version-number'` - installs by version and higher
+   * if version defined as `version '=version-number'` - installs exact version
 
 EXAMPLES OF USAGE
 ===
@@ -65,8 +65,8 @@ fake install
 
 
 
-do not install, only run tests
-------------------------------
+does not install, only run tests
+--------------------------------
     cpan_client 'CGI' do
         user 'root'
         group 'root'
@@ -157,8 +157,8 @@ installs distributive stored in cookbook with version check
         action 'install'
     end
 
-installs from http url
-----------------------
+installs distributive  strored remotely
+---------------------------------------
     # only http protocol now is supported:
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
         user 'root'
@@ -166,8 +166,8 @@ installs from http url
         action 'install'
     end
 
-installs from http url with version check
------------------------------------------
+installs distributive  strored remotely with version check
+----------------------------------------------------------
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.58.tar.gz' do
         user 'root'
         group 'root'
@@ -176,8 +176,8 @@ installs from http url with version check
         action 'install'
     end
 
-installs into given install_base
---------------------------------
+installs into given installation base
+-------------------------------------
 
     cpan_client 'CGI' do
         user 'root'
@@ -188,8 +188,8 @@ installs into given install_base
     end
 
 
-installs into given install_base with relative_path
----------------------------------------------------
+installs into given installation base, relative to given cwd
+------------------------------------------------------------
 
     # will install into '/home/alex/mydir'
     cpan_client 'CGI' do
@@ -203,8 +203,8 @@ installs into given install_base with relative_path
 
 
 
-installs with given install path
---------------------------------
+installs with given install paths
+---------------------------------
 
     # will override settings for `htdocs` and `config` elements
     cpan_client 'Module' do

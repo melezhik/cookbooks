@@ -92,7 +92,7 @@ def install_log
         IO.foreach(install_log_file) do |l|
             valid_string = ic.iconv(l + ' ')[0..-2]
             print "   #{valid_string.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(valid_string)
-            if /Stopping: 'install' failed/.match(valid_string)
+            if /Stopping: 'install' failed/.match(valid_string) or /ERRORS\/WARNINGS FOUND IN PREREQUISITES/.match(valid_string)
                 if force_mode == true
                     Chef::Log.warn("error occured : #{valid_string}[#{prev_line}]") 
                     Chef::Log.info("will continue because we are in force_mode = true mode") 
