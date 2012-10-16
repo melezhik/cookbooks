@@ -1,3 +1,7 @@
+# version 0.0.22
+- replace Iconv by encode
+- do not turn 'ERRORS/WARNINGS FOUND IN PREREQUISITES'  into exception
+
 # version 0.0.21
 - turning 'ERRORS/WARNINGS FOUND IN PREREQUISITES' into exception
 - cpan::bootstrap - AUTOMATED_TESTING enabled (https://github.com/melezhik/cookbooks/issues/1)

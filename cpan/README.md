@@ -53,8 +53,8 @@ RESOURCE ATTRIBUTES
 EXAMPLES OF USAGE
 ===
 
-fake install
-------------
+## fake install
+
     cpan_client 'CGI' do
         user 'root'
         group 'root'
@@ -65,8 +65,8 @@ fake install
 
 
 
-does not install, only run tests
---------------------------------
+## does not install, only run tests
+
     cpan_client 'CGI' do
         user 'root'
         group 'root'
@@ -76,8 +76,7 @@ does not install, only run tests
 
 
 
-force install
--------------
+## force install
 
     cpan_client 'CGI' do
         user 'root'
@@ -89,8 +88,7 @@ force install
 
 
 
-installs version or higher
---------------------------
+## installs version or higher
 
     cpan_client 'CGI' do
         user 'root'
@@ -101,8 +99,7 @@ installs version or higher
     end
 
 
-installs only if module is not installed yet
---------------------------------------------
+## installs only if module is not installed yet
 
     cpan_client 'CGI' do
         user 'root'
@@ -112,8 +109,8 @@ installs only if module is not installed yet
         action 'install'
     end
 
-installs exact version of module
---------------------------------
+## installs exact version of module
+
     # exact version installation is available only for install from cookbook or from http url
 
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
@@ -134,8 +131,7 @@ installs exact version of module
     end
 
 
-installs distributive stored in cookbook
-----------------------------------------
+## installs distributive stored in cookbook
 
     cpan_client 'Moose-1.24.tar.gz' do
         user 'root'
@@ -145,8 +141,7 @@ installs distributive stored in cookbook
         action 'install'
     end
 
-installs distributive stored in cookbook with version check
------------------------------------------------------------
+## installs distributive stored in cookbook with version check
 
     cpan_client 'Moose-1.24.tar.gz' do
         user 'root'
@@ -157,8 +152,8 @@ installs distributive stored in cookbook with version check
         action 'install'
     end
 
-installs distributive  strored remotely
----------------------------------------
+## installs distributive  strored remotely
+
     # only http protocol now is supported:
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.59.tar.gz' do
         user 'root'
@@ -166,8 +161,8 @@ installs distributive  strored remotely
         action 'install'
     end
 
-installs distributive  strored remotely with version check
-----------------------------------------------------------
+## installs distributive  strored remotely with version check
+
     cpan_client 'http://search.cpan.org/CPAN/authors/id/M/MA/MARKSTOS/CGI.pm-3.58.tar.gz' do
         user 'root'
         group 'root'
@@ -176,8 +171,7 @@ installs distributive  strored remotely with version check
         action 'install'
     end
 
-installs into given installation base
--------------------------------------
+## installs into given installation base
 
     cpan_client 'CGI' do
         user 'root'
@@ -188,8 +182,7 @@ installs into given installation base
     end
 
 
-installs into given installation base, relative to given cwd
-------------------------------------------------------------
+## installs into given installation base, relative to given cwd
 
     # will install into '/home/alex/mydir'
     cpan_client 'CGI' do
@@ -203,8 +196,7 @@ installs into given installation base, relative to given cwd
 
 
 
-installs with given install paths
----------------------------------
+## installs with given install paths
 
     # will override settings for `htdocs` and `config` elements
     cpan_client 'Module' do
@@ -215,8 +207,7 @@ installs with given install paths
         action 'install'
     end
 
-installs distributive unpacked in current working directory
------------------------------------------------------------
+## installs distributive unpacked in current working directory
 
     cpan_client 'my application' do
         user 'root'
@@ -225,8 +216,7 @@ installs distributive unpacked in current working directory
         action 'install'
     end
 
-installs under not privileged user
-----------------------------------
+## installs under not privileged user
 
     # will install into $PWD/cpanlib directory
     cpan_client 'my application' do
@@ -237,8 +227,7 @@ installs under not privileged user
         action 'install'
     end
 
-reloads cpan indexes
---------------------
+## reloads cpan indexes
 
     cpan_client 'reload cpan index' do
         user 'user'
@@ -247,8 +236,7 @@ reloads cpan indexes
     end
 
 
-Features
-===
+## Features
 
 For complete examples of usage see cucumber features at https://github.com/melezhik/cookbooks/tree/master/cpan/features/
 

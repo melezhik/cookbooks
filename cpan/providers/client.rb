@@ -1,4 +1,3 @@
-require 'iconv'
 
 def load_current_resource
 
@@ -81,8 +80,6 @@ end
 
 def install_log 
 
-  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
-
   my_installed_module = installed_module
   force_mode = @installer.force
   ruby_block 'install-log' do
@@ -90,17 +87,23 @@ def install_log
         print ">>> #{my_installed_module} install summary <<<\n"
         prev_line = ''
         IO.foreach(install_log_file) do |l|
-            valid_string = ic.iconv(l + ' ')[0..-2]
-            print "   #{valid_string.chomp} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(valid_string)
-            if /Stopping: 'install' failed/.match(valid_string) or /ERRORS\/WARNINGS FOUND IN PREREQUISITES/.match(valid_string)
+
+        begin
+          l.encode! Encoding::UTF_8 if l.encoding != Encoding::UTF_8
+        rescue Encoding::UndefinedConversionError
+           #string incorrectly encoded try force
+           l.force_encoding Encoding::UTF_8
+        end
+            print "   #{l} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
+            if /Stopping: 'install' failed/.match(l) # or /ERRORS\/WARNINGS FOUND IN PREREQUISITES/.match(l)
                 if force_mode == true
-                    Chef::Log.warn("error occured : #{valid_string}[#{prev_line}]") 
+                    Chef::Log.warn("error occured : #{l}[#{prev_line}]") 
                     Chef::Log.info("will continue because we are in force_mode = true mode") 
                 else
-                    raise "#{valid_string}[#{prev_line}]\n"
+                    raise "#{l}[#{prev_line}]\n"
                 end   
             end
-            prev_line = valid_string.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
+            prev_line = l.chomp.gsub(/^\s+/,"").gsub(/\s+$/,"")
         end
     end
   end
