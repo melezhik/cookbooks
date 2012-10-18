@@ -1,12 +1,3 @@
-#
-# Cookbook Name:: cpan
-# Recipe:: default
-#
-# Copyright 2011, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
-
 directory '/tmp/local-lib/' do
   action :delete
   recursive true 

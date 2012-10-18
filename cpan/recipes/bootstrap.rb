@@ -11,14 +11,14 @@ execute 'upgrade cpan client to proper version' do
 end
 
 node.cpan_client.bootstrap.deps.each  do |m|
- cpan_client m[:module] do
-  user 'root'
-  group 'root'
-  install_type 'cpan_module'
-  version m[:version]
-  action 'install'
-  install_base node.cpan_client.bootstrap.install_base
-  environment({'AUTOMATED_TESTING' => '1'})
- end
+    cpan_client m[:module] do
+        user 'root'
+        group 'root'
+        install_type 'cpan_module'
+        version m[:version]
+        action 'install'
+        install_base node.cpan_client.bootstrap.install_base
+        environment({'AUTOMATED_TESTING' => '1'})
+    end
 end
 

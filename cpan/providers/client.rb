@@ -78,6 +78,7 @@ def install_log_file
   "/tmp/local-lib/#{installed_module}-install.log"
 end
 
+
 def install_log 
 
   my_installed_module = installed_module
@@ -88,14 +89,14 @@ def install_log
         prev_line = ''
         IO.foreach(install_log_file) do |l|
 
-        begin
-          l.encode! Encoding::UTF_8 if l.encoding != Encoding::UTF_8
-        rescue Encoding::UndefinedConversionError
-           #string incorrectly encoded try force
-           l.force_encoding Encoding::UTF_8
-        end
+        #begin
+        #  l.encode! Encoding::UTF_8 if l.encoding != Encoding::UTF_8
+        #rescue Encoding::UndefinedConversionError
+        #   #string incorrectly encoded try force
+        #   l.force_encoding Encoding::UTF_8
+        #end
             print "   #{l} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(l)
-            if /Stopping: 'install' failed/.match(l) # or /ERRORS\/WARNINGS FOUND IN PREREQUISITES/.match(l)
+            if /Stopping: 'install' failed/.match(l)
                 if force_mode == true
                     Chef::Log.warn("error occured : #{l}[#{prev_line}]") 
                     Chef::Log.info("will continue because we are in force_mode = true mode") 
@@ -192,7 +193,7 @@ action :reload_cpan_index do
 
   log 'reload cpan index'
   execute "reload cpan index" do
-    command 'perl -MCPAN -e "CPAN::Index->reload"'
+    command 'echo "reload index" | cpan'
     action :run
     user user
     group group

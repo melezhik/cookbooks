@@ -1,3 +1,8 @@
+# version 0.0.23
+- fix for unstrusted string hanlding commented (does not work for ruby 1.8.*)
+- reload index action implemented now by `reload index` cpan client command
+- bootstrap list minimized
+
 # version 0.0.22
 - replace Iconv by encode
 - do not turn 'ERRORS/WARNINGS FOUND IN PREREQUISITES'  into exception
