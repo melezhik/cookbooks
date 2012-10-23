@@ -1,3 +1,6 @@
+# version 0.0.24
+- workaround for invalid byte sequence in UTF-8
+
 # version 0.0.23
 - fix for unstrusted string hanlding commented (does not work for ruby 1.8.*)
 - reload index action implemented now by `reload index` cpan client command
