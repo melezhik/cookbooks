@@ -1,3 +1,7 @@
+0.0.9
+===
+- new parameter `fastcgi_read_timeout`
+
 0.0.8
 ===
 - new parameter - `error_page`

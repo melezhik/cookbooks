@@ -1,8 +1,8 @@
 # Description
-Create nginx site to run your fastcgi application under nginx front-end
+Creates nginx site to run your fastcgi application with nginx front-end
 
 # Requirements
-Should work on any platform where nginx is installed. Tested on Ubuntu.
+Should work on any platform where nginx is installed. Tested on Ubuntu/Debian.
 
 # Limitations
 fastcgi standalone server mode is only supported
@@ -10,30 +10,30 @@ fastcgi standalone server mode is only supported
 # DEFINITIONS
 ``nginx_fastcgi``
 
-This definition can be used to create nginx site to run your fastcgi application under nginx front-end.
+This definition can be used to create nginx site to run your fastcgi application with nginx front-end.
  
 The definition takes the following parameters:
  
-* name: specifies a single path (string) where nginx site config will be installed. No default, this must be specified.
-* socket: specifies the port or socket on which the FastCGI-server is listening. No default, this must be specified. 
-  Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
-* static: specifies location of static files (not handled by application, but nginx), is the Array of Hashes or hash with following keys:
-   * location
-   * root
-* servers: specifies all virtual hosts to be included into site config, is an Array of Hashes with following keys:
-   * ip
-   * server_name
-   * ssl
-   * ssl_include_path
-   * error_page
-   * redirect
-* cookbook: specifies the cookbook name where template source comes from. By default it will use the cookbook where the definition is used.
-* fastcgi_param: specifies additional fastcgi_params to be included into location block
-* error_page - specifies custom error pages. Is an Array of Hashes with following keys (check out http://wiki.nginx.org/HttpCoreModule#error_page for details):
+* `name`: specifies a path for nginx site configuration file. No default, this must be specified.
+* `socket`: specifies unix/inet socket of FastCGI server. No default, this must be specified. Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
+* `static`: specifies location of static files (to be handled by nginx). Array of Hashes or hash with following keys:
+   * `location`
+   * `root`
+* `servers`: specifies virtual hosts to be included into ngix site configuration. Array of Hashes with following keys:
+   * `ip`
+   * `server_name`
+   * `ssl`
+   * `ssl_include_path`
+   * `error_page`
+   * `redirect`
+* `cookbook`: specifies the cookbook with nginx site configuration template. Optional
+* `fastcgi_param`: specifies additional fastcgi params
+* `error_page` - specifies custom error pages. Array of Hashes with following keys:
  * code
  * handler
-* fastcgi_intercept_errors - specify value for fastcgi_intercept_errors, 
-check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for datails. Default value is false
+Check out http://wiki.nginx.org/HttpCoreModule#error_page for details
+* `fastcgi_intercept_errors` - specify value for fastcgi_intercept_errors. Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for details. Default value is false
+* `fastcgi_read_timeout` - specify value for fastcgi read timeout. Check out http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_read_timeout for details. Default value is nil.
 
 # Usage cases
 
@@ -49,7 +49,7 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
         ]
     end
 
-## ssl enabled named virtual host
+## ssl enabled virtual host
     
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -63,7 +63,7 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
         ]
     end
 
-## setting document root
+## set document root
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         root  '/var/www/MyApp/root'
@@ -75,7 +75,7 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
         ]
     end
 
-## doing http -> https redirect
+## enabling http -> https redirect
 
  # all http traffic get redirected to https host:
     
@@ -111,7 +111,7 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
         ]
     end
 
-## setup specific fastcgi_params:
+## set specific fastcgi params:
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -126,7 +126,7 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
         ]
     end
 
-## setup error_page, code 500
+## set error page, code 500
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
@@ -142,7 +142,8 @@ check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for d
             }
         ]
     end
+---
 
-# Features
 For complete examples of usage see https://github.com/melezhik/cookbooks/tree/master/nginx-fastcgi/features
+
 

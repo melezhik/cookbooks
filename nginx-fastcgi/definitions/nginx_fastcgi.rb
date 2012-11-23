@@ -36,7 +36,8 @@ define :nginx_fastcgi, :servers => [], :root => nil, :static => [], :fastcgi_par
             :fastcgi_param => params[:fastcgi_param],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name])),
             :error_page => params[:error_page],
-            :fastcgi_intercept_errors => params[:fastcgi_intercept_errors]
+            :fastcgi_intercept_errors => params[:fastcgi_intercept_errors],
+            :fastcgi_read_timeout => params[:fastcgi_read_timeout]
         })
         
     end
