@@ -31,6 +31,7 @@ The definition takes the following parameters:
 * `error_page` - specifies custom error pages. Array of Hashes with following keys:
  * code
  * handler
+
 Check out http://wiki.nginx.org/HttpCoreModule#error_page for details
 * `fastcgi_intercept_errors` - specify value for fastcgi_intercept_errors. Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for details. Default value is false
 * `fastcgi_read_timeout` - specify value for fastcgi read timeout. Check out http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_read_timeout for details. Default value is nil.
@@ -142,7 +143,8 @@ Check out http://wiki.nginx.org/HttpCoreModule#error_page for details
             }
         ]
     end
----
+
+------
 
 For complete examples of usage see https://github.com/melezhik/cookbooks/tree/master/nginx-fastcgi/features
 
