@@ -15,7 +15,11 @@ This definition can be used to create nginx site to run your fastcgi application
 The definition takes the following parameters:
  
 * `name`: specifies a path for nginx site configuration file. No default, this must be specified.
-* `socket`: specifies unix/inet socket of FastCGI server. No default, this must be specified. Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
+* `socket`: specifies unix socket of FastCGI server. 
+* `inet_socket`: specifies inet socket of FastCGI server. No default nil. Choose either unix or inet socket. 
+
+Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
+
 * `static`: specifies location of static files (to be handled by nginx). Array of Hashes or hash with following keys:
    * `location`
    * `root`
@@ -33,6 +37,7 @@ The definition takes the following parameters:
  * handler
 
 Check out http://wiki.nginx.org/HttpCoreModule#error_page for details
+
 * `fastcgi_intercept_errors` - specify value for fastcgi_intercept_errors. Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_intercept_errors for details. Default value is false
 * `fastcgi_read_timeout` - specify value for fastcgi read timeout. Check out http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_read_timeout for details. Default value is nil.
 

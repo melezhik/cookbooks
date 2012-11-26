@@ -1,7 +1,7 @@
 define :nginx_fastcgi, :servers => [], :root => nil, :static => [], :fastcgi_param => [], :error_page => [], :fastcgi_intercept_errors => false do
 
-    if params[:socket].nil? || params[:socket].empty?
-        message = 'you should setup socket param. '
+    if (params[:socket].nil? || params[:socket].empty?)  and (params[:inet_socket].nil? || params[:inet_socket].empty?)
+        message = 'you should setup either socket or inet_socket param. '
         raise message
     end
 
@@ -32,6 +32,7 @@ define :nginx_fastcgi, :servers => [], :root => nil, :static => [], :fastcgi_par
             :static => ( (params[:static].is_a? Hash) ? [params[:static]] : params[:static] ),
             :root => params[:root],
             :socket => params[:socket],
+            :inet_socket => params[:inet_socket],
             :servers => params[:servers],
             :fastcgi_param => params[:fastcgi_param],
             :site_name => File.basename(params[:name]).chomp(File.extname(params[:name])),

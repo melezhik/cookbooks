@@ -53,6 +53,6 @@ Scenario: try to install without server_name
         end
     """
     When I run chef recipe on my node
-    Then 'stdout' should have 'RuntimeError: you should setup socket'
+    Then 'stdout' should have 'RuntimeError: you should setup either socket or inet_socket'
     Then a file named '/tmp/foo.site.conf' should not exist
 

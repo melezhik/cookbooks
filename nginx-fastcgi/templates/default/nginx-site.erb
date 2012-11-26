@@ -40,7 +40,12 @@ server {
         <%- if s[:redirect].nil? || s[:redirect].empty? %>
         location <%= s[:location] %> {
             include fastcgi_params;
+            <%- if ! @socket.nil? && ! @socket.empty? %>
             fastcgi_pass  unix:<%= @socket %>;
+            <%- end %>
+            <%- if ! @inet_socket.nil? && ! @inet_socket.empty? %>
+            fastcgi_pass  <%= @inet_socket %>;
+            <%- end %>
         <%- if s[:ssl] == true %>
             fastcgi_param  HTTPS on;
         <%- end %>

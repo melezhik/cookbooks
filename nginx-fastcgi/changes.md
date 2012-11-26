@@ -1,3 +1,7 @@
+0.0.10
+=== 
+- support for inet sockets (https://github.com/melezhik/cookbooks/issues/4)
+
 0.0.9
 ===
 - new parameter `fastcgi_read_timeout`
