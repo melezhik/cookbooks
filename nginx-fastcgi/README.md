@@ -16,7 +16,7 @@ The definition takes the following parameters:
  
 * `name`: specifies a path for nginx site configuration file. No default, this must be specified.
 * `socket`: specifies unix socket of FastCGI server. 
-* `inet_socket`: specifies inet socket of FastCGI server. No default nil. Choose either unix or inet socket. 
+* `inet_socket`: specifies inet socket of FastCGI server. No default. Choose either unix or inet socket. 
 
 Check out http://wiki.nginx.org/HttpFastcgiModule#fastcgi_pass for details.
 
@@ -47,6 +47,18 @@ Check out http://wiki.nginx.org/HttpCoreModule#error_page for details
 
     nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
         socket '/tmp/application.socket'
+        servers [
+            {
+                :ip => '127.0.0.1',
+                :server_name => 'foo.site.x'
+            }
+        ]
+    end
+
+## fastcgi running on inet socket
+
+    nginx_fastcgi '/etc/nginx/sites-available/foo.site.conf' do
+        inet_socket 'localhost:9000'
         servers [
             {
                 :ip => '127.0.0.1',
