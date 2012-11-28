@@ -55,9 +55,6 @@ server {
         <%- if @fastcgi_intercept_errors == true %>
             fastcgi_intercept_errors on;
         <%- end %>
-        <%- if @fastcgi_intercept_errors == true %>
-            fastcgi_intercept_errors on;
-        <%- end %>
         <%- unless @fastcgi_read_timeout.nil? || @fastcgi_read_timeout.empty? %>
             fastcgi_read_timeout <%= @fastcgi_read_timeout %>;
         <%- end %>

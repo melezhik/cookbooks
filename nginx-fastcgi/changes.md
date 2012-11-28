@@ -1,3 +1,7 @@
+0.0.11
+=== 
+- bug fix : duplicate fastcgi_intercept_errors
+
 0.0.10
 === 
 - support for inet sockets (https://github.com/melezhik/cookbooks/issues/4)

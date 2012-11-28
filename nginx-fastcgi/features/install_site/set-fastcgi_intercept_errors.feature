@@ -17,7 +17,7 @@ Scenario: install nginx site config
     """
     When I run chef recipe on my node
     Then a file named '/tmp/foo.site.conf' should exist
-    And a file named '/tmp/foo.site.conf' should contain 'fastcgi_intercept_errors on;'
+    And a file named '/tmp/foo.site.conf' should contain 'fastcgi_intercept_errors on;' only '1' time
 
 
 
