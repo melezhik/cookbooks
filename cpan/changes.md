@@ -1,3 +1,6 @@
+# version 0.0.25
+- cpan index force reload
+
 # version 0.0.24
 - workaround for invalid byte sequence in UTF-8
 

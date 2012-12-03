@@ -198,7 +198,7 @@ action :reload_cpan_index do
 
   log 'reload cpan index'
   execute "reload cpan index" do
-    command 'echo "reload index" | cpan'
+    command 'perl -MCPAN -e "CPAN::Index->force_reload"'
     action :run
     user user
     group group
