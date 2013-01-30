@@ -1,3 +1,4 @@
+name             "cpan"
 maintainer       "Alexey Melezhik"
 maintainer_email "melezhik@gmail.com"
 license          "All rights reserved"
