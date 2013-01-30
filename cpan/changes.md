@@ -1,5 +1,6 @@
 # version 0.0.25
 - cpan index force reload
+- explicit cookbook name in metadata (https://github.com/melezhik/cookbooks/pull/5)
 
 # version 0.0.24
 - workaround for invalid byte sequence in UTF-8
