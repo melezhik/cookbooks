@@ -1,30 +1,46 @@
 # Description
-installs, configures, runs psgi application as fastcgi server
+
+configures and runs psgi application as fastcgi server
+
+# Features
+
+## web servers supported
+- FCGI (more coming soon)
+
+## web frameworks supported
+- [Catalyst](http://search.cpan.org/perldoc?Catalyst)
+- [Jifty](http://search.cpan.org/perldoc?Jifty)
+- [Dancer](http://search.cpan.org/perldoc?Dancer)
+
 
 # Definitions
 psgi_application
 
+
 # Definitions parameters
-- operator `(Catalyst|Dancer)`, default value `Catalyst`
-- application_user
-- application_home
-- script - path to psgi script
-- daemon_name, optional
-- socket, optional
-- environment, default value `{}`
-- perl5lib, default value `[]`
-- nproc, default value `1`
-- proc_manager, default value `nil`
-- proc_title, optional
-- mount, default value `nil` 
-- config 
-- debug, default value `1`
-- plackup_environment, default value `development`
-- cookbook, default value `psgi`
+- `operator` (Catalyst|Dancer|Jifty)`, default value `Catalyst`
+- `application_user`, change to this username before starting the process
+- `application_home`, absolute path to directory holding application home
+- `enable_service`, whether to add service to run levels, default `on`
+- `script` - absolute path to psgi script
+- `daemon_name`, optional, if not set evaluted as basename from `script` 
+- `daemon_path` - absolute path to daemon, optional, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
+- `socket`, optional
+- `environment`, default value `{}`, hash containing environmental variables
+- `perl5lib`, default value `[]`, array containing perl5lib paths
+- `nproc`, default value `1`, number of child processes to launch
+- `proc_manager`, default value `nil`
+- `proc_title`, optional, how the processes are seen in process list
+- `mount`, default value `nil` 
+- `config`, absolute path to application configuration file, optional for operator => 'Dancer'
+- `debug`, default value `1`
+- `plackup_environment`, default value `development`
+- `cookbook`, default value `psgi`, the name of cookbook where init script template coming from
 
 
 # Usage example
 
+    # run Catalyst Application (default flavour)
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
@@ -33,13 +49,22 @@ psgi_application
         action              'install'      
     end
 
-    # run dancer application
+    # run Dancer application
+    psgi_application 'my application' do
+        application_user    'user'
+        application_home    '/home/user/app/MyApplication'
+        script              '/home/user/app/MyApplication/scripts/foo.psgi'
+        operator            'Dancer'
+        action              'install'      
+    end
+
+    # run Jifty application
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
         config              '/home/user/app/MyApplication/app.conf'
-        operator            'Dancer'
+        operator            'Jifty'
         action              'install'      
     end
     

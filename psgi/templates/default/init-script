@@ -76,6 +76,8 @@ do_start()
         CATALYST_CONFIG=<%= @config %>  CATALYST_DEBUG=<%= @debug %> \
         <%- elsif @operator == 'Dancer' %>
         DANCER_CONFDIR="${APPLICATION_HOME}" \
+        <%- elsif @operator == 'Jifty' %>
+        JIFTY_CONFIG="<%= @config %>" \
         <%- end %>
         PERL5LIB="${PERL5LIB}" \
 	    start-stop-daemon -d $APPLICATION_HOME \
