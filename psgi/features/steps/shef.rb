@@ -7,9 +7,9 @@ Given /^I run chef recipe on my node$/ do
  cmd = "cat #{cache_dir}/shef.cmd | "
   
  if before_cmd.nil? 
-    cmd << "shef -z -c ~/.chef/knife.rb" 
+    cmd << "shef -z -c #{ENV['chef_config']}" 
  else
-    cmd << "(#{before_cmd}; shef -z -c ~/.chef/knife.rb)"
+    cmd << "(#{before_cmd}; shef -z #{ENV['chef_config']})"
  end
  
  puts cmd if ENV['debug']

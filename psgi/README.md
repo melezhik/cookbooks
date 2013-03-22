@@ -18,7 +18,7 @@ psgi_application
 
 
 # Definitions parameters
-- `operator` (Catalyst|Dancer|Jifty)`, default value `Catalyst`
+- `operator` (Catalyst|Dancer|Jifty), default value `Catalyst`
 - `application_user`, change to this username before starting the process
 - `application_home`, absolute path to directory holding application home
 - `enable_service`, whether to add service to run levels, default `on`
