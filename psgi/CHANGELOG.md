@@ -2,8 +2,10 @@
 
 This file is used to list changes made in each version of psgi.
 
-## 0.0.5:
+## 0.0.6
+* delete old files
 
+## 0.0.5:
 * documentation gets more cleare
 * `enabled_service` is `on` by default 
 
