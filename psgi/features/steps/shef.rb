@@ -7,9 +7,9 @@ Given /^I run chef recipe on my node$/ do
  cmd = "cat #{cache_dir}/shef.cmd | "
   
  if before_cmd.nil? 
-    cmd << "shef -z -c ~/etc/chef/client.rb" 
+    cmd << "shef -z -c ~/.chef/knife.rb" 
  else
-    cmd << "(#{before_cmd}; shef -z -c ~/etc/chef/client.rb)"
+    cmd << "(#{before_cmd}; shef -z -c ~/.chef/knife.rb)"
  end
  
  puts cmd if ENV['debug']
@@ -21,10 +21,3 @@ Given /^I run command (.*) on my node$/ do |cmd|
   set_before_cmd cmd
 end
 
-Then /^web_application resource should have following parameters:$/ do |table|
-    table.hashes.each do |row|
-        k = row['Name']
-        v = row['Value']
-        step "'stdout' should have '#{k}:\"#{v}\"'"
-    end
-end
