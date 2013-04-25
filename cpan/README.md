@@ -6,15 +6,12 @@ DESCRIPTION
 
 PREREQUISITES
 ===
- - 1)  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system.
- - 2)  Run recipe `cpan::bootstrap` to ensure all others dependencies are met:
-
-      include_recipe 'cpan::bootstrap'
-
-## ATTRIBUTES used in cpan::bootstrap recipe
-
-* `cpan.minimal_version` - minimal required version of cpan client 
-* `cpan.download_url` - url to download fresh cpan client 
+A little prerequisites are required. Run `cpan::bootstrap` to satisfy
+  - curl
+  - App::cpanminus
+  - CPAN
+  - local::lib
+  
 
 BASIC USAGE
 ===

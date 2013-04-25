@@ -1,7 +1,7 @@
 # version 0.0.26
-- cucumber tests moved to distinct github project - https://github.com/melezhik/cpan-test/
-- few output changes
-
+- have made bootstrap recipe more concise and clear
+- cucumber tests have been moved to distinct github project - https://github.com/melezhik/cpan-test/
+- few logger/output changes
 
 # version 0.0.25
 - cpan index force reload
