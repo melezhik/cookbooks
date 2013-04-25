@@ -6,11 +6,11 @@ DESCRIPTION
 
 PREREQUISITES
 ===
-A little prerequisites are required. Run `cpan::bootstrap` to satisfy
-  - curl
-  - App::cpanminus
-  - CPAN
-  - local::lib
+A little prerequisites are required. Run `cpan::bootstrap` recipe to satisfy
+  - [curl](http://curl.haxx.se/)
+  - [App::cpanminus](http://search.cpan.org/perldoc?App::cpanminus)
+  - [CPAN](http://search.cpan.org/perldoc?CPAN)
+  - [local::lib](http://search.cpan.org/perldoc?local::lib)
   
 
 BASIC USAGE
@@ -36,7 +36,7 @@ RESOURCE ATTRIBUTES
 * `dry_run` - specifies whether to run installation process in dry-run mode or not, default value is `false`
 * `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false
-* `from_cookbook` - specifies cookbook, where distributive stored at. [Check out cookbook file resource documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
+* `from_cookbook` - specifies cookbook, where distributive stored at. Check out cookbook file resource [documentation](http://wiki.opscode.com/display/chef/Resources#Resources-CookbookFile)
 * `user`/`group` - specifies a user/group for installation process
 * `inc` - specifies perl @INC array
 * `install_base` - specifies installation base
@@ -236,5 +236,8 @@ EXAMPLES OF USAGE
 
 ## Features
 
-For complete examples of usage see cucumber features at [cpan-test project](https://github.com/melezhik/cpan-test/)
+Other examples (cucumber features) may be found at [cpan-test project](https://github.com/melezhik/cpan-test/)
+
+# Automatic tests
+Yeah, I am on the Travis ... [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cpan-test)
 
