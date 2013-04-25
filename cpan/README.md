@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cpan-test)  
+
 DESCRIPTION
 ===
 
-- [cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
-- [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cpan-test)  
+[cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
 
 PREREQUISITES
 ===
