@@ -1,3 +1,8 @@
+# version 0.0.26
+- cucumber tests moved to distinct github project
+- few output changes
+
+
 # version 0.0.25
 - cpan index force reload
 - explicit cookbook name in metadata (https://github.com/melezhik/cookbooks/pull/5)

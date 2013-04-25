@@ -29,6 +29,7 @@ def header
   dry_run = @installer.dry_run
   install_type = @installer.install_type
   version = @installer.version
+  force_mode = @installer.force 
   cwd = @installer.cwd
   
       Chef::Log.info("#{dry_run == true ? 'DRYRUN' : 'REAL' } install #{install_type} #{installed_module}. install_version: #{version_print}")
@@ -41,6 +42,7 @@ def header
       Chef::Log.debug("install command: #{install_perl_code}")
       Chef::Log.debug("environment: #{cpan_env_print}")
       Chef::Log.info("install log file: #{install_log_file}")
+      Chef::Log.info("force_mode: #{force_mode}")  
   
 end
 
