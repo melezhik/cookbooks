@@ -1,8 +1,9 @@
 DESCRIPTION
 ===
 
-[cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
-  
+- [cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
+- [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cookbooks-test)  
+
 PREREQUISITES
 ===
  - 1)  I assume you have a [cpan](http://search.cpan.org/perldoc?CPAN) client installed on your system.
