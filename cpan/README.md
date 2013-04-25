@@ -2,7 +2,7 @@ DESCRIPTION
 ===
 
 - [cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
-- [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cookbooks-test)  
+- [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cpan-test)  
 
 PREREQUISITES
 ===
@@ -239,5 +239,5 @@ EXAMPLES OF USAGE
 
 ## Features
 
-For complete examples of usage see cucumber features at https://github.com/melezhik/cookbooks/tree/master/cpan/features/
+For complete examples of usage see cucumber features at https://github.com/melezhik/cookbooks/tree/master/cpan-test/features/
 
