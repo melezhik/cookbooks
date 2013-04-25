@@ -239,5 +239,5 @@ EXAMPLES OF USAGE
 
 ## Features
 
-For complete examples of usage see cucumber features at [cpan-test project](https://github.com/melezhik/cpan-test/tree/master/features/)
+For complete examples of usage see cucumber features at [cpan-test project](https://github.com/melezhik/cpan-test/)
 

@@ -1,5 +1,5 @@
 # version 0.0.26
-- cucumber tests moved to distinct github project
+- cucumber tests moved to distinct github project - https://github.com/melezhik/cpan-test/
 - few output changes
 
 
