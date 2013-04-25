@@ -37,7 +37,7 @@ RESOURCE ATTRIBUTES
 * `dry_run` - specifies whether to run installation process in dry-run mode or not, default value is `false`
 * `environment` - specifies Hash with environment variables exported to installation process
 * `force` - specifies whether to run installation process in force mode, default - false
-* `from_cookbook` - specifies cookbook, where distributive stored at. Check [out chef cookbook_file resource documentation](http://docs.opscode.com/chef/resources.html#cookbook-file)
+* `from_cookbook` - specifies cookbook, where distributive stored at. Check out [chef cookbook_file resource documentation](http://docs.opscode.com/chef/resources.html#cookbook-file)
 * `user`/`group` - specifies a user/group for installation process
 * `inc` - specifies perl @INC array
 * `install_base` - specifies installation base
