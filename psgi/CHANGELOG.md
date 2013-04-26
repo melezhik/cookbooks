@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of psgi.
 
+### 0.0.7
+* add berkshelf/cucumber tests
+
 ## 0.0.6
 * delete old files
 
