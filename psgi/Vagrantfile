@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
 
     chef.run_list = [
         "recipe[cpan::bootstrap]",
-        "recipe[psgi::default]",
+        "recipe[psgi::bootstrap]",
         "recipe[nginx]"
     ]
   end

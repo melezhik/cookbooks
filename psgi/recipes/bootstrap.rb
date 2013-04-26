@@ -1,4 +1,4 @@
-cpan_module 'Plack' do
+cpan_client 'Plack' do
   install_type 'cpan_module'
   user 'root'
   group 'root'
@@ -6,11 +6,10 @@ cpan_module 'Plack' do
 end
 
 
-cpan_module 'FCGI' do
+cpan_client 'FCGI' do
   install_type 'cpan_module'
   user 'root'
   group 'root'
   action :install
 end
 
-package 'nginx'
