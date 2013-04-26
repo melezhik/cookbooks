@@ -1,1 +1,0 @@
-cookbook 'psgi', :path => '/home/melezhik/GitHub/cookbooks/psgi'
