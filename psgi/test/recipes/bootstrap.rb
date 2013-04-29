@@ -12,4 +12,3 @@ cpan_client 'FCGI' do
   group 'root'
   action :install
 end
-

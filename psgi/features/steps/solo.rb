@@ -1,14 +1,14 @@
 Given /^I have chef recipe:$/ do |resource|
  resource.gsub! "'", '"'
- `echo '#{resource}' > test/recipes/default.rb`
+ `echo '#{resource}' > psgi/recipes/test.rb`
 end
 
 Given /^I run chef recipe on my node$/ do
   
  if before_cmd.nil? 
-    cmd = 'chef-solo -c solo.rb -o test'
+    cmd = 'chef-solo -c solo.rb -o psgi::test'
  else
-    cmd = "#{before_cmd}; chef-solo -c solo.rb -o test"
+    cmd = "#{before_cmd}; chef-solo -c solo.rb -o psgi::test"
  end
  
  puts cmd if ENV['debug']

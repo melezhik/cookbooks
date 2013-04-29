@@ -4,3 +4,12 @@ metadata
 
 cookbook 'cpan'
 cookbook 'nginx'
+
+cookbook 'test', path: "#{Dir.pwd}/test"
+
+group :integration do
+  cookbook "minitest-handler"
+end
+
+
+
