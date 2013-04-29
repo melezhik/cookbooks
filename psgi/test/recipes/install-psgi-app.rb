@@ -1,13 +1,3 @@
-directory '/tmp/psgi' do
-  action :delete
-  recursive true
-end
-
-directory '/tmp/psgi' do
-  action :create
-end
-
-
 psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      false
