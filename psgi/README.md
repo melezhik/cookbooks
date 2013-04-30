@@ -36,7 +36,7 @@ psgi_application
 - `debug`, default value `1`
 - `plackup_environment`, default value `development`
 - `cookbook`, default value `psgi`, the name of cookbook where init script template coming from
-- `ignore_failure` - used in action 'test', whethe to ignore test failures, is enabled, than test fail will cause chef runtime exception. Default value is 'true'
+- `ignore_failure` - used in action 'test', whether to ignore test failures, if enabled, than test fail will cause chef runtime exception. Default value is 'true'
 
 # Usage example
 
