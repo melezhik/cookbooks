@@ -1,22 +1,15 @@
 directory '/tmp/psgi' do
-  action :delete
-  recursive true
+        action :create
 end
-
-directory '/tmp/psgi' do
-  action :create
-end
-
 
 psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      false
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
-        script              '/home/user/app/MyApplication/scripts/app.psgi'
-        daemon_name         'app'
+        script              '/home/user/app/MyApplication/scripts/catalyst.psgi'
+        daemon_name         'catalyst'
         socket              '/tmp/app-socket.fcgi'
-        environment({ "FOO" => "100" })
         perl5lib        [ 'cpanlib/lib/perl5' ]
         nproc           2
         proc_title      'my-app'
@@ -25,6 +18,7 @@ psgi_application 'my application' do
         debug           1
         plackup_environment 'deployment'
         install_dir         '/tmp/psgi'
+        environment({ "FOO" => "100" })
         action              'install'      
 end
 
