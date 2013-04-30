@@ -2,7 +2,7 @@ site :opscode
 
 metadata
 
-cookbook 'cpan'
+cookbook 'cpan', git: 'https://github.com/melezhik/cookbooks.git', rel: 'cpan'
 cookbook 'nginx'
 
 cookbook 'test', path: "#{Dir.pwd}/test"
