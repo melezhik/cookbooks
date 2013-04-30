@@ -42,6 +42,3 @@ psgi_application 'my application' do
         action              'test'
 end
 
-
-execute "cd /tmp/app && SERVER_PORT=80 SERVER_NAME='127.0.0.1' SCRIPT_NAME='/' REQUEST_METHOD='GET' /usr/local/bin/plackup -s CGI app.psgi | grep '200 OK'"
-

@@ -20,5 +20,11 @@ class PsgiSpec < MiniTest::Chef::Spec
       result = assert_sh('sudo /etc/init.d/app status')
       assert_includes result, 'running'
     end
+
+    it 'CGI script returns 200 OK and Hello World' do
+      result = assert_sh("sudo bash -c 'cd /tmp/app && SERVER_PORT=80 SERVER_NAME=127.0.0.1 SCRIPT_NAME=/ REQUEST_METHOD=GET plackup -s CGI app.psgi'")
+      assert_includes result, '200 OK'
+      assert_includes result, 'Hello World'
+    end
   end
 end
