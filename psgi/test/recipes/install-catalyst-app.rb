@@ -7,7 +7,7 @@ psgi_application 'my application' do
         enable_service      false
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
-        script              '/home/user/app/MyApplication/scripts/app.psgi'
+        script              '/home/user/app/MyApplication/scripts/catalyst.psgi'
         daemon_name         'app'
         socket              '/tmp/app-socket.fcgi'
         environment({ "FOO" => "100" })
