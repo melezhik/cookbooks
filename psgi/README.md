@@ -29,7 +29,7 @@ psgi_application
 - `environment`, default value `{}`, hash containing environmental variables
 - `perl5lib`, default value `[]`, array containing perl5lib paths
 - `nproc`, default value `1`, number of child processes to launch
-- `proc_manager`, default value `nil`
+- `proc_manager`, default value is `FCGI::ProcManager`
 - `proc_title`, optional, how the processes are seen in process list
 - `mount`, default value `nil` 
 - `config`, absolute path to application configuration file, optional for operator => 'Dancer'

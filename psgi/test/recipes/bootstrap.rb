@@ -13,3 +13,11 @@ cpan_client 'FCGI' do
   group 'root'
   action :install
 end
+
+
+cpan_client 'FCGI::ProcManager'
+  install_type 'cpan_module'
+  user 'root'
+  group 'root'
+  action :install
+end

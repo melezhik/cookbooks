@@ -15,5 +15,10 @@ class PsgiSpec < MiniTest::Chef::Spec
     it 'creates init script file with proper mode' do
       file("/etc/init.d/test").must_have(:mode,"755")
     end
+
+    it 'init script returns successfull status' do
+      result = assert_sh('/etc/init.d/app status')
+      assert_includes result, 'running'
+    end
   end
 end
