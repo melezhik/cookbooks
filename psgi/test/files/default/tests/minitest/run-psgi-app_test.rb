@@ -17,7 +17,7 @@ class PsgiSpec < MiniTest::Chef::Spec
     end
 
     it 'init script returns successfull status' do
-      result = assert_sh('/etc/init.d/app status')
+      result = assert_sh('sudo /etc/init.d/app status')
       assert_includes result, 'running'
     end
   end

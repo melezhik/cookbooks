@@ -21,13 +21,15 @@ psgi_application 'my application' do
         enable_service      'off'
         application_user    'root'
         application_home    '/tmp/app/'
-        script              '/tmp/app/app.psgi'
+        script              'app.psgi'
+        proc_title          'app.psgi'
+        proc_manager        'Adriver::FCGI::ProcManager'
         config              '/tmp/app/app.conf'
         action              'install'
 end
 
 service 'app' do
-  action :start
+  action :restart
 end
 
 
