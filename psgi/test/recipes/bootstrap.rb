@@ -1,3 +1,4 @@
+include_recipe 'nginx'
 include_recipe 'cpan::bootstrap'
 
 cpan_client 'Plack' do
