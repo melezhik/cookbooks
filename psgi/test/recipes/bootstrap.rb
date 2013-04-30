@@ -15,7 +15,7 @@ cpan_client 'FCGI' do
 end
 
 
-cpan_client 'FCGI::ProcManager'
+cpan_client 'FCGI::ProcManager' do
   install_type 'cpan_module'
   user 'root'
   group 'root'
