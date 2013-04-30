@@ -23,10 +23,9 @@ psgi_application 'my application' do
         application_home    '/tmp/app/'
         script              'app.psgi'
         proc_title          'app.psgi'
-        proc_manager        'Adriver::FCGI::ProcManager'
+        proc_manager        'FCGI::ProcManager'
         config              '/tmp/app/app.conf'
         action              'install'
-        perl5lib            ['/usr/local/rle/lib/perl5']
 end
 
 service 'app' do
