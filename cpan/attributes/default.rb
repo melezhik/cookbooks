@@ -1,6 +1,6 @@
 default.cpan_client.bootstrap.packages = ['curl']
 
-case platforms
+case platform
 when 'centos'
     default.cpan_client.bootstrap.packages << 'perl-devel'
 end
