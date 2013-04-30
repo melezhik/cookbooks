@@ -1,4 +1,4 @@
-directory '/tmp/app.psgi' do
+directory '/tmp/psgi' do
         action :create
 end
 
@@ -18,7 +18,7 @@ psgi_application 'my application' do
         config          '/home/user/app/MyApplication/app.conf'
         debug           1
         plackup_environment 'deployment'
-        install_dir         '/tmp/app.psgi'
+        install_dir         '/tmp/psgi'
         action              'install'      
 end
 
