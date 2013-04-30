@@ -14,5 +14,3 @@ cpan_client 'FCGI' do
   action :install
 end
 
-execute 'cpan --mirror http://cpan.webdev.x/CPAN --sudo Adriver::FCGI::ProcManager'
-
