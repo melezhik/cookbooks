@@ -1,3 +1,7 @@
+# version 0.0.27
+- cpan::bootstrap have been made multiplatforms - todo
+- centos platform now is supported - todo
+
 # version 0.0.26
 - have made bootstrap recipe more concise and clear
 - cucumber tests have been moved to distinct github project - https://github.com/melezhik/cpan-test/

@@ -1,3 +1,7 @@
+package 'perl-devel'
+
+include_recipe 'cpan::bootstrap'
+
 cpan_client 'Plack' do
   install_type 'cpan_module'
   user 'root'
