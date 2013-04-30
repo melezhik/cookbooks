@@ -12,6 +12,9 @@ class PsgiSpec < MiniTest::Chef::Spec
       file("/tmp/psgi/catalyst").must_include 'APPLICATION_USER=user'
       file("/tmp/psgi/catalyst").must_include 'NAME="catalyst"'
       file("/tmp/psgi/catalyst").must_include 'CATALYST_CONFIG=/home/user/app/MyApplication/app.conf'
+      file("/tmp/psgi/catalyst").must_include 'deployment'
+      file("/tmp/psgi/catalyst").must_include '"catalyst-fcgi"'
+      file("/tmp/psgi/catalyst").must_include 'proc-title=\'catalyst\''
     end
   end
 end
