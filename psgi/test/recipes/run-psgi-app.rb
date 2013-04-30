@@ -22,7 +22,7 @@ psgi_application 'my application' do
         application_user    'root'
         application_home    '/tmp/app/'
         script              'app.psgi'
-        proc_title          'app.psgi'
+        # proc_title          'app.psgi'
         proc_manager        'FCGI::ProcManager'
         config              '/tmp/app/app.conf'
         action              'install'
