@@ -38,7 +38,7 @@ psgi_application
 - `cookbook`, default value `psgi`, the name of cookbook where init script template coming from
 - `ignore_failure` - used in action 'test', whether to ignore test failures, if enabled, than test fail will cause chef runtime exception. Default value is 'true'
 
-# Usage example
+# Usage examples
 
     # run Catalyst Application (default flavour)
     psgi_application 'my application' do
