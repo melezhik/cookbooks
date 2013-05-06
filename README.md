@@ -10,7 +10,8 @@ collection of chef cookbooks written by me, check out stable versions at http://
 - *dry-run* - run chef templates in dry-run mode
 - *nginx-fastcgi* - create nginx site to run your fastcgi application under nginx front-end
 - *psgi* - configures and runs psgi application as fastcgi server
-
+- *cpanminus* - installs cpanminus client
+- *pinto* - installs, configures pinto
 
 LINKs
 ====
