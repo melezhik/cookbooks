@@ -81,7 +81,8 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-        "recipe[test::bootstrap]"
+        "recipe[test]",
+        "recipe[minitest-handler]"
     ]
   end
 end
