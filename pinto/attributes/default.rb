@@ -1,6 +1,6 @@
-default.pinto.bootstrap.packages = %w[ curl ]
+default.pinto.bootstrap.packages = %w[ ]
 
 case platform 
     when 'centos'
-        default.pinto.bootstrap.packages << 'perl-devel'
+        default.pinto.bootstrap.packages << 'zlib-devel'
 end
