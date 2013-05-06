@@ -1,3 +1,6 @@
+# version 0.0.18
+- berkshelf / minitest chef infrastructure has been added [todo]
+
 # version 0.0.27
 - cpan::bootstrap have been made multiplatforms - todo
 - centos platform now is supported - todo

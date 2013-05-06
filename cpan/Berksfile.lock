@@ -1,0 +1,1 @@
+cookbook 'cpan', :path => '/home/melezhik/GitHub/cookbooks/cpan'
