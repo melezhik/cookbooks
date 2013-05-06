@@ -1,7 +1,8 @@
 class Cpanminus::Spec < Chef::MiniTest::Spec
     describe 'installs cpanminus client' do
       it 'installs cpanm script' do
-          assert_sh('cpanm')
+          result = assert_sh('cpanm --version')
+          assert_includes result, 'App::cpanminus'
       end
     end
 end
