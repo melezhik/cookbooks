@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of cpanminus.
 
+## 0.1.1:
+* has been tested for debian
+
 ## 0.1.0:
 
 * Initial release of cpanminus
