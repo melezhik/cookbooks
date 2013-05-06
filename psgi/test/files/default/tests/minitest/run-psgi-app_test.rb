@@ -26,5 +26,8 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, '200 OK'
       assert_includes result, 'Hello World'
     end
+    it 'service app is up'do
+      service("app").must_be_running
+    end
   end
 end
