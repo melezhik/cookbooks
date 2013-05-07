@@ -14,3 +14,8 @@ case platform
     when 'centos'
         default.pinto.bootstrap.packages << 'zlib-devel'
 end
+
+
+# these are 'non-public'  attributes:
+
+default.pinto.bootstrap.slow_tests = '0'
