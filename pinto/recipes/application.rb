@@ -6,5 +6,5 @@ node.pinto.bootstrap.packages.each do |p|
     package p
 end
 
-execute 'cpanm App::Pinto --sudo'
+execute 'cpanm Pinto --sudo'
 
