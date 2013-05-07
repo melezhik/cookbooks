@@ -34,7 +34,7 @@ end
 log "Installing missed cpan packages into #{node.pinto.bootstrap.home}"
 
 node.pinto.bootstrap.cpan.packages.each do |p|
-    execute "#{node.pinto.bootstrap.home}/bin/cpanm --quiet --local-lib #{node.pinto.bootstrap.home} #{p}" do
+    execute "#{node.pinto.bootstrap.home}/bin/cpanm --skip-satisfied --quiet --local-lib #{node.pinto.bootstrap.home} #{p}" do
         user node.pinto.bootstrap.user
         group node.pinto.bootstrap.group
     end

@@ -9,7 +9,7 @@ default.pinto.bootstrap.home = "#{ENV['HOME']}/opt/local/pinto"
 default.pinto.bootstrap.cpanminus_url = 'http://xrl.us/cpanm'
 
 default.pinto.bootstrap.packages = %w[ ]
-default.pinto.bootstrap.cpan.packages = %w[ ]
+default.pinto.bootstrap.cpan.packages = %w[ Time::HiRes CGI ]
 
 case platform 
     when 'centos'
