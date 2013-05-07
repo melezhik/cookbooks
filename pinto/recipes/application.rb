@@ -71,5 +71,4 @@ message "
 level :info
 end
 
-# execute 'cpanm App::Pinto --sudo'
 
