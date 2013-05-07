@@ -14,4 +14,8 @@ may be overridden to alter recipe behaviour
 * `pinto.bootstrap.repo_url` - url for Pinto stratopan repository, default value is _http://stratopan.com:2700/Stratopan/Pinto/Production_
 
 
+# tested on
+* CentOS-6.3-x86_64-minimal, Chef 10.14.2
+* Debian, Chef 11.4.4
+
 
