@@ -16,6 +16,11 @@ directory "#{node.pinto.bootstrap.home}/bin" do
     group node.pinto.bootstrap.group
 end
 
+directory "#{node.pinto.bootstrap.home}/etc" do
+    owner node.pinto.bootstrap.user
+    group node.pinto.bootstrap.group
+end
+
 log "Downloading the standalone executable cpanminus client from #{node.pinto.bootstrap.cpanminus_url}"
 
 
@@ -42,6 +47,12 @@ execute "(cd #{node.pinto.bootstrap.home}/man/man1; ls | grep -iv pinto | xargs 
 execute "(cd #{node.pinto.bootstrap.home}/man/man3; ls | grep -iv pinto | xargs rm -f)"
 
 
+template "#{node.pinto.bootstrap.home}/etc/bashrc" do
+    owner node.pinto.bootstrap.user
+    group node.pinto.bootstrap.group
+    source 'pinto_bashrc.erb'
+    variables :home => node.pinto.bootstrap.home
+end
 
 # execute 'cpanm App::Pinto --sudo'
 
