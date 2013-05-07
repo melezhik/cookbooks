@@ -16,7 +16,7 @@ may be overridden to alter recipe behaviour
 
 # tested on
 * CentOS-6.3-x86_64-minimal, Chef 10.14.2
-* Debian-Stable-64-bit, Chef 11.4.4
+* Debian-6.0.4-64-bit, Chef 11.4.4
 * Ubuntu 10.04.1 LTS, Chef 11.4.4 
 
 # stable release

@@ -15,6 +15,11 @@ case platform
     when 'centos'
         default.pinto.bootstrap.packages <<  'zlib-devel'
         default.pinto.bootstrap.packages <<  'perl-devel' 
+    when 'ubuntu'
+        default.pinto.bootstrap.packages <<  'make'
+    when 'debian'
+        default.pinto.bootstrap.packages <<  'make'
+
 end
 
 
