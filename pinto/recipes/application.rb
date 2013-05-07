@@ -52,6 +52,7 @@ template "#{node.pinto.bootstrap.home}/etc/bashrc" do
     group node.pinto.bootstrap.group
     source 'pinto_bashrc.erb'
     variables :home => node.pinto.bootstrap.home
+    mode '644'
 end
 
 # execute 'cpanm App::Pinto --sudo'
