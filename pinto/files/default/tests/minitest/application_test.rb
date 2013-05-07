@@ -11,6 +11,8 @@ class PintoSpec < MiniTest::Chef::Spec
             file("#{node[:pinto][:bootstrap][:home]}/bin/cpanm").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
             file("#{node[:pinto][:bootstrap][:home]}/bin/cpanm").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
             file("#{node[:pinto][:bootstrap][:home]}/bin/cpanm").must_have(:mode, "755")
+            result = assert_sh("cd #{node[:pinto][:bootstrap][:home]}/bin && ./cpanm --version")
+            assert_includes result, 'App::cpanminus'
         end
 
         it 'installs Pinto client' do
