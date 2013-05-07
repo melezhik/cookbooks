@@ -10,9 +10,21 @@ directory node.pinto.bootstrap.home do
     group node.pinto.bootstrap.group
 end
 
-#cd ~/bin
-#    curl -LO http://xrl.us/cpanm
-#    chmod +x cpanm
+directory "#{node.pinto.bootstrap.home}/bin" do
+    owner node.pinto.bootstrap.user
+    group node.pinto.bootstrap.group
+end
+
+log "Downloading the standalone executable cpanminus client from #{node.pinto.bootstrap.cpanminus_url}"
+
+
+remote_file "#{node.pinto.bootstrap.home}/bin/cpanm" do
+    source node.pinto.bootstrap.cpanminus_url 
+    user node.pinto.bootstrap.user
+    group node.pinto.bootstrap.group
+    mode '755'
+end
+
 
 
 # execute 'cpanm App::Pinto --sudo'
