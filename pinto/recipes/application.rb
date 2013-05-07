@@ -31,12 +31,21 @@ remote_file "#{node.pinto.bootstrap.home}/bin/cpanm" do
     mode '755'
 end
 
+log "Installing missed cpan packages into #{node.pinto.bootstrap.home}"
+
+node.pinto.bootstrap.cpan.packages.each do |p|
+    execute "#{node.pinto.bootstrap.home}/bin/cpanm --quiet --local-lib #{node.pinto.bootstrap.home} #{p}" do
+        user node.pinto.bootstrap.user
+        group node.pinto.bootstrap.group
+    end
+end
 
 log "Installing pinto into #{node.pinto.bootstrap.home}"
 
 execute "#{node.pinto.bootstrap.home}/bin/cpanm --notest --quiet --mirror #{node.pinto.bootstrap.repo_url} --mirror-only --local-lib-contained #{node.pinto.bootstrap.home} --man-pages Pinto" do
     user node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
+    environment( { 'PERL5LIB' =>  "#{node.pinto.bootstrap.home}/lib/perl5" } )
 end
 
 
@@ -55,8 +64,7 @@ template "#{node.pinto.bootstrap.home}/etc/bashrc" do
     mode '644'
 end
 
-log "after install message" do
-message "
+message = "
     pinto has been installed at #{node.pinto.bootstrap.home}.  
     To activate, give this command:
 
@@ -68,7 +76,7 @@ message "
     Thank you for installing pinto. I hope you find it useful.
     Send feedback to jeff@stratopan.com
 "
-level :info
-end
+log message 
+
 
 
