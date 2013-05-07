@@ -18,4 +18,6 @@ may be overridden to alter recipe behaviour
 * CentOS-6.3-x86_64-minimal, Chef 10.14.2
 * Debian, Chef 11.4.4
 
+# stable release
+http://community.opscode.com/cookbooks/pinto
 
