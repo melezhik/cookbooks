@@ -55,5 +55,21 @@ template "#{node.pinto.bootstrap.home}/etc/bashrc" do
     mode '644'
 end
 
+log "after install message" do
+message "
+    pinto has been installed at #{node.pinto.bootstrap.home}.  
+    To activate, give this command:
+
+        source #{node.pinto.bootstrap.home}/etc/bashrc
+
+    To make pinto part of your everyday environment, add that 
+    command to your ~/.profile or ~/.bashrc file as well.  
+
+    Thank you for installing pinto. I hope you find it useful.
+    Send feedback to jeff@stratopan.com
+"
+level :info
+end
+
 # execute 'cpanm App::Pinto --sudo'
 
