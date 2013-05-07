@@ -1,4 +1,5 @@
-# installs pinto application - see https://metacpan.org/module/THALJEF/Pinto-0.082/lib/Pinto/Manual/Installing.pod#___pod
+# installs Pinto application - see https://metacpan.org/module/THALJEF/Pinto-0.082/lib/Pinto/Manual/Installing.pod#___pod
+# this code is originated from https://raw.github.com/thaljef/Pinto/master/etc/install.sh
 
 node.pinto.bootstrap.packages.each do |p|
     package p
@@ -24,6 +25,21 @@ remote_file "#{node.pinto.bootstrap.home}/bin/cpanm" do
     group node.pinto.bootstrap.group
     mode '755'
 end
+
+
+log "Installing pinto into #{node.pinto.bootstrap.home}"
+
+execute "#{node.pinto.bootstrap.home}/bin/cpanm --notest --quiet --mirror #{node.pinto.bootstrap.repo_url} --mirror-only --local-lib-contained #{node.pinto.bootstrap.home} --man-pages Pinto" do
+    user node.pinto.bootstrap.user
+    group node.pinto.bootstrap.group
+end
+
+
+log "Remove scripts and man pages that aren't from pinto"
+
+execute "(cd #{node.pinto.bootstrap.home}/bin;      ls | grep -iv pinto | xargs rm -f)"
+execute "(cd #{node.pinto.bootstrap.home}/man/man1; ls | grep -iv pinto | xargs rm -f)"
+execute "(cd #{node.pinto.bootstrap.home}/man/man3; ls | grep -iv pinto | xargs rm -f)"
 
 
 
