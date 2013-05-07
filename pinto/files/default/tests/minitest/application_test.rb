@@ -25,6 +25,17 @@ class PintoSpec < MiniTest::Chef::Spec
             file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_include(node[:fqdn])
         end
 
+        it "smoke tests on installed pinto client" do
+            assert_sh 'rm -rf /tmp/pinto-smoke-repo'
+            assert_sh "mkdir  /tmp/pinto-smoke-repo"
+            assert_sh "export PERL5LIB=$PERL5LIB:#{node[:pinto][:bootstrap][:home]}/lib/perl5 && cd #{node[:pinto][:bootstrap][:home]}/bin/ && ./pinto -r /tmp/pinto-smoke-repo init"
+            assert_sh "export PERL5LIB=$PERL5LIB:#{node[:pinto][:bootstrap][:home]}/lib/perl5 && cd #{node[:pinto][:bootstrap][:home]}/bin/ && ./pinto -r /tmp/pinto-smoke-repo pull Bundler"
+            if node[:pinto][:bootstrap][:slow_tests] == 1
+                result = assert_sh "export PERL5LIB=$PERL5LIB:#{node[:pinto][:bootstrap][:home]}/lib/perl5 && cd #{node[:pinto][:bootstrap][:home]}/bin/ && ./pinto -r /tmp/pinto-smoke-repo list"
+                assert_includes result, '[rf-] Bundler'
+            end
+        end
+
 
     end    
 
