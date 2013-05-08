@@ -19,6 +19,6 @@ may be overridden to alter recipe behaviour
 * Debian-6.0.4-64-bit, Chef 11.4.4
 * Ubuntu 10.04.1 LTS, Chef 11.4.4 
 
-# stable release
+# current release
 http://community.opscode.com/cookbooks/pinto
 
