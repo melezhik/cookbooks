@@ -16,6 +16,8 @@ class PintoSpec < MiniTest::Chef::Spec
 
         it 'runs pintod server' do
             service('pintod').must_be_running
+            result = assert_sh('/etc/init.d/pintod status')
+            assert_includes result, 'is running'
         end
 
     end    

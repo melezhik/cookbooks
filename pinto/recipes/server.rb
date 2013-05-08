@@ -30,7 +30,11 @@ bash "source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r #{node.pi
 end
 
 service 'pintod' do
-    action [:enable, :start]
+    action :restart
 end
 
+
+service 'pintod' do
+    action :enable
+end
 

@@ -7,10 +7,9 @@ PIDFILE=<%= @home %>/etc/pintod.pid
 
 start() {
 	echo -n Starting Pinto server:
-
     export PERL5LIB=PERL5LIB:<%= @home %>/lib/perl5
     export PATH=$PATH:<%= @home %>/bin/
-	starman --workers <%= @workers %> --host <%= @host %> --port <%= @port %> --user <%= @user %> --group <%= @group %> --pid $PIDFILE <%= @home %>/bin/pintod.psgi
+	starman --daemonize --workers <%= @workers %> --host <%= @host %> --port <%= @port %> --user <%= @user %> --group <%= @group %> --pid $PIDFILE <%= @home %>/bin/pintod.psgi
 	retval=$?
 	echo
 	[ "$retval" = 0 ] && touch /var/lock/subsys/pintod
@@ -19,7 +18,7 @@ start() {
 
 stop() {
 	echo -n Stopping Pinto server:
-	killproc -p $PIDFILE
+	killproc -p $PIDFILE pinto-server
 	retval=$?
 	echo
 	[ "$retval" = 0 ] && rm -f /var/lock/subsys/pintod
@@ -34,7 +33,7 @@ case "$1" in
 		stop
 		;;
 	status)
-		status -p $PIDFILE 
+		status -p $PIDFILE pinto-server
 		;;
 	restart)
 		stop
