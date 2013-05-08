@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
    }
 
     chef.run_list = [
-        "recipe[pinto::application]",
+        "recipe[pinto::server]",
         "recipe[minitest-handler]"
     ]
   end

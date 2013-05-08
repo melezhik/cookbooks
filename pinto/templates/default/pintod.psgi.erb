@@ -1,0 +1,5 @@
+use Pinto::Server;
+my $server = Pinto::Server->new( 'root' => '<%= @repo_root %>' );
+my $app    = $server->to_app();
+
+

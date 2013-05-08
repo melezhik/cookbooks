@@ -9,7 +9,7 @@ default.pinto.bootstrap.home = "#{ENV['HOME']}/opt/local/pinto"
 default.pinto.bootstrap.cpanminus_url = 'http://xrl.us/cpanm'
 
 default.pinto.bootstrap.packages = %w[ ]
-default.pinto.bootstrap.cpan.packages = %w[ Time::HiRes CGI Module::CoreList ]
+default.pinto.bootstrap.missed.cpan.packages = %w[ Time::HiRes CGI Module::CoreList ]
 
 case platform 
     when 'centos'
@@ -22,6 +22,8 @@ case platform
 
 end
 
+
+default.pinto.server.repo_root = "/tmp/"
 
 # these are 'non-public'  attributes:
 

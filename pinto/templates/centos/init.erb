@@ -1,0 +1,46 @@
+#!/bin/sh
+# chkconfig: 345 80 20
+# description: Pinto server daemon
+
+PINTO_HOME="<%= %>"
+. /etc/init.d/functions
+
+start() {
+	echo -n Starting Pinto server:
+	daemon --user=<%= @user %=> $PINTO_HOME/bin/pintod.sh
+	retval=$?
+	echo
+	[ "$retval" = 0 ] && touch /var/lock/subsys/pintod
+	return $retval
+}
+
+stop() {
+	echo -n Stopping Pinto server:
+	killproc pintod
+	retval=$?
+	echo
+	[ "$retval" = 0 ] && rm -f /var/lock/subsys/pintod
+	return $retval
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		status pintod
+		;;
+	restart)
+		stop
+		start
+		;;
+	*)
+		echo "Usage: pintod {start|stop|status|restart}"
+		exit 1
+		;;
+esac
+
+exit 0
