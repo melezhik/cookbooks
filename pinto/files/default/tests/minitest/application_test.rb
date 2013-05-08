@@ -48,6 +48,8 @@ class PintoSpec < MiniTest::Chef::Spec
                 result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo list'"
                 assert_includes result, '[rf-] Bundler'
             end
+            result = assert_sh("ps --ppid=`cat #{node[:pinto][:bootstrap][:user]}/etc/pintod.pid` | perl -n -e 'next if 1 .. 1; print'")
+            assert_includes result, node[:pinto][:server][:workers]
         end
 
     end    
