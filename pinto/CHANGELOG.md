@@ -4,7 +4,7 @@ This file is used to list changes made in each version of pinto.
 
 ## 0.1.3:
 
-* installs supplimental (not pinto cpan modules into pinto_home/misc directory)
+* installs pintod server
 
 ## 0.1.2:
 * pinto bashrc fixed
