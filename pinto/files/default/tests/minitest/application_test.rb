@@ -25,14 +25,14 @@ class PintoSpec < MiniTest::Chef::Spec
 
         it "installs valid pinto bashrc file" do
 
-            assert_sh "sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc'"
 
             %w( pinto pintod ).each do |file|
-                result = assert_sh "sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && which #{file}'"
+                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && which #{file}'"
                 assert_includes result, "#{node[:pinto][:bootstrap][:home]}/bin/#{file}"
             end
 
-            result = assert_sh("sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto version'")
+            result = assert_sh("sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto version'")
             %w( App::Pinto Pinto Pinto::Remote ).each do |l|
                 assert_includes result, l
             end
@@ -42,10 +42,10 @@ class PintoSpec < MiniTest::Chef::Spec
         it "smoke tests on installed pinto client" do
             assert_sh 'rm -rf /tmp/pinto-smoke-repo'
             assert_sh "mkdir  /tmp/pinto-smoke-repo"
-            assert_sh "sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo init'"
-            assert_sh "sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo pull Bundler'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo init'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo pull Bundler'"
             if node[:pinto][:bootstrap][:slow_tests] == 1
-                result = assert_sh "sudo -u node[:pinto][:bootstrap][:user] bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo list'"
+                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo list'"
                 assert_includes result, '[rf-] Bundler'
             end
         end
