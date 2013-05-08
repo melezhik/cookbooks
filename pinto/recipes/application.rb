@@ -58,13 +58,6 @@ execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --notest --quiet --mirror #
     environment( { 'PERL5LIB' =>  "#{node.pinto.bootstrap.home}/lib/perl5" } )
 end
 
-# log "Remove scripts and man pages that aren't from pinto"
-
-# execute "(cd #{node.pinto.bootstrap.home}/bin;      ls | grep -iv pinto | xargs rm -f)"
-# execute "(cd #{node.pinto.bootstrap.home}/man/man1; ls | grep -iv pinto | xargs rm -f)"
-# execute "(cd #{node.pinto.bootstrap.home}/man/man3; ls | grep -iv pinto | xargs rm -f)"
-
-
 template "#{node.pinto.bootstrap.home}/etc/bashrc" do
     owner node.pinto.bootstrap.user
     group node.pinto.bootstrap.group

@@ -23,7 +23,11 @@ case platform
 end
 
 
-default.pinto.server.repo_root = "/tmp/"
+default.pinto.server.repo_root = "#{ENV['HOME']}/opt/local/pinto/repo/"
+default.pinto.server.host = '0.0.0.0'
+default.pinto.server.port = '5000'
+default.pinto.server.workers = '3'
+
 
 # these are 'non-public'  attributes:
 

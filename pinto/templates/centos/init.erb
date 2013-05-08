@@ -2,12 +2,15 @@
 # chkconfig: 345 80 20
 # description: Pinto server daemon
 
-PINTO_HOME="<%= %>"
 . /etc/init.d/functions
+PIDFILE=<%= @home %>/etc/pintod.pid
 
 start() {
 	echo -n Starting Pinto server:
-	daemon --user=<%= @user %=> $PINTO_HOME/bin/pintod.sh
+
+    export PERL5LIB=PERL5LIB:<%= @home %>/lib/perl5
+    export PATH=$PATH:<%= @home %>/bin/
+	starman --workers <%= @workers %> --host <%= @host %> --port <%= @port %> --user <%= @user %> --group <%= @group %> --pid $PIDFILE <%= @home %>/bin/pintod.psgi
 	retval=$?
 	echo
 	[ "$retval" = 0 ] && touch /var/lock/subsys/pintod
@@ -16,7 +19,7 @@ start() {
 
 stop() {
 	echo -n Stopping Pinto server:
-	killproc pintod
+	killproc -p $PIDFILE
 	retval=$?
 	echo
 	[ "$retval" = 0 ] && rm -f /var/lock/subsys/pintod
@@ -31,7 +34,7 @@ case "$1" in
 		stop
 		;;
 	status)
-		status pintod
+		status -p $PIDFILE 
 		;;
 	restart)
 		stop
