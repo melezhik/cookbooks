@@ -3,9 +3,9 @@
 ###        FOR NODE <%= node[:fqdn] %>
 
 export PINTO_HOME="<%= @home %>"
-export PATH="\$PINTO_HOME/bin:\$PATH"
-export MANPATH="\$PINTO_HOME/man:\$MANPATH"
+export PATH="$PINTO_HOME/bin:$PATH"
+export MANPATH="$PINTO_HOME/man:$MANPATH"
 
-###        PUT YOUR CUSTOMIZATIONS IN \$HOME/.pintorc      ###
-if [ -f "\$HOME/.pintorc" ]; then source "\$HOME/.pintorc"; fi
+###        PUT YOUR CUSTOMIZATIONS IN $HOME/.pintorc      ###
+if [ -f "$HOME/.pintorc" ]; then source "$HOME/.pintorc"; fi
 
