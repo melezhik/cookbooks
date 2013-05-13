@@ -20,7 +20,6 @@ class PintoSpec < MiniTest::Chef::Spec
             file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
             file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_have(:mode, "644")
             file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_include(node[:pinto][:bootstrap][:home])
-            file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_include(node[:fqdn])
         end
 
         it "installs valid pinto bashrc file" do

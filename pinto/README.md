@@ -3,7 +3,7 @@ Installs, configures Pinto
 
 # recipes
 
-* pinto::application - installs Pinto application
+* pinto::application - installs Pinto application in standalone mode
 * pinto::server - installs Pinto server (should be run after pinto::application recipe), **now works only in centos**
 
 # attributes 
