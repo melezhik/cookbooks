@@ -21,6 +21,7 @@ log 'init pinto repo'
 bash "source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node.pinto.server.repo_root} init" do
     user node[:pinto][:bootstrap][:user]
     group node[:pinto][:bootstrap][:group]
+    environment( { 'HOME' => node.pinto.bootstrap.home  } )
 end
 
 service 'pintod' do
