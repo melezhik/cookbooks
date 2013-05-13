@@ -3,40 +3,45 @@ class PintoSpec < MiniTest::Chef::Spec
     describe 'installs pinto' do
 
         it 'creates pinto user/group' do
-            user("#{node[:pinto][:bootstrap][:user]}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:user]}")
             group("#{node[:pinto][:bootstrap][:group]}").must_exist
+            user("#{node[:pinto][:bootstrap][:user]}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:user]}")
         end
 
-        it 'creates pinto home directory' do
+        it 'creates pinto user home directory' do
             directory("#{node[:pinto][:bootstrap][:home]}").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
             directory("#{node[:pinto][:bootstrap][:home]}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
         end
 
+        it 'creates pinto installation base directory' do
+            directory("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
+            directory("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+        end
+
         %w( pinto pintod ).each do |file|
-            it "installs #{file} into pinto home" do
-                file("#{node[:pinto][:bootstrap][:home]}/bin/#{file}").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
-                file("#{node[:pinto][:bootstrap][:home]}/bin/#{file}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
-                file("#{node[:pinto][:bootstrap][:home]}/bin/#{file}").must_have(:mode, "555")
+            it "installs #{file} into pinto installation base directory" do
+                file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/#{file}").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
+                file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/#{file}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+                file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/#{file}").must_have(:mode, "555")
             end
         end
 
         it "installs pinto bashrc file" do
-            file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
-            file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
-            file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_have(:mode, "644")
-            file("#{node[:pinto][:bootstrap][:home]}/etc/bashrc").must_include(node[:pinto][:bootstrap][:home])
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc").must_have(:mode, "644")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc").must_include(node[:pinto][:bootstrap][:home])
         end
 
         it "installs valid pinto bashrc file" do
 
-            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc'"
 
             %w( pinto pintod ).each do |file|
-                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && which #{file}'"
+                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && which #{file}'"
                 assert_includes result, "#{node[:pinto][:bootstrap][:home]}/bin/#{file}"
             end
 
-            result = assert_sh("sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto version'")
+            result = assert_sh("sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto version'")
             %w( App::Pinto Pinto Pinto::Remote ).each do |l|
                 assert_includes result, l
             end
@@ -46,10 +51,10 @@ class PintoSpec < MiniTest::Chef::Spec
         it "smoke tests on installed pinto client" do
             assert_sh 'rm -rf /tmp/pinto-smoke-repo'
             assert_sh "mkdir  /tmp/pinto-smoke-repo"
-            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo init'"
-            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo pull Bundler'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r /tmp/pinto-smoke-repo init'"
+            assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r /tmp/pinto-smoke-repo pull Bundler'"
             if node[:pinto][:bootstrap][:slow_tests] == 1
-                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r /tmp/pinto-smoke-repo list'"
+                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r /tmp/pinto-smoke-repo list'"
                 assert_includes result, '[rf-] Bundler'
             end
         end

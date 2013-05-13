@@ -1,4 +1,4 @@
-template "#{node.pinto.bootstrap.home}/bin/pintod.psgi" do
+template "#{node.pinto.bootstrap.home}/opt/local/pinto/bin/pintod.psgi" do
     owner node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
     source 'pintod.psgi.erb'
@@ -24,7 +24,7 @@ end
 
 log 'init pinto repo'
 
-bash "source #{node[:pinto][:bootstrap][:home]}/etc/bashrc && pinto -r #{node.pinto.server.repo_root} init" do
+bash "source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node.pinto.server.repo_root} init" do
     user node[:pinto][:bootstrap][:user]
     group node[:pinto][:bootstrap][:group]
 end

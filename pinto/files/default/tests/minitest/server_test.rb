@@ -9,9 +9,9 @@ class PintoSpec < MiniTest::Chef::Spec
         end
 
         it 'creates pintod.psgi script' do
-            file("#{node[:pinto][:bootstrap][:home]}/bin/pintod.psgi").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
-            file("#{node[:pinto][:bootstrap][:home]}/bin/pintod.psgi").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
-            file("#{node[:pinto][:bootstrap][:home]}/bin/pintod.psgi").must_have(:mode, "755")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/pintod.psgi").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/pintod.psgi").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+            file("#{node[:pinto][:bootstrap][:home]}/opt/local/pinto/bin/pintod.psgi").must_have(:mode, "755")
         end
 
         it 'runs pintod server' do

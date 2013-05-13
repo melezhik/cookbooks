@@ -7,14 +7,8 @@ end
 group node.pinto.bootstrap.group
 
 user node.pinto.bootstrap.user do
-    home node.pinto.bootstrap.home
     gid node.pinto.bootstrap.group
-end
-
-directory node.pinto.bootstrap.home do
-    recursive true
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
+    supports :manage_home => true
 end
 
 directory "#{node.pinto.bootstrap.home}/bin" do
@@ -32,9 +26,10 @@ directory "#{node.pinto.bootstrap.home}/misc/bin/" do
     group node.pinto.bootstrap.group
 end
 
-directory "#{node.pinto.bootstrap.home}/etc" do
+directory "#{node.pinto.bootstrap.home}/opt/local/pinto" do
     owner node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
+    recursive true
 end
 
 case node.platform 
@@ -55,7 +50,7 @@ case node.platform
     log "Installing missed cpan packages into #{node.pinto.bootstrap.home}"
      
     node.pinto.bootstrap.cpan.packages.each do |p|
-        execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --skip-satisfied --quiet --local-lib #{node.pinto.bootstrap.home} #{p}" do
+        execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --skip-satisfied --quiet --local-lib #{node.pinto.bootstrap.home}/opt/local/pinto #{p}" do
             user node.pinto.bootstrap.user
             group node.pinto.bootstrap.group
             environment( { 'HOME' => node.pinto.bootstrap.home } )
@@ -75,7 +70,7 @@ end
 execute "cat #{node.pinto.bootstrap.home}/misc/bin/installer.sh | bash" do
     user node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
-    environment( { 'HOME' => node.pinto.bootstrap.home } )
+    environment( { 'HOME' => node.pinto.bootstrap.home  } )
 end
 
 
