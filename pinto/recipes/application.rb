@@ -56,6 +56,11 @@ case node.platform
             environment( { 'HOME' => node.pinto.bootstrap.home } )
         end
     end
+
+
+    execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --skip-satisfied --quiet Module::CoreList" do
+
+
 end
 
 
