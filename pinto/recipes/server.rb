@@ -7,8 +7,8 @@ template "#{node.pinto.bootstrap.home}/opt/local/pinto/bin/pintod.psgi" do
 end
 
 template '/etc/init.d/pintod' do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
+    owner 'root'
+    group 'root'
     source 'init.erb'
     variables({ 
         :home => node.pinto.bootstrap.home,

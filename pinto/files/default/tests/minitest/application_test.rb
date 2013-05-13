@@ -53,10 +53,14 @@ class PintoSpec < MiniTest::Chef::Spec
             assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'mkdir  #{node[:pinto][:bootstrap][:home]}/opt/local/tmp/'"
             assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node[:pinto][:bootstrap][:home]}/opt/local/tmp/ init'"
             assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node[:pinto][:bootstrap][:home]}/opt/local/tmp/ pull Bundler'"
+
             if node[:pinto][:bootstrap][:slow_tests] == 1
-                result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node[:pinto][:bootstrap][:home]}/opt/local/tmp/ list'"
-                assert_includes result, '[rf-] Bundler'
+                        result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node[:pinto][:bootstrap][:home]}/opt/local/tmp/ list'"
+                        assert_includes result, '[rf-] Bundler'
+            else
+                    puts "skip slow smoke tests"    
             end
+
         end
 
     end    
