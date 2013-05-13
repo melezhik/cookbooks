@@ -57,9 +57,7 @@ case node.platform
         end
     end
 
-
-    execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --skip-satisfied --quiet Module::CoreList" do
-
+    execute "#{node.pinto.bootstrap.home}/misc/bin/cpanm --skip-satisfied --quiet Module::CoreList"
 
 end
 
