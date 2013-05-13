@@ -12,7 +12,7 @@ template '/etc/init.d/pintod' do
         :repo_root => node.pinto.server.repo_root
     })
     mode '755'
-    norifies :restart =>  "service[pintod]", :delayed
+    notifies :restart, "service[pintod]", :delayed
 end
 
 
