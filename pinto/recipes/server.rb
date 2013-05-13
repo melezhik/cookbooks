@@ -1,11 +1,3 @@
-template "#{node.pinto.bootstrap.home}/opt/local/pinto/bin/pintod.psgi" do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
-    source 'pintod.psgi.erb'
-    variables :repo_root => node.pinto.server.repo_root
-    mode '755'
-end
-
 template '/etc/init.d/pintod' do
     owner 'root'
     group 'root'
@@ -16,7 +8,8 @@ template '/etc/init.d/pintod' do
         :host => node.pinto.server.host,
         :port => node.pinto.server.port,
         :user => node.pinto.bootstrap.user,
-        :group => node.pinto.bootstrap.group
+        :group => node.pinto.bootstrap.group,
+        :repo_root => node.pinto.server.repo_root
     })
     mode '755'
 end
