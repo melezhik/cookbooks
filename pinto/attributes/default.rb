@@ -3,7 +3,7 @@ default.pinto.bootstrap.group = 'pinto'
 
 default.pinto.bootstrap.installer_url = 'http://getpinto.stratopan.com'
 
-default.pinto.bootstrap.home = "/home/pinto/opt/local/pinto"
+default.pinto.bootstrap.home = "/home/pinto/"
 
 default.pinto.bootstrap.cpanminus_url = 'http://xrl.us/cpanm'
 
