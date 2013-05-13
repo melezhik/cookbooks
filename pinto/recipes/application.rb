@@ -9,6 +9,7 @@ group node.pinto.bootstrap.group
 user node.pinto.bootstrap.user do
     gid node.pinto.bootstrap.group
     supports :manage_home => true
+    home node.pinto.bootstrap.home
 end
 
 directory "#{node.pinto.bootstrap.home}/bin" do
