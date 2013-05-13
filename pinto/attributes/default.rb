@@ -8,17 +8,19 @@ default.pinto.bootstrap.home = "/home/pinto/opt/local/pinto"
 default.pinto.bootstrap.cpanminus_url = 'http://xrl.us/cpanm'
 
 default.pinto.bootstrap.packages = %w[ curl ]
-default.pinto.bootstrap.missed.cpan.packages = %w[ Time::HiRes CGI Module::CoreList ]
+
 
 case platform 
     when 'centos'
+        default.pinto.bootstrap.cpan.packages = %w[ CGI Time::HiRes ]
         default.pinto.bootstrap.packages <<  'zlib-devel'
         default.pinto.bootstrap.packages <<  'perl-devel' 
     when 'ubuntu'
         default.pinto.bootstrap.packages <<  'make'
+        default.pinto.bootstrap.cpan.packages = []
     when 'debian'
         default.pinto.bootstrap.packages <<  'make'
-
+        default.pinto.bootstrap.cpan.packages = []
 end
 
 

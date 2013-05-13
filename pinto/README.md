@@ -21,8 +21,8 @@ may be overridden to alter recipe behaviour
 
 
 # tested on
-* <del>CentOS-6.4-x86_64, , Chef 10.14.0</del>
-* <del>CentOS-6.3-x86_64-minimal, Chef 10.14.2</del>
+* CentOS-6.4-x86_64, , Chef 10.14.0
+* CentOS-6.3-x86_64-minimal, Chef 10.14.2
 * Debian-6.0.4-64-bit, Chef 11.4.4
 * Ubuntu 10.04.1 LTS, Chef 11.4.4 
 
