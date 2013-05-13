@@ -12,6 +12,7 @@ template '/etc/init.d/pintod' do
         :repo_root => node.pinto.server.repo_root
     })
     mode '755'
+    norifies :restart =>  "service[pintod]", :delayed
 end
 
 
@@ -23,7 +24,7 @@ bash "source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pi
 end
 
 service 'pintod' do
-    action :restart
+    action :start
 end
 
 
