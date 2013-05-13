@@ -2,6 +2,11 @@ class PintoSpec < MiniTest::Chef::Spec
 
     describe 'installs pinto' do
 
+        it 'creates pinto user/group' do
+            user("#{node[:pinto][:bootstrap][:user]}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:user]}")
+            group("#{node[:pinto][:bootstrap][:group]}").must_exist
+        end
+
         it 'creates pinto home directory' do
             directory("#{node[:pinto][:bootstrap][:home]}").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
             directory("#{node[:pinto][:bootstrap][:home]}").must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")

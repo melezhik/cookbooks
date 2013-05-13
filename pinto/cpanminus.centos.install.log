@@ -1,0 +1,109 @@
+[root@pinto-berkshelf vagrant]# cat /etc/issue
+CentOS release 6.4 (Final)
+Kernel \r on an \m
+
+---
+
+[vagrant@pinto-berkshelf ~]$ curl -L http://cpanmin.us | perl - --sudo App::cpanminus
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  238k  100  238k    0     0   137k      0  0:00:01  0:00:01 --:--:--  137k
+--> Working on App::cpanminus
+Fetching http://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-1.6914.tar.gz ... OK
+Configuring App-cpanminus-1.6914 ... OK
+==> Found dependencies: Test::More, Module::Build
+--> Working on Test::More
+Fetching http://www.cpan.org/authors/id/M/MS/MSCHWERN/Test-Simple-0.98.tar.gz ... OK
+Configuring Test-Simple-0.98 ... OK
+Building and testing Test-Simple-0.98 ... OK
+Successfully installed Test-Simple-0.98
+--> Working on Module::Build
+Fetching http://www.cpan.org/authors/id/L/LE/LEONT/Module-Build-0.4005.tar.gz ... OK
+Configuring Module-Build-0.4005 ... OK
+==> Found dependencies: Module::Metadata, CPAN::Meta, Perl::OSType, ExtUtils::CBuilder, Parse::CPAN::Meta, version, CPAN::Meta::YAML
+--> Working on Module::Metadata
+Fetching http://www.cpan.org/authors/id/B/BO/BOBTFISH/Module-Metadata-1.000014.tar.gz ... OK
+Configuring Module-Metadata-1.000014 ... OK
+==> Found dependencies: version
+--> Working on version
+Fetching http://www.cpan.org/authors/id/J/JP/JPEACOCK/version-0.9902.tar.gz ... OK
+Configuring version-0.9902 ... OK
+Building and testing version-0.9902 ... OK
+Successfully installed version-0.9902 (upgraded from 0.77)
+Building and testing Module-Metadata-1.000014 ... OK
+Successfully installed Module-Metadata-1.000014
+--> Working on CPAN::Meta
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-2.130880.tar.gz ... OK
+Configuring CPAN-Meta-2.130880 ... OK
+==> Found dependencies: Parse::CPAN::Meta, CPAN::Meta::YAML, JSON::PP, CPAN::Meta::Requirements
+--> Working on Parse::CPAN::Meta
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/Parse-CPAN-Meta-1.4404.tar.gz ... OK
+Configuring Parse-CPAN-Meta-1.4404 ... OK
+==> Found dependencies: JSON::PP, CPAN::Meta::YAML
+--> Working on JSON::PP
+Fetching http://www.cpan.org/authors/id/M/MA/MAKAMAKA/JSON-PP-2.27202.tar.gz ... OK
+Configuring JSON-PP-2.27202 ... OK
+Building and testing JSON-PP-2.27202 ... OK
+Successfully installed JSON-PP-2.27202
+--> Working on CPAN::Meta::YAML
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-YAML-0.008.tar.gz ... OK
+Configuring CPAN-Meta-YAML-0.008 ... OK
+Building and testing CPAN-Meta-YAML-0.008 ... OK
+Successfully installed CPAN-Meta-YAML-0.008
+Building and testing Parse-CPAN-Meta-1.4404 ... OK
+Successfully installed Parse-CPAN-Meta-1.4404
+--> Working on CPAN::Meta::Requirements
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-Requirements-2.122.tar.gz ... OK
+Configuring CPAN-Meta-Requirements-2.122 ... OK
+Building and testing CPAN-Meta-Requirements-2.122 ... OK
+Successfully installed CPAN-Meta-Requirements-2.122
+Building and testing CPAN-Meta-2.130880 ... OK
+Successfully installed CPAN-Meta-2.130880
+--> Working on Perl::OSType
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/Perl-OSType-1.003.tar.gz ... OK
+Configuring Perl-OSType-1.003 ... OK
+Building and testing Perl-OSType-1.003 ... OK
+Successfully installed Perl-OSType-1.003
+--> Working on ExtUtils::CBuilder
+Fetching http://www.cpan.org/authors/id/D/DA/DAGOLDEN/ExtUtils-CBuilder-0.280205.tar.gz ... OK
+Configuring ExtUtils-CBuilder-0.280205 ... OK
+==> Found dependencies: IPC::Cmd
+--> Working on IPC::Cmd
+Fetching http://www.cpan.org/authors/id/B/BI/BINGOS/IPC-Cmd-0.80.tar.gz ... OK
+Configuring IPC-Cmd-0.80 ... OK
+==> Found dependencies: Locale::Maketext::Simple, Module::Load::Conditional, Params::Check
+--> Working on Locale::Maketext::Simple
+Fetching http://www.cpan.org/authors/id/J/JE/JESSE/Locale-Maketext-Simple-0.21.tar.gz ... OK
+Configuring Locale-Maketext-Simple-0.21 ... OK
+Building and testing Locale-Maketext-Simple-0.21 ... OK
+Successfully installed Locale-Maketext-Simple-0.21
+--> Working on Module::Load::Conditional
+Fetching http://www.cpan.org/authors/id/B/BI/BINGOS/Module-Load-Conditional-0.54.tar.gz ... OK
+Configuring Module-Load-Conditional-0.54 ... OK
+==> Found dependencies: Module::Load, Module::CoreList, Params::Check
+--> Working on Module::Load
+Fetching http://www.cpan.org/authors/id/B/BI/BINGOS/Module-Load-0.24.tar.gz ... OK
+Configuring Module-Load-0.24 ... OK
+Building and testing Module-Load-0.24 ... OK
+Successfully installed Module-Load-0.24
+--> Working on Module::CoreList
+Fetching http://www.cpan.org/authors/id/B/BI/BINGOS/Module-CoreList-2.88.tar.gz ... OK
+Configuring Module-CoreList-2.88 ... OK
+Building and testing Module-CoreList-2.88 ... OK
+Successfully installed Module-CoreList-2.88
+--> Working on Params::Check
+Fetching http://www.cpan.org/authors/id/B/BI/BINGOS/Params-Check-0.36.tar.gz ... OK
+Configuring Params-Check-0.36 ... OK
+Building and testing Params-Check-0.36 ... OK
+Successfully installed Params-Check-0.36
+Building and testing Module-Load-Conditional-0.54 ... OK
+Successfully installed Module-Load-Conditional-0.54
+Building and testing IPC-Cmd-0.80 ... OK
+Successfully installed IPC-Cmd-0.80
+Building and testing ExtUtils-CBuilder-0.280205 ... OK
+Successfully installed ExtUtils-CBuilder-0.280205
+Building and testing Module-Build-0.4005 ... OK
+Successfully installed Module-Build-0.4005
+Building and testing App-cpanminus-1.6914 ... OK
+Successfully installed App-cpanminus-1.6914
+

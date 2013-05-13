@@ -10,7 +10,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "Berkshelf-CentOS-6.3-x86_64-minimal"
-  config.vm.box = "Debian-Stable-64-bit"
+  #config.vm.box = "Debian-Stable-64-bit"
+  config.vm.box = "CentOS-6.4-x86_64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.

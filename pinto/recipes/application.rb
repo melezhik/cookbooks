@@ -4,6 +4,13 @@ node.pinto.bootstrap.packages.each do |p|
     package p
 end
 
+group node.pinto.bootstrap.group
+
+user node.pinto.bootstrap.user do
+    home node.pinto.bootstrap.home
+    gid node.pinto.bootstrap.group
+end
+
 directory node.pinto.bootstrap.home do
     recursive true
     owner node.pinto.bootstrap.user
@@ -41,6 +48,7 @@ end
 execute "cat #{node.pinto.bootstrap.home}/misc/bin/installer.sh | bash" do
     user node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
+    environment( { 'HOME' => node.pinto.bootstrap.home } )
 end
 
 

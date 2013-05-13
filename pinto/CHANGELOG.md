@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of pinto.
 
 ## 0.1.4:
+* now installs and runs as the "pinto" user by default - [issues/8](https://github.com/melezhik/cookbooks/issues/8)
 * rely on installer from http://getpinto.stratopan.com - [issues/9](https://github.com/melezhik/cookbooks/issues/9)
 
 ## 0.1.3:
