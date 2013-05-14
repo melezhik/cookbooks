@@ -38,7 +38,7 @@ define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManag
         end
     elsif params[:action] == 'test'
         my_env = params[:environment]
-        my_env['PERL5LIB'] = params[:perl5lib].join ':'
+        my_env['PERL5LIB'] = params[:perl5lib].join ':' unless params[:perl5lib].empty?
         my_env['CATALYST_CONFIG'] = params[:config]
         my_env['CATALYST_DEBUG'] = '1'
         log "execute in pwd: #{params[:application_home]}"
