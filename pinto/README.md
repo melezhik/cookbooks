@@ -2,7 +2,6 @@
 Installs, configures Pinto 
 
 # recipes
-
 * pinto::application - installs Pinto application in standalone mode
 * pinto::server - installs Pinto server (should be run after pinto::application recipe) ( *** only for centOS / debian platforms *** )
 
@@ -14,7 +13,7 @@ may be overridden to alter recipe behaviour
 * `pinto.bootstrap.user` - the group which Pinto installation files belongs to, default value is _'pinto'_
 
 
-*  `pinto.server.repo_root` - the path to the root directory of your Pinto repository. The repository must already exist at this location. This attribute is required. default value '_/home/pinto/opt/local/pinto/repo_'
+*  `pinto.server.repo_root` - the path to the root directory of your Pinto repository. The repository must already exist at this location. This attribute is required. default value _'/home/pinto/opt/local/pinto/repo'_
 *  `pinto.server.host` - pinto server bind host, default value is _'0.0.0.0'_
 *  `pinto.server.port` - pinto server bind port, default value is _'5000'_
 *  `pinto.server.workers` - number of pinto server workers, default value is _'3'_
