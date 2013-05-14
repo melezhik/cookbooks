@@ -18,6 +18,19 @@ end
 
 execute 'cpan Plack'
 
+package 'nginx'
+
+cookbook_file '/etc/nginx/sites-available/app.conf' do
+    source 'app_nginx.conf'
+    owner 'root'
+    group 'root'
+    mode '644'
+end
+
+link '/etc/nginx/sites-enabled/app.conf' do
+    to '/etc/nginx/sites-available/app.conf'
+end
+
 psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      'off'
@@ -30,8 +43,10 @@ psgi_application 'my application' do
         action              'install'
 end
 
-service 'app' do
-  action :restart
+%w[ app nginx ].each do |service|
+  service service do
+    action :restart
+  end
 end
 
 psgi_application 'my application' do
