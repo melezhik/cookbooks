@@ -16,6 +16,8 @@ cookbook_file '/tmp/app/app.conf' do
   source 'test.conf'
 end
 
+execute 'cpan Plack'
+
 psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      'off'
@@ -32,7 +34,6 @@ service 'app' do
   action :restart
 end
 
-
 psgi_application 'my application' do
         operator            'Catalyst'
         application_user    'root'
@@ -42,4 +43,5 @@ psgi_application 'my application' do
         ignore_failure      false
         action              'test'
 end
+
 
