@@ -31,6 +31,10 @@ link '/etc/nginx/sites-enabled/app.conf' do
     to '/etc/nginx/sites-available/app.conf'
 end
 
+service 'nginx' do
+  action :reload
+end
+
 psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      'off'
@@ -43,10 +47,8 @@ psgi_application 'my application' do
         action              'install'
 end
 
-%w[ app nginx ].each do |service|
-  service service do
-    action :restart
-  end
+service 'app' do
+  action :restart
 end
 
 psgi_application 'my application' do
