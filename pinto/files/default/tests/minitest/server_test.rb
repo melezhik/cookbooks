@@ -14,9 +14,14 @@ class PintoSpec < MiniTest::Chef::Spec
         end
 
         it 'runs pintod server' do
-            service('pintod').must_be_running
+
             result = assert_sh('/etc/init.d/pintod status')
             assert_includes result, 'is running'
+
+            pid = `cat /var/run/pintod.pid`.chomp!
+            result = assert_sh("ps --ppid #{pid} | wc -l")
+            assert_includes result, (node[:pinto][:server][:workers].to_i + 1).to_s
+
             result = assert_sh("curl -If http://#{node[:pinto][:server][:host]}:#{node[:pinto][:server][:port]}/modules/03modlist.data.gz")
             assert_includes result, ' 200 OK'
         end
