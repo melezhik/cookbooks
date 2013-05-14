@@ -9,7 +9,7 @@ Installs, configures Pinto application
 may be overridden to alter recipes behaviour 
 
 * `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is _'pinto'_
-* `pinto.bootstrap.user` - the group which Pinto installation files belongs to, default value is _'pinto'_
+* `pinto.bootstrap.group` - the group which Pinto installation files belongs to, default value is _'pinto'_
 * `pinto.bootstrap.home` - the home directory of application user, default value is _'/home/pinto/'_, so application will be installed into `pinto.bootstrap.home/opt/local/pinto`
 
 
