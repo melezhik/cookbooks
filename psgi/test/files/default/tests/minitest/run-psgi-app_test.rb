@@ -35,7 +35,7 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, '2'
     end
 
-    it 'CGI script returns Hello World from nginx' do
+    it 'nginx site returns Hello World' do
       result = assert_sh("curl 127.0.0.1:8888")
       assert_includes result, 'Hello World'
     end

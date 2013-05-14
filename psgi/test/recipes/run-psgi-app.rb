@@ -20,6 +20,10 @@ execute 'cpan Plack'
 
 package 'nginx'
 
+service 'nginx' do
+  action :start
+end
+
 cookbook_file '/etc/nginx/sites-available/app.conf' do
     source 'app_nginx.conf'
     owner 'root'
@@ -39,7 +43,7 @@ psgi_application 'my application' do
         operator            'Catalyst'
         enable_service      'off'
         application_user    'root'
-        application_home    '/tmp/app/'
+        application_home    '/tmp/app'
         script              'app.psgi'
         proc_title          'app'
         nproc               '2'
@@ -55,7 +59,7 @@ end
 psgi_application 'my application' do
         operator            'Catalyst'
         application_user    'root'
-        application_home    '/tmp/app/'
+        application_home    '/tmp/app'
         script              'app.psgi'
         config              '/tmp/app/app.conf'
         ignore_failure      false
