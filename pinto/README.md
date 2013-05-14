@@ -8,9 +8,9 @@ Installs, configures Pinto application
 # attributes 
 may be overridden to alter recipes behaviour 
 
-* `pinto.bootstrap.home` - the directory where Pinto is installed at, default value is _'/home/pinto/opt/local/pinto'_
 * `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is _'pinto'_
 * `pinto.bootstrap.user` - the group which Pinto installation files belongs to, default value is _'pinto'_
+* `pinto.bootstrap.home` - the home directory of application user, default value is _'/home/pinto/'_, so application will be installed to `pinto.bootstrap.home`/opt/local/pinto
 
 
 *  `pinto.server.repo_root` - the path to the root directory of your Pinto repository. The repository must already exist at this location. This attribute is required. default value is _'/home/pinto/opt/local/pinto/repo'_
