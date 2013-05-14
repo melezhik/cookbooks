@@ -22,7 +22,7 @@
 APPLICATION_USER=<%= @application_user %>
 APPLICATION_HOME=<%= @application_home %>
 
-<%- unless @perl5lib.empty?  %>
+<%- unless @perl5lib.empty? %>
 PERL5LIB="<%= @perl5lib.join(':') %>"
 <%- end %>
 
@@ -79,7 +79,9 @@ do_start()
         <%- elsif @operator == 'Jifty' %>
         JIFTY_CONFIG="<%= @config %>" \
         <%- end %>
+        <%- unless @perl5lib.empty? %>
         PERL5LIB="${PERL5LIB}" \
+        <%- end %>
 	    start-stop-daemon -d $APPLICATION_HOME \
 	    --chuid $APPLICATION_USER \
 	    --background --make-pidfile \
