@@ -5,7 +5,7 @@ define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManag
     socket = params[:socket] ? params[:socket] : "/tmp/#{base_name}_fcgi.socket"
     if params[:action] == 'install'
         log 'Checking Plack version'
-        execute 'perl -e "use Plack 1.0024"'
+        execute 'perl -e "use Plack #{node[:psgi][:plack][:version]}"'
 
         template "#{params[:install_dir]}/#{daemon_name}" do 
             source 'init-script'
