@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of psgi.
 
 ## 0.0.7:
+* checks version of Plack ( old versions do not work correctly with FCGI )
 * berkshelf / minitest chef infrastructure has been added
 * default value for `proc_manager` is FCGI::ProcManager
 * `-fcgi` postfix in `proc-title` has been removed
