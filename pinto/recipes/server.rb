@@ -18,10 +18,11 @@ end
 
 log 'init pinto repo'
 
-bash "source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc && pinto -r #{node.pinto.server.repo_root} init" do
+execute "bash -c 'source #{node[:pinto][:bootstrap][:home]}/opt/local/pinto/etc/bashrc; pinto -r #{node.pinto.server.repo_root} init'" do
     user node[:pinto][:bootstrap][:user]
     group node[:pinto][:bootstrap][:group]
-    environment( { 'HOME' => node.pinto.bootstrap.home  } )
+    not_if { ::File.exists? node.pinto.server.repo_root } 
+    notifies :restart, "service[pintod]", :delayed
 end
 
 service 'pintod' do
