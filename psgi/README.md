@@ -90,3 +90,6 @@ psgi_application
     end
 
 
+# tested on
+* Debian-Stable-64-bit
+
