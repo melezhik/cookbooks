@@ -32,7 +32,7 @@ class PsgiSpec < MiniTest::Chef::Spec
 
     it 'child proc count must be 1' do
       result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
-      assert_includes result, '1'
+      assert_includes result, '2'
     end
 
     it 'CGI script returns Hello World from nginx' do
