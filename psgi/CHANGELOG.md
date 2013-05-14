@@ -2,12 +2,12 @@
 
 This file is used to list changes made in each version of psgi.
 
-## 0.0.7
+## 0.0.7:
 * berkshelf / minitest chef infrastructure has been added
 * default value for `proc_manager` is FCGI::ProcManager
 * `-fcgi` postfix in `proc-title` has been removed
 
-## 0.0.6
+## 0.0.6:
 * delete old files
 
 ## 0.0.5:
