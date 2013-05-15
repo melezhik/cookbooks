@@ -21,3 +21,6 @@ cpan_client 'FCGI::ProcManager' do
   action :install
 end
 
+execute 'apt-get update'
+
+
