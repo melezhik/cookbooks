@@ -1,5 +1,5 @@
 # Synopsis
-Installs, configures Pinto application 
+Installs, configures [Pinto](http://search.cpan.org/perldoc?Pinto) application 
 
 # Recipes
 * pinto::application - installs Pinto application in standalone mode
