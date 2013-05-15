@@ -18,10 +18,19 @@ end
 
 execute 'cpan Plack'
 
+case node['platform_family']
+when 'debian'
+  execute 'apt-get update'
+when 'centos'
+  execute 'yum update'
+when 'ubuntu'
+  execute 'apt-get update'
+end
+
 package 'nginx'
 
 service 'nginx' do
-  action :start
+  s :start
 end
 
 cookbook_file '/etc/nginx/sites-available/app.conf' do

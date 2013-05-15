@@ -1,3 +1,4 @@
+include_recipe 'test::bootstrap'
 include_recipe 'test::run-psgi-app'
 include_recipe 'test::install-catalyst-app'
 include_recipe 'test::install-for-dancer'
