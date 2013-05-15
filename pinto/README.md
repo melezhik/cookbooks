@@ -29,3 +29,29 @@ may be overridden to alter recipes behaviour
 http://community.opscode.com/cookbooks/pinto
 
 
+# contrubuting 
+I use berkshelf for developing / testing pinto cookbook. Berkshelf is a framework for testing/developing chef cooksbooks. So if you one is inerested in contirbuting / hacking, berkshelf is the best way to go ahead.
+Next commands will explain how to start. 
+
+## Install berkshelf
+
+    $ gem install berkshelf
+
+## Install latest version of vagrant
+Berskhelf requires latest version of vagrant. Visit the Vagrant downloads page - download http://downloads.vagrantup.com/ and download the latest installer for your operating system.
+
+## install vagrant-berkshelf plugin
+Second thing we need is berkshelf vagrant plugin. Following command will install the plugin
+
+    $ vagrant plugin install vagrant-berkshelf 
+    
+## fork cookbooks 
+
+    $ git clone https://github.com/melezhik/cookbooks.git
+
+## run vagrant box 
+Following command will boot vagrant virtual machine, deploy pinto on it and run tests.
+
+    $ cd cookbooks/pinto
+    $ vagrant up
+  
