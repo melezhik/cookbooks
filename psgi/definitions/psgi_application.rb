@@ -8,7 +8,7 @@ define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManag
         if params[:perl5lib].empty?
             execute "perl -e \"use Plack #{node.psgi.plack.version}\""
         else
-            execute "PERL5LIB=\"#{params[:perl5lib]}.join(':')\" perl -e \"use Plack #{node[:psgi][:plack][:version]}\""
+            execute "PERL5LIB=\"#{params[:perl5lib].join(':')}\" perl -e \"use Plack #{node[:psgi][:plack][:version]}\""
         end
 
         template "#{params[:install_dir]}/#{daemon_name}" do 
