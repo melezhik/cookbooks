@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of psgi.
 
+## 0.0.8:
+* take into account perl5lib when check Plack version
+
 ## 0.0.7:
 * checks version of Plack ( old versions do not work correctly with FCGI )
 * berkshelf / minitest chef infrastructure has been added

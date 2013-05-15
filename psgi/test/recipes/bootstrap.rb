@@ -4,6 +4,7 @@ cpan_client 'Plack' do
   install_type 'cpan_module'
   user 'root'
   group 'root'
+  version node[:psgi][:plack][:version]
   action :install
 end
 
@@ -23,4 +24,8 @@ end
 
 execute 'apt-get update'
 
+package 'nginx'
 
+service 'nginx' do
+  action :start
+end

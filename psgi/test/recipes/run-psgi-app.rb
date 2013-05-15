@@ -16,13 +16,6 @@ cookbook_file '/tmp/app/app.conf' do
   source 'test.conf'
 end
 
-execute 'cpan Plack'
-
-package 'nginx'
-
-service 'nginx' do
-  action :start
-end
 
 cookbook_file '/etc/nginx/sites-available/app.conf' do
     source 'app_nginx.conf'
@@ -65,5 +58,4 @@ psgi_application 'my application' do
         ignore_failure      false
         action              'test'
 end
-
 
