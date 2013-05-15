@@ -20,7 +20,7 @@ psgi_application
 - `operator` (Catalyst|Dancer|Jifty), default value is **Catalyst**
 - `application_user`, change to this user name before starting the process
 - `application_home`, absolute path to directory holding application home
-- `enable_service`, whether to add service to run levels, default value is *on*. To not enable service set as 'off'
+- `enable_service`, whether to add service to run levels, default value is **on**. To not enable service set as 'off'
 - `script` - absolute path to psgi script
 - `daemon_name`, optional, if not set evaluated as base-name from `script` 
 - `daemon_path` - absolute path to daemon, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
