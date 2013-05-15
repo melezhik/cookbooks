@@ -30,7 +30,7 @@ http://community.opscode.com/cookbooks/pinto
 
 
 # contrubuting 
-I use berkshelf for developing / testing pinto cookbook. Berkshelf is a framework for testing/developing chef cooksbooks. So if you one is inerested in contirbuting / hacking, berkshelf is the best way to go ahead.
+I use berkshelf for developing / testing pinto cookbook. [Berkshelf](http://berkshelf.com/) is a framework for testing / managing chef cooksbooks. So if you one is inerested in contirbuting / hacking, berkshelf is the best way to go ahead.
 Next commands will explain how to start. 
 
 ## Install berkshelf
@@ -38,7 +38,9 @@ Next commands will explain how to start.
     $ gem install berkshelf
 
 ## Install latest version of vagrant
-Berskhelf requires latest version of vagrant. Visit the Vagrant downloads page - download http://downloads.vagrantup.com/ and download the latest installer for your operating system.
+[Vagrant](http://www.vagrantup.com/) is the tools for running / provisioning VirtualBox machines. 
+Berkshelf and Vagrant are tightly integrated. Berskhelf requires latest version of vagrant. 
+Visit the Vagrant downloads page - download http://downloads.vagrantup.com/ and download the latest installer for your operating system.
 
 ## install vagrant-berkshelf plugin
 Second thing we need is berkshelf vagrant plugin. Following command will install the plugin
@@ -55,3 +57,11 @@ Following command will boot vagrant virtual machine, deploy pinto on it and run 
     $ cd cookbooks/pinto
     $ vagrant up
   
+## make changes
+Change code and revsiion your chagnes running tests again. For standart vagrant workflow checkout - http://docs.vagrantup.com/v2/
+
+    $ mcedit recipes/application.rb
+    $ vagrant provision
+    
+   
+    
