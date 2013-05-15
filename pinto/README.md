@@ -1,4 +1,4 @@
-# Synposis
+# Synopsis
 Installs, configures Pinto application 
 
 # Recipes
@@ -28,9 +28,9 @@ may be overridden to alter recipes behaviour
 # Current release
 http://community.opscode.com/cookbooks/pinto
 
-# Contrubuting 
-I use berkshelf for developing / testing pinto cookbook. [Berkshelf](http://berkshelf.com/) is a framework for testing / managing chef cooksbooks. 
-So if you are interested in contirbuting, hacking - berkshelf is the best way to go ahead. Next commands will explain how to start. 
+# Contributing 
+I use berkshelf for developing / testing pinto cookbook. [Berkshelf](http://berkshelf.com/) is a framework for testing / managing chef cookbooks. 
+So if you are interested in contributing, hacking - berkshelf is the best way to go ahead. Next commands will explain how to start. 
 
 ## Install berkshelf
 
@@ -57,7 +57,7 @@ Following command will boot vagrant virtual machine, deploy pinto on it and run 
     $ vagrant up
   
 ## Make changes
-Change code and revision your chagnes running tests again. For standart vagrant workflow checkout - http://docs.vagrantup.com/v2/
+Change code and revision your changes running tests again. For standard vagrant work-flow checkout - http://docs.vagrantup.com/v2/
 
     $ mcedit recipes/application.rb
     $ vagrant provision
