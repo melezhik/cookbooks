@@ -30,7 +30,7 @@ end
 package 'nginx'
 
 service 'nginx' do
-  s :start
+  action :start
 end
 
 cookbook_file '/etc/nginx/sites-available/app.conf' do
