@@ -29,3 +29,29 @@ package 'nginx'
 service 'nginx' do
   action :start
 end
+
+link '/etc/nginx/sites-enabled/app.conf' do
+    to '/etc/nginx/sites-available/app.conf'
+end
+
+service 'nginx' do
+  action :reload
+end
+
+user 'app'
+
+directory '/tmp/psgi' do
+    recursive true
+    action :delete
+end
+
+%w{default catalyst dancer app}.each do |dir|
+    directory "/tmp/psgi/#{dir}" do
+        action :create
+        owner 'app'
+        recursive true
+    end
+end
+
+
+

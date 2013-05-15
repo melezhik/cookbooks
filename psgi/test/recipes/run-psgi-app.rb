@@ -1,19 +1,11 @@
-directory '/tmp/app/' do
-  action :delete
-  recursive true
+cookbook_file '/tmp/psgi/app/app.psgi' do
+    source 'test.psgi'
+    user 'app'
 end
 
-directory '/tmp/app/' do
-  action :create
-end
-
-
-cookbook_file '/tmp/app/app.psgi' do
-  source 'test.psgi'
-end
-
-cookbook_file '/tmp/app/app.conf' do
-  source 'test.conf'
+cookbook_file '/tmp/psgi/app/app.conf' do
+    source 'test.conf'
+    user 'app'
 end
 
 
@@ -24,25 +16,17 @@ cookbook_file '/etc/nginx/sites-available/app.conf' do
     mode '644'
 end
 
-link '/etc/nginx/sites-enabled/app.conf' do
-    to '/etc/nginx/sites-available/app.conf'
-end
-
-service 'nginx' do
-  action :reload
-end
-
 psgi_application 'my application' do
-        operator            'Catalyst'
-        enable_service      'off'
-        application_user    'root'
-        application_home    '/tmp/app'
-        script              'app.psgi'
-        proc_title          'app'
-        nproc               '2'
-        proc_manager        'FCGI::ProcManager'
-        config              '/tmp/app/app.conf'
-        action              'install'
+    operator            'Catalyst'
+    enable_service      'off'
+    application_user    'app'
+    application_home    '/tmp/psgi/app'
+    script              'app.psgi'
+    proc_title          'app'
+    nproc               '2'
+    proc_manager        'FCGI::ProcManager'
+    config              '/tmp/psgi/app/app.conf'
+    action              'install'
 end
 
 service 'app' do
@@ -51,10 +35,10 @@ end
 
 psgi_application 'my application' do
         operator            'Catalyst'
-        application_user    'root'
-        application_home    '/tmp/app'
+        application_user    'app'
+        application_home    '/tmp/psgi/app'
         script              'app.psgi'
-        config              '/tmp/app/app.conf'
+        config              '/tmp/psgi/app/app.conf'
         ignore_failure      false
         action              'test'
 end

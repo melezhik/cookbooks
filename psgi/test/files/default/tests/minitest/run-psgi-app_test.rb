@@ -22,18 +22,18 @@ class PsgiSpec < MiniTest::Chef::Spec
     end
 
     it 'CGI script returns 200 OK and Hello World' do
-      result = assert_sh("sudo bash -c 'cd /tmp/app && SERVER_PORT=80 SERVER_NAME=127.0.0.1 SCRIPT_NAME=/ REQUEST_METHOD=GET plackup -s CGI app.psgi'")
+      result = assert_sh("sudo bash -c 'cd /tmp/psgi/app && SERVER_PORT=80 SERVER_NAME=127.0.0.1 SCRIPT_NAME=/ REQUEST_METHOD=GET plackup -s CGI app.psgi'")
       assert_includes result, 'Status: 200'
       assert_includes result, 'Hello World'
     end
-    it 'app is running'do
-      service("app").must_be_running
-    end
 
-    it 'child proc count must be 1' do
+    it 'runs app service'do
+      service("app").must_be_running
       result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
       assert_includes result, '2'
     end
+
+
 
     it 'nginx site returns Hello World' do
       result = assert_sh("curl 127.0.0.1:8888")

@@ -44,10 +44,15 @@ define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManag
             end
         end
     elsif params[:action] == 'test'
+
         my_env = params[:environment]
         my_env['PERL5LIB'] = params[:perl5lib].join ':' unless params[:perl5lib].empty?
         my_env['CATALYST_CONFIG'] = params[:config]
         my_env['CATALYST_DEBUG'] = '1'
+        my_env['SERVER_PORT'] = '80'
+        my_env['SCRIPT_NAME'] = '/'
+        my_env['REQUEST_METHOD'] = 'GET'
+
         log "execute in pwd: #{params[:application_home]}"
         log "execute with env: #{my_env}"
         daemon_path = params[:daemon_path] || `which plackup`.chomp

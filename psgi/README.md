@@ -1,6 +1,6 @@
-# Description
+# Synopsis
 
-configures and runs psgi application as fastcgi server
+configures and runs psgi application as fastcgi server (as fastcgi standalone server)
 
 # Features
 
@@ -13,30 +13,29 @@ configures and runs psgi application as fastcgi server
 - [Dancer](http://search.cpan.org/perldoc?Dancer)
 
 
-# Definitions
+# Resources
 psgi_application
 
-
-# Definitions parameters
-- `operator` (Catalyst|Dancer|Jifty), default value `Catalyst`
-- `application_user`, change to this username before starting the process
+# Resource parameters
+- `operator` (Catalyst|Dancer|Jifty), default value is **Catalyst**
+- `application_user`, change to this user name before starting the process
 - `application_home`, absolute path to directory holding application home
-- `enable_service`, whether to add service to run levels, default `on`
+- `enable_service`, whether to add service to run levels, default value is *on*. To not enable service set as 'off'
 - `script` - absolute path to psgi script
-- `daemon_name`, optional, if not set evaluted as basename from `script` 
-- `daemon_path` - absolute path to daemon, optional, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
+- `daemon_name`, optional, if not set evaluated as base-name from `script` 
+- `daemon_path` - absolute path to daemon, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
 - `socket`, optional
-- `environment`, default value `{}`, hash containing environmental variables
-- `perl5lib`, default value `[]`, array containing perl5lib paths
+- `environment`, hash containing environmental variables, default value **{}**
+- `perl5lib`, array containing perl5lib paths, default value **[]**
 - `nproc`, default value `1`, number of child processes to launch
-- `proc_manager`, optional, default value is `FCGI::ProcManager`
+- `proc_manager`, optional, default value is **FCGI::ProcManager**
 - `proc_title`, optional, how the processes are seen in process list
-- `mount`, default value `nil` 
-- `config`, absolute path to application configuration file, optional for operator => 'Dancer'
-- `debug`, default value `1`
-- `plackup_environment`, default value `development`
+- `mount`, optional, mount path, see [Plack::App::URLMap](http://search.cpan.org/perldoc?Plack%3A%3AApp%3A%3AURLMap) for details 
+- `config`, absolute path to application configuration file (optional for 'Dancer' operator)
+- `debug`, default value **1**
+- `plackup_environment`, default value **development**
 - `cookbook`, default value `psgi`, the name of cookbook where init script template coming from
-- `ignore_failure` - used in action 'test', whether to ignore test failures, if enabled, than test fail will cause chef runtime exception. Default value is 'true'
+- `ignore_failure` - used in action 'test', whether to ignore test failures, if enabled, than test fail will cause chef runtime exception. Default value is **false**
 
 # Usage examples
 
@@ -90,6 +89,6 @@ psgi_application
     end
 
 
-# tested on
+# Tested on
 * Debian-Stable-64-bit
 
