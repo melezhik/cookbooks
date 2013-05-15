@@ -6,17 +6,17 @@ Installs, configures [Pinto](http://search.cpan.org/perldoc?Pinto) application
 * pinto::server - installs Pinto server ( should be run after pinto::application recipe )
 
 # Attributes 
-may be overridden to alter recipes behaviour 
+May be overridden to alter recipes behaviour 
 
-* `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is _'pinto'_
-* `pinto.bootstrap.group` - the group which Pinto installation files belongs to, default value is _'pinto'_
-* `pinto.bootstrap.home` - the home directory of application user, default value is _'/home/pinto/'_, so application will be installed into `pinto.bootstrap.home/opt/local/pinto`
+* `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is **pinto**
+* `pinto.bootstrap.group` - the group which Pinto installation files belongs to, default value is **pinto**
+* `pinto.bootstrap.home` - the home directory of application user, default value is **/home/pinto/**, so application will be installed into `pinto.bootstrap.home/opt/local/pinto`
 
 
-*  `pinto.server.repo_root` - the path to the root directory of your Pinto repository. The repository must already exist at this location. This attribute is required. default value is _'/home/pinto/opt/local/pinto/repo'_
-*  `pinto.server.host` - pinto server bind host, default value is _'0.0.0.0'_
-*  `pinto.server.port` - pinto server bind port, default value is _'5000'_
-*  `pinto.server.workers` - number of pinto server workers, default value is _'3'_
+*  `pinto.server.repo_root` - the path to the root directory of your Pinto repository. The repository must already exist at this location. Default value is **/home/pinto/opt/local/pinto/repo**
+*  `pinto.server.host` - pinto server bind host, default value is **0.0.0.0**
+*  `pinto.server.port` - pinto server bind port, default value is **5000**
+*  `pinto.server.workers` - number of pinto server workers, default value is **3**
 
 
 # Tested on
