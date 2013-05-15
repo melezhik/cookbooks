@@ -48,7 +48,7 @@ Second thing we need is berkshelf vagrant plugin. Following command will install
     
 ## Fork cookbooks 
 
-    $ git clone https://github.com/melezhik/cookbooks.git
+    $ git clone https://github.com/melezhik/cookbooks.git
 
 ## Run vagrant box 
 Following command will boot vagrant virtual machine, deploy pinto on it and run tests.

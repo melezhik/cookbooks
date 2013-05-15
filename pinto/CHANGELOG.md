@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of pinto.
 
+## 0.1.6
+* README - add contribution section
+
 ## 0.1.5:
 * documentation bug fixes
 
