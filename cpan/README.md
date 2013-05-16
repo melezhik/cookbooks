@@ -239,6 +239,4 @@ EXAMPLES OF USAGE
 
 Other examples (cucumber features) may be found at [cpan-test project](https://github.com/melezhik/cpan-test/)
 
-# Automatic tests
-Yeah, I am on the Travis ... [![Build Status](https://travis-ci.org/melezhik/cookbooks-test.png?branch=master)](https://travis-ci.org/melezhik/cpan-test)
 
