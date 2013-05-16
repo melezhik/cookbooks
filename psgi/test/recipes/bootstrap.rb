@@ -45,7 +45,7 @@ directory '/tmp/psgi' do
     action :delete
 end
 
-%w{default catalyst dancer app}.each do |dir|
+%w{default catalyst dancer starman app}.each do |dir|
     directory "/tmp/psgi/#{dir}" do
         action :create
         owner 'app'
