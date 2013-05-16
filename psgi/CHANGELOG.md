@@ -3,9 +3,11 @@
 This file is used to list changes made in each version of psgi.
 
 ## 0.0.9:
+* big fix for environment variable poluted (action :test)
 * refactoring of debian / ubuntu init script
 * action `:test`, `ignore_failures` default value is **false**  
-* support for Starman server _todo_
+* support for Starman server
+
 
 ## 0.0.8:
 * take into account perl5lib when check Plack version
