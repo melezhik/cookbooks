@@ -27,20 +27,15 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, 'Hello World'
     end
 
-    it 'runs app service'do
+    it 'runs app service' do
       service("app").must_be_running
-    end
-
-    it 'child proc count must be 2' do
+      
       result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
       assert_includes result, '2'
-    end
 
-    it 'process runs as user app'do
       result = assert_sh('ps axu | grep app | grep -v grep | awk \'{print $1}\'')
       assert_includes result, 'app'
     end
-
 
     it 'nginx site returns Hello World' do
       result = assert_sh("curl 127.0.0.1:8888")
