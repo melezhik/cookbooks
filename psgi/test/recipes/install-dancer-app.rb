@@ -1,4 +1,4 @@
-psgi_application 'my application' do
+psgi_application 'dancer fcgi application' do
     application_user    'app'
     application_home    '/home/user/app/MyApplication'
     script              '/home/user/app/MyApplication/scripts/app.psgi'

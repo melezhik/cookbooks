@@ -1,5 +1,6 @@
-#include_recipe 'test::bootstrap'
+include_recipe 'test::bootstrap'
 include_recipe 'test::install-catalyst-app'
 include_recipe 'test::install-dancer-app'
 include_recipe 'test::install-default-app'
 include_recipe 'test::run-fcgi-app'
+include_recipe 'test::run-starman-app'

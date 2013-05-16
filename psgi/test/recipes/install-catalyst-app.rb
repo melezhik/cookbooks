@@ -1,4 +1,4 @@
-psgi_application 'my application' do
+psgi_application 'catalyst fcgi application' do
     operator            'Catalyst'
     enable_service      false
     application_user    'app'

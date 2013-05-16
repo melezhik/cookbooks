@@ -30,10 +30,22 @@ DESC="<%= @application_desc %>"
 DAEMON="<%= @daemon_path %>"
 PIDFILE=/var/run/$NAME.pid
 
-<%- if ! @mount.nil? && ! @mount.empty? %>
-DAEMON_ARGS="-s <%= @server %> --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+<%- if ! @proc_manager.nil? && ! @proc_manager.empty? %>
+PROCMANAGER_OPT="--manager <%= @proc_manager %>"
 <%- else %>
-DAEMON_ARGS="-s <%= @server %> --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' "
+PROCMANAGER_OPT=""
+<%- end %>
+
+<%- if ! @proc_title.nil? && ! @proc_title.empty? %>
+PROCTITLE_OPT="--proc-title <%= @proc_title %>"
+<%- else %>
+PROCTITLE_OPT=""
+<%- end %>
+
+<%- if ! @mount.nil? && ! @mount.empty? %>
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+<%- else %>
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT "
 <%- end %>
 
 PIDFILE=/var/run/$NAME.pid

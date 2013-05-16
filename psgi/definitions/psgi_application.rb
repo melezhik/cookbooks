@@ -1,4 +1,4 @@
-define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :proc_manager => 'FCGI::ProcManager', :operator => 'Catalyst', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
+define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :operator => 'Catalyst', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
     base_name = ::File.basename(params[:script].chomp ::File.extname(params[:script]))
     daemon_name = params[:daemon_name] ? params[:daemon_name] : base_name
     proc_title = params[:proc_title] ? params[:proc_title] : base_name
@@ -25,8 +25,8 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :proc_manager 
                 :envvars => params[:environment],
                 :perl5lib => params[:perl5lib],
                 :nproc => params[:nproc],
-                :proc_manager => params[:proc_manager],
-                :proc_title => proc_title,
+                :proc_manager => params[:proc_manager] || ( params[:server] == 'FCGI' ? 'FCGI::ProcManager' : nil ),
+                :proc_title => params[:proc_title] ||  ( params[:server] == 'FCGI' ? base_name : nil ) ,
                 :mount => params[:mount],
                 :config => params[:config],
                 :debug => params[:debug],
