@@ -56,14 +56,6 @@ end
 end
 
 
-cookbook_file '/etc/nginx/sites-available/app.conf' do
-    source 'app_nginx.conf'
-    owner 'root'
-    group 'root'
-    mode '644'
-end
-
-
 execute 'apt-get update'
 
 package 'nginx'
@@ -71,6 +63,14 @@ package 'nginx'
 service 'nginx' do
   action :start
 end
+
+cookbook_file '/etc/nginx/sites-available/app.conf' do
+    source 'app_nginx.conf'
+    owner 'root'
+    group 'root'
+    mode '644'
+end
+
 
 link '/etc/nginx/sites-enabled/app.conf' do
     to '/etc/nginx/sites-available/app.conf'
