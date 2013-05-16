@@ -1,22 +1,24 @@
 psgi_application 'psgi starman application' do
-    operator            'Starman'
+    server              'Starman'
     enable_service      'off'
     application_user    'app'
     application_home    '/tmp/psgi/starman'
-    script              'starman.psgi'
+    script              'app.psgi'
+    daemon_name         'starman-psgi'
+    socket              ':5000'
     nproc               '2'
     action              'install'
 end
 
-service 'app' do
+service 'starman-psgi' do
   action :restart
 end
 
 psgi_application 'psgi starman application' do
-    operator            'Starman'
+    server              'Starman'
     application_user    'app'
     application_home    '/tmp/psgi/starman'
-    script              'starman.psgi'
+    script              'app.psgi'
     ignore_failure      false
     action              'test'
 end

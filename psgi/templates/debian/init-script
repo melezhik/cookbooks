@@ -37,15 +37,24 @@ PROCMANAGER_OPT=""
 <%- end %>
 
 <%- if ! @proc_title.nil? && ! @proc_title.empty? %>
-PROCTITLE_OPT="--proc-title <%= @proc_title %>"
+PROCTITLE_OPT="--proc_title <%= @proc_title %>"
 <%- else %>
 PROCTITLE_OPT=""
 <%- end %>
 
-<%- if ! @mount.nil? && ! @mount.empty? %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+
+<%- if ! @nproc.nil? && @server == 'FCGI' %>
+NPROC_OPT="--nproc <%= @nproc %>"
+<%- elsif ! @nproc.nil? && @server == 'Starman' %>
+NPROC_OPT="--workers <%= @nproc %>"
 <%- else %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT "
+NPROC_OPT=""
+<%- end %>
+
+<%- if ! @mount.nil? && ! @mount.empty? %>
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+<%- else %>
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT "
 <%- end %>
 
 PIDFILE=/var/run/$NAME.pid

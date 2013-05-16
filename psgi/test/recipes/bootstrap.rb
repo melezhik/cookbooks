@@ -45,11 +45,11 @@ end
 end
 
 %w{starman app}.each do |id|
-    cookbook_file "/tmp/psgi/#{id}/#{id}.psgi" do
+    cookbook_file "/tmp/psgi/#{id}/app.psgi" do
         source 'test.psgi'
         user 'app'
     end
-    cookbook_file "/tmp/psgi/#{id}/#{id}.conf" do
+    cookbook_file "/tmp/psgi/#{id}/app.conf" do
         source 'test.conf'
         user 'app'
     end
