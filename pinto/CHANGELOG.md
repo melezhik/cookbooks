@@ -2,10 +2,10 @@
 
 This file is used to list changes made in each version of pinto.
 
-## 0.1.7
+## 0.1.7:
 * init scripts for debian / ubuntu get refactored - _todo_
 
-## 0.1.6
+## 0.1.6:
 * README - add contribution section
 
 ## 0.1.5:
