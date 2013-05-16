@@ -34,6 +34,13 @@ class PsgiSpec < MiniTest::Chef::Spec
     end
 
 
+    it 'multiple start should not increase number of child process'do
+      (1..3).each do |i|
+        assert('/etc/init.d/app start')
+      end
+      result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
+      assert_includes result, '2'
+    end
 
     it 'nginx site returns Hello World' do
       result = assert_sh("curl 127.0.0.1:8888")
