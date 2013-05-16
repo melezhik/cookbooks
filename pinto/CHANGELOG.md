@@ -4,6 +4,7 @@ This file is used to list changes made in each version of pinto.
 
 ## 0.1.7:
 * init scripts for debian / ubuntu get refactored
+* warning message about installation for 'root' user
 
 ## 0.1.6:
 * README - add contribution section
