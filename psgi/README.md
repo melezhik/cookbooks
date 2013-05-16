@@ -2,6 +2,10 @@
 
 Configures and runs psgi application
 
+# Prerequisitves
+* [Plack](http://search.cpan.org/perldoc?Plack)
+* a choosen web server cpan module should be installed ( see  list in the `web servers supported` section )
+
 # Features
 
 ## web servers supported
