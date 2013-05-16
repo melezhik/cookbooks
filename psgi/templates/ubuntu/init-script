@@ -70,7 +70,7 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon --start --exec $DAEMON --quiet --test  || return 1
+	start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- $DAEMON_ARGS || return 2
     eval "$ENVVARS" \
     <%- if @operator == 'Catalyst' %>
     CATALYST_CONFIG=<%= @config %>  CATALYST_DEBUG=<%= @debug %> \
@@ -82,7 +82,7 @@ do_start()
     <%- unless @perl5lib.empty? %>
     PERL5LIB="${PERL5LIB}" \
     <%- end %>
-    start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --exec $DAEMON --quiet -- $DAEMON_ARGS || return 2
+    start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --startas $DAEMON -- $DAEMON_ARGS || return 2
 	# Add code here, if necessary, that waits for the process to be ready
 	# to handle requests from services started subsequently which depend
 	# on this one.  As a last resort, sleep for some time.
