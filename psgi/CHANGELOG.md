@@ -6,7 +6,7 @@ This file is used to list changes made in each version of psgi.
 * refactoring of debian init script _todo_
 * action `:test`, `ignore_failures` default value is **false**  
 * support for centOS _todo_
-* support for Starman server
+* support for Starman server _todo_
 
 ## 0.0.8:
 * take into account perl5lib when check Plack version
