@@ -10,10 +10,8 @@
 #                    
 ### END INIT INFO
 
-# Author: Foo Bar <foobar@baz.org>
+# Author: Alexey Melezhik <melezhik@gmail.org>
 #
-# Please remove the "Author" lines above and replace them
-# with your own name if you copy and modify this script.
 
 # Do NOT "set -e"
 
@@ -33,9 +31,9 @@ DAEMON="<%= @daemon_path %>"
 PIDFILE=/var/run/$NAME.pid
 
 <%- if ! @mount.nil? && ! @mount.empty? %>
-DAEMON_ARGS="-s FCGI --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+DAEMON_ARGS="-s <%= @server %> --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
 <%- else %>
-DAEMON_ARGS="-s FCGI --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' "
+DAEMON_ARGS="-s <%= @server %> --manager <%= @proc_manager %> --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> --proc-title='<%= @proc_title %>' "
 <%- end %>
 
 PIDFILE=/var/run/$NAME.pid
@@ -70,7 +68,7 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- $DAEMON_ARGS || return 2
+	start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- $DAEMON_ARGS || return 1
     eval "$ENVVARS" \
     <%- if @operator == 'Catalyst' %>
     CATALYST_CONFIG=<%= @config %>  CATALYST_DEBUG=<%= @debug %> \
@@ -171,7 +169,6 @@ case "$1" in
 	esac
 	;;
   *)
-	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
 	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
 	exit 3
 	;;

@@ -1,11 +1,12 @@
 # Synopsis
 
-configures and runs psgi application as fastcgi server (as fastcgi standalone server)
+Configures and runs psgi application
 
 # Features
 
 ## web servers supported
-- FCGI (more coming soon)
+- [FCGI](http://search.cpan.org/perldoc?FCGI)
+- [Starman](http://search.cpan.org/perldoc?Starman) 
 
 ## web frameworks supported
 - [Catalyst](http://search.cpan.org/perldoc?Catalyst)
@@ -17,7 +18,8 @@ configures and runs psgi application as fastcgi server (as fastcgi standalone se
 psgi_application
 
 # Resource parameters
-- `operator` (Catalyst|Dancer|Jifty), default value is **Catalyst**
+- `operator` (Catalyst|Dancer|Jifty), specify web framework to use, default value is **Catalyst**
+- `server` (FCGI|Starman), specify web server to use, default value is **FCGI**
 - `application_user`, change to this user name before starting the process
 - `application_home`, absolute path to directory holding application home
 - `enable_service`, whether to add service to run levels, default value is **on**. To not enable service set this parameter to 'off'
@@ -39,7 +41,7 @@ psgi_application
 
 # Usage examples
 
-    # run Catalyst Application (default flavour)
+    # run Catalyst Application as FCGI standalone server
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
@@ -48,7 +50,7 @@ psgi_application
         action              'install'      
     end
 
-    # run Dancer application
+    # run Dancer application as FCGI standalone server
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
@@ -57,7 +59,7 @@ psgi_application
         action              'install'      
     end
 
-    # run Jifty application
+    # run Jifty application as FCGI standalone server
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
@@ -67,7 +69,7 @@ psgi_application
         action              'install'      
     end
     
-    # test application
+    # test psgi application 
     psgi_application 'my application' do
         application_user    'user'
         application_group   'user'

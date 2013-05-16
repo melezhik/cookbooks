@@ -3,9 +3,8 @@
 This file is used to list changes made in each version of psgi.
 
 ## 0.0.9:
-* refactoring of debian init script _todo_
+* refactoring of debian / ubuntu init script
 * action `:test`, `ignore_failures` default value is **false**  
-* support for centOS _todo_
 * support for Starman server _todo_
 
 ## 0.0.8:

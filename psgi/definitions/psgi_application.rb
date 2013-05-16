@@ -1,4 +1,4 @@
-define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManager', :operator => 'Catalyst', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
+define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :proc_manager => 'FCGI::ProcManager', :operator => 'Catalyst', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
     base_name = ::File.basename(params[:script].chomp ::File.extname(params[:script]))
     daemon_name = params[:daemon_name] ? params[:daemon_name] : base_name
     proc_title = params[:proc_title] ? params[:proc_title] : base_name
@@ -32,7 +32,8 @@ define :psgi_application, :cookbook => 'psgi', :proc_manager => 'FCGI::ProcManag
                 :debug => params[:debug],
                 :plackup_environment => params[:plackup_environment],
                 :install_dir => params[:install_dir],
-                :operator => params[:operator]
+                :operator => params[:operator],
+                :server => params[:server]
             })
             owner 'root'
             group 'root'
