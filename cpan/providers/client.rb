@@ -96,14 +96,14 @@ def install_log
 
   my_installed_module = installed_module
   force_mode = @installer.force
-  ruby_block 'install-log' do
+  ruby_block 'validate cpan client logs' do
     block do
         print ">>> #{my_installed_module} install summary <<<\n"
         prev_line = ''
         IO.foreach(install_log_file) do |l|
             ll = sanity_string l
             print "   #{l} [#{prev_line}]\n" if /\s--\s(OK|NOT OK)/.match(ll)
-            if /Stopping: 'install' failed/.match(ll)
+            if /(Stopping: 'install' failed|won't install without force)/.match(ll)
                 if force_mode == true
                     Chef::Log.warn("error occured : #{ll}[#{prev_line}]") 
                     Chef::Log.info("will continue because we are in force_mode = true mode") 

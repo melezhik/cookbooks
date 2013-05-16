@@ -1,5 +1,7 @@
-# version 0.0.18
-- berkshelf / minitest chef infrastructure has been added [todo]
+# version 0.0.28
+- berkshelf / minitest chef infrastructure has been added 
+- messages 'won't install without force' in log file should turn into exception
+
 
 # version 0.0.27
 - cpan::bootstrap have been made multiplatforms - todo
