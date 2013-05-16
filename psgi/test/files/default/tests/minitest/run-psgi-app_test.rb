@@ -33,7 +33,7 @@ class PsgiSpec < MiniTest::Chef::Spec
       result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
       assert_includes result, '2'
 
-      result = assert_sh('ps axu | grep app | grep -v grep | awk \'{print $1}\'')
+      result = assert_sh("ps axu | grep app | grep -v grep | awk '{print $1}'")
       assert_includes result, 'app'
     end
 
