@@ -27,12 +27,17 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, 'Hello World'
     end
 
-    it 'runs app service'do
+    it 'runs app service' do
+
       service("app").must_be_running
+      
       result = assert_sh('ps axu | grep perl-fcgi | grep -v grep | wc -l')
       assert_includes result, '2'
-    end
 
+      result = assert_sh("ps axu | grep app | grep -v grep | awk '{print $1}'")
+      assert_includes result, 'app'
+
+    end
 
     it 'multiple start should not increase number of child process'do
       (1..3).each do |i|
