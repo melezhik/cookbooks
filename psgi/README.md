@@ -41,8 +41,9 @@ psgi_application
 
 # Usage examples
 
-    # run Catalyst Application as FCGI standalone server
-    psgi_application 'my application' do
+## run Catalyst application as FCGI standalone server
+
+    psgi_application 'Catalyst FCGI application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
@@ -50,37 +51,41 @@ psgi_application
         action              'install'      
     end
 
-    # run Dancer application as FCGI standalone server
-    psgi_application 'my application' do
-        application_user    'user'
-        application_home    '/home/user/app/MyApplication'
-        script              '/home/user/app/MyApplication/scripts/foo.psgi'
+## run Dancer application as FCGI standalone server
+
+    psgi_application 'Dancer FCGI application' do
         operator            'Dancer'
-        action              'install'      
-    end
-
-    # run Jifty application as FCGI standalone server
-    psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
-        config              '/home/user/app/MyApplication/app.conf'
+        action              'install'      
+    end
+
+## run Jifty application as FCGI standalone server
+
+    psgi_application 'Jifty FCGI application' do
         operator            'Jifty'
-        action              'install'      
-    end
-    
-    # test psgi application 
-    psgi_application 'my application' do
         application_user    'user'
-        application_group   'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
         config              '/home/user/app/MyApplication/app.conf'
-        action              'test'
-        ignore_failure      false
+        action              'install'      
     end
 
-    # usage with non system plackup
+## run Catalyst application with Starman server, port 5001
+
+    psgi_application 'Catalyst Starman application' do
+         server              'Starman'
+         application_user    'user'
+         application_home    '/home/user/app/MyApplication'
+         script              'app.psgi'
+         socket              ':5000'
+         nproc               '2'
+         action              'install'
+    end
+
+## using with non system plackup
+
     psgi_application 'my application' do
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
@@ -89,6 +94,18 @@ psgi_application
         action              'install'
         daemon_path         '/home/user/app/MyApplication/cpanlib/bin/plackup'      
     end
+
+## run smoke test on installed psgi application 
+
+    psgi_application 'my application' do
+        application_user    'user'
+        application_group   'user'
+        application_home    '/home/user/app/MyApplication'
+        script              '/home/user/app/MyApplication/scripts/foo.psgi'
+        config              '/home/user/app/MyApplication/app.conf'
+        action              'test'
+    end
+
 
 
 # Tested on
