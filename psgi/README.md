@@ -90,5 +90,6 @@ psgi_application
 
 
 # Tested on
-* Debian-Stable-64-bit
+* Debian-Stable-64-bit, chef 11.4.4
+* Ubuntu 12.04.2 LTS, chef 11.4.0
 
