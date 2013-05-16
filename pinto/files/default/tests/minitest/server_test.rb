@@ -26,6 +26,13 @@ class PintoSpec < MiniTest::Chef::Spec
             assert_includes result, ' 200 OK'
         end
 
+        it 'multiple start should not increase number of child processes'do
+            (1..3).each do |i|
+              assert('/etc/init.d/pintod start')
+            end
+            result = assert_sh('ps aux | grep pinto | grep starman | grep worker | grep -v grep | wc -l')
+            assert_includes result, node[:pinto][:server][:workers]
+        end
     end    
 end
 

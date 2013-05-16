@@ -3,7 +3,7 @@
 This file is used to list changes made in each version of pinto.
 
 ## 0.1.7:
-* init scripts for debian / ubuntu get refactored - _todo_
+* init scripts for debian / ubuntu get refactored
 
 ## 0.1.6:
 * README - add contribution section
