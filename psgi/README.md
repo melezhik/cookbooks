@@ -49,6 +49,8 @@ psgi_application
 ## run Catalyst application as FCGI standalone server
 
     psgi_application 'Catalyst FCGI application' do
+        operator            'Catalyst'
+        server              'FCGI'
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
@@ -60,6 +62,7 @@ psgi_application
 
     psgi_application 'Dancer FCGI application' do
         operator            'Dancer'
+        server              'FCGI'
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
@@ -70,6 +73,7 @@ psgi_application
 
     psgi_application 'Jifty FCGI application' do
         operator            'Jifty'
+        server              'FCGI'
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
@@ -77,9 +81,9 @@ psgi_application
         action              'install'      
     end
 
-## run Catalyst application with Starman server, port 5001
+## run psgi application with Starman server, port 5001
 
-    psgi_application 'Catalyst Starman application' do
+    psgi_application 'psgi Starman application' do
          server              'Starman'
          application_user    'user'
          application_home    '/home/user/app/MyApplication'
@@ -92,6 +96,7 @@ psgi_application
 ## using with non system plackup
 
     psgi_application 'my application' do
+        server              'Starman'
         application_user    'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
@@ -107,7 +112,6 @@ psgi_application
         application_group   'user'
         application_home    '/home/user/app/MyApplication'
         script              '/home/user/app/MyApplication/scripts/foo.psgi'
-        config              '/home/user/app/MyApplication/app.conf'
         action              'test'
     end
 
