@@ -7,12 +7,6 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :operator => '
 
 
     if params[:action] == 'install'
-        log 'Checking Plack version'
-        if params[:perl5lib].empty?
-            execute "perl -e \"use Plack #{node.psgi.plack.version}\""
-        else
-            execute "PERL5LIB=\"#{params[:perl5lib].join(':')}\" perl -e \"use Plack #{node[:psgi][:plack][:version]}\""
-        end
 
         template "#{params[:install_dir]}/#{daemon_name}" do 
             source 'init-script'
@@ -70,3 +64,4 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :operator => '
         end
     end
 end
+
