@@ -7,6 +7,7 @@ This file is used to list changes made in each version of psgi.
 * chef minitest -  add test for application with mount parameter **todo**
 * default value for `operator` is not **Catalyst**, but **nill** **todo**
 * `framework` is alias for `operator` parameter **todo**
+* lowercase for postfix in socketfile name, in case unix socket **todo**
 
 ## 0.0.10:
 * do not check Plack version
