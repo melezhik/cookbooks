@@ -1,9 +1,9 @@
-define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :operator => 'Catalyst', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
+define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
     base_name = ::File.basename(params[:script].chomp ::File.extname(params[:script]))
     daemon_name = params[:daemon_name] ? params[:daemon_name] : base_name
     proc_title = params[:proc_title] ? params[:proc_title] : base_name
 
-    socket = params[:socket] ? params[:socket] : ( params[:server] == 'FCGI' ? "/tmp/#{base_name}_fcgi.socket" : "/tmp/#{base_name}_#{params[:server]}.socket" ) 
+    socket = params[:socket] ? params[:socket] : "/tmp/#{base_name}_#{params[:server].downcase}.socket"
 
 
     if params[:action] == 'install'

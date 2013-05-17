@@ -22,7 +22,7 @@ Configures and runs psgi application
 psgi_application
 
 # Resource parameters
-- `operator` (Catalyst|Dancer|Jifty), specify web framework to use, default value is **Catalyst**
+- `operator` (Catalyst|Dancer|Jifty), specify web framework to use, optional
 - `server` (FCGI|Starman), specify web server to use, default value is **FCGI**
 - `application_user`, change to this user name before starting the process
 - `application_home`, absolute path to directory holding application home

@@ -38,6 +38,8 @@ class PsgiSpec < MiniTest::Chef::Spec
       result = assert_sh("ps axu | grep app | grep -v grep | awk '{print $1}'")
       assert_includes result, 'app'
 
+      assert_sh("stat /tmp/app_fcgi.socket")
+
     end
 
     it 'multiple start should not increase number of child process'do
