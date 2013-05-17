@@ -9,7 +9,7 @@ Installs, configures [Pinto](http://search.cpan.org/perldoc?Pinto) application
 May be overridden to alter recipes behaviour 
 
 * `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is **pinto**.
-_Please do not override  pinto.bootstrap.user attributes to 'root' or the recipe will fail!_
+Do not set to 'root' value. Installation for root user will fail!
 
 * `pinto.bootstrap.group` - the group which Pinto installation files belongs to, default value is **pinto**
 * `pinto.bootstrap.home` - the home directory of application user, default value is **/home/pinto/**, so application will be installed into `pinto.bootstrap.home/opt/local/pinto`
