@@ -29,7 +29,7 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
                 :debug => params[:debug],
                 :plackup_environment => params[:plackup_environment],
                 :install_dir => params[:install_dir],
-                :operator => params[:operator],
+                :operator => params[:operator] || 'default',
                 :server => params[:server]
             })
             owner 'root'
@@ -45,8 +45,23 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
 
         my_test_env = params[:environment].clone
         my_test_env['PERL5LIB'] = params[:perl5lib].join ':' unless params[:perl5lib].empty?
-        my_test_env['CATALYST_CONFIG'] = params[:config]
-        my_test_env['CATALYST_DEBUG'] = '1'
+
+        if params[:server] == 'Twiggy'
+            my_test_env['TWIGGY_DEBUG'] = '1'
+        end
+
+        unless params[:operator].nil?
+            if params[:operator] == 'Catalyst'
+                my_test_env['CATALYST_CONFIG'] = params[:config]
+                my_test_env['CATALYST_DEBUG'] = '1'
+            elsif params[:operator] == 'Dancer'
+                my_test_env['DANCER_CONFDIR'] = params[:application_home]
+            elsif params[:operator] == 'Jifty'
+                my_test_env['JIFTY_CONFIG'] = params[:config]
+            end
+        end
+
+
         my_test_env['SERVER_PORT'] = '80'
         my_test_env['SCRIPT_NAME'] = '/'
         my_test_env['REQUEST_METHOD'] = 'GET'
@@ -55,7 +70,7 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
         log "execute with env: #{my_test_env}"
         daemon_path = params[:daemon_path] || `which plackup`.chomp
         log "daemon_path: #{daemon_path}"
-        execute "#{daemon_path} -s CGI #{params[:script]} 1>/dev/null" do 
+        execute "#{daemon_path} -s CGI #{params[:script]}" do 
             environment my_test_env
             cwd params[:application_home]
             user params[:application_user]

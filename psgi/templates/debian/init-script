@@ -52,9 +52,9 @@ NPROC_OPT=""
 <%- end %>
 
 <%- if ! @mount.nil? && ! @mount.empty? %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
 <%- else %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --nproc <%= @nproc %> --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT "
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT "
 <%- end %>
 
 PIDFILE=/var/run/$NAME.pid
@@ -91,6 +91,10 @@ do_start()
 	#   2 if daemon could not be started
 	start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- $DAEMON_ARGS || return 1
     eval "$ENVVARS" \
+    <%- if @server == 'Twiggy' %>
+    TWIGGY_DEBUG=<%= @debug %>
+    <%- end %>
+
     <%- if @operator == 'Catalyst' %>
     CATALYST_CONFIG=<%= @config %>  CATALYST_DEBUG=<%= @debug %> \
     <%- elsif @operator == 'Dancer' %>

@@ -14,12 +14,10 @@ service 'starman-psgi' do
   action :restart
 end
 
-psgi_application 'psgi starman application' do
-    server              'Starman'
+psgi_application 'test starman application' do
     application_user    'app'
     application_home    '/tmp/psgi/starman'
     script              'app.psgi'
-    ignore_failure      false
     action              'test'
 end
 

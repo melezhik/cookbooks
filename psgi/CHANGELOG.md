@@ -2,13 +2,14 @@
 
 This file is used to list changes made in each version of psgi.
 
-## 0.0.11:
-* action `:test` - optionally look up string in response body **todo**
+## 0.0.12:
 * chef minitest -  add test for application with mount parameter **todo**
-* chef minitest -  add test for jifty application **todo**
-* default value for `operator` is not **Catalyst**, but **nill** **todo**
 * `framework` is alias for `operator` parameter **todo**
-* lowercase for postfix in socketfile name, in case unix socket **todo**
+
+## 0.0.11:
+* added 'Twiggy' server
+* default value for `operator` is not **Catalyst**, but **nill**
+* lowercase for postfix in socketfile name, in case unix socket
 
 ## 0.0.10:
 * do not check Plack version

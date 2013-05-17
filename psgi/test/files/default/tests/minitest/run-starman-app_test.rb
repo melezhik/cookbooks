@@ -9,18 +9,16 @@ class PsgiSpec < MiniTest::Chef::Spec
       file("/etc/init.d/starman-psgi").must_have(:mode,"755")
     end
 
-    it 'init script returns successfull status' do
-      result = assert_sh('sudo /etc/init.d/starman-psgi status')
-      assert_includes result, 'running'
-    end
-
     it 'CGI script returns 200 OK and Hello World' do
       result = assert_sh("sudo bash -c 'cd /tmp/psgi/starman && SERVER_PORT=80 SERVER_NAME=127.0.0.1 SCRIPT_NAME=/ REQUEST_METHOD=GET plackup -s CGI app.psgi'")
       assert_includes result, 'Status: 200'
       assert_includes result, 'Hello World'
     end
 
-    it 'runs starman server' do
+    it 'runs server' do
+
+      result = assert_sh('sudo /etc/init.d/starman-psgi status')
+      assert_includes result, 'running'
 
       service("starman").must_be_running
       
@@ -40,7 +38,7 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, '2'
     end
 
-    it 'nginx site returns Hello World' do
+    it 'application index page returns Hello World' do
       result = assert_sh("curl 127.0.0.1:5000")
       assert_includes result, 'Hello World'
     end

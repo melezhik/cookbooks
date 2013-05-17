@@ -31,12 +31,19 @@ cpan_client 'Starman' do
   action :install
 end
 
+cpan_client 'Twiggy' do
+  install_type 'cpan_module'
+  user 'root'
+  group 'root'
+  action :install
+end
+
 directory '/tmp/psgi' do
     recursive true
     action :delete
 end
 
-%w{default catalyst dancer starman app}.each do |dir|
+%w{ app catalyst dancer default  starman twiggy }.each do |dir|
     directory "/tmp/psgi/#{dir}" do
         action :create
         owner 'app'
@@ -44,7 +51,7 @@ end
     end
 end
 
-%w{starman app}.each do |id|
+%w{ starman twiggy app }.each do |id|
     cookbook_file "/tmp/psgi/#{id}/app.psgi" do
         source 'test.psgi'
         user 'app'

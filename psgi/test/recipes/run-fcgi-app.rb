@@ -15,13 +15,10 @@ service 'app' do
   action :restart
 end
 
-psgi_application 'psgi fcgi application' do
-    operator            'Catalyst'
+psgi_application 'test fcgi application' do
     application_user    'app'
     application_home    '/tmp/psgi/app'
     script              'app.psgi'
-    config              '/tmp/psgi/app/app.conf'
-    ignore_failure      false
     action              'test'
 end
 

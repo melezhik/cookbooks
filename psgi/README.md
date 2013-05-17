@@ -11,6 +11,7 @@ Configures and runs psgi application
 ## web servers supported
 - [FCGI](http://search.cpan.org/perldoc?FCGI)
 - [Starman](http://search.cpan.org/perldoc?Starman) 
+- [Twiggy](http://search.cpan.org/perldoc?Twiggy) 
 
 ## web frameworks supported
 - [Catalyst](http://search.cpan.org/perldoc?Catalyst)

@@ -3,23 +3,9 @@ class PsgiSpec < MiniTest::Chef::Spec
   describe 'installs and runs psgi application as fcgi server' do
     it 'creates init script file' do
       file("/etc/init.d/app").must_exist
-    end
-
-    it 'creates init script file with proper owner' do
       file("/etc/init.d/app").must_have(:owner,"root")
-    end
-
-    it 'creates init script file with proper group' do
       file("/etc/init.d/app").must_have(:group,"root")
-    end
-
-    it 'creates init script file with proper mode' do
       file("/etc/init.d/app").must_have(:mode,"755")
-    end
-
-    it 'init script returns successfull status' do
-      result = assert_sh('sudo /etc/init.d/app status')
-      assert_includes result, 'running'
     end
 
     it 'CGI script returns 200 OK and Hello World' do
@@ -28,7 +14,10 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, 'Hello World'
     end
 
-    it 'runs fcgi server' do
+    it 'runs server' do
+
+      result = assert_sh('sudo /etc/init.d/app status')
+      assert_includes result, 'running'
 
       service("app").must_be_running
       
@@ -50,7 +39,7 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, '2'
     end
 
-    it 'nginx site returns Hello World' do
+    it 'application index page returns Hello World' do
       result = assert_sh("curl 127.0.0.1:8888")
       assert_includes result, 'Hello World'
     end
