@@ -1,0 +1,6 @@
+13:29	melezhik	Hi Jeffrey! How r u?
+13:30	melezhik	How it's going with pinto?
+14:38	melezhik	Just one idea about pinto. May be it makes a sense , may be not. What about automatic deploy of pinto repositories? Let's say we have a certain pinto repository on given host and we want to distribute this repository (the same stacks, modules, pins  etc) to another host?
+14:41	melezhik	Or another use case. Let's say we have described pinto repo structure (stacks, modules, pins)  and we want to apply this "pinto environment" to multiple hosts. For example when developing things ... share the same environment b/w developers is make a sense. 
+14:42	melezhik	If these use case are real, this is where chef may help, because it's about repeating infrastructures and storing them as code, making available to re-apply them as many time as we need. 
+14:43	melezhik	Just my thoughts , what do you think about it?
