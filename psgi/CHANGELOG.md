@@ -3,10 +3,10 @@
 This file is used to list changes made in each version of psgi.
 
 ## 0.0.11:
-* action `:test` - optionally look up string in response body _todo_
-* chef minitest -  add test for application with mount parameter _todo_
-* default value for `operator` is not _Catalyst_, but _nill_ _todo_
-* `framework` is alias for `operator` parameter _todo_
+* action `:test` - optionally look up string in response body **todo**
+* chef minitest -  add test for application with mount parameter **todo**
+* default value for `operator` is not **Catalyst**, but **nill** **todo**
+* `framework` is alias for `operator` parameter **todo**
 
 ## 0.0.10:
 * do not check Plack version
