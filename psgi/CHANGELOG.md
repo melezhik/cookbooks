@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of psgi.
 
-## 0.0.9:
+## 0.0.10:
 * do not check Plack version
 * big fix for environment variable poluted (action :test)
 * refactoring of debian / ubuntu init script
