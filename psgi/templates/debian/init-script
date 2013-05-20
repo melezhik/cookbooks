@@ -52,12 +52,15 @@ NPROC_OPT=""
 <%- end %>
 
 <%- if ! @mount.nil? && ! @mount.empty? %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT -e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
+MOUNT_OPT="-e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
 <%- else %>
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT "
+MOUNT_OPT=""
 <%- end %>
 
+DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT $MOUNT_OPT"
+
 PIDFILE=/var/run/$NAME.pid
+
 SCRIPTNAME=<%= @install_dir %>/$NAME
 
 <%- vars = [] %>

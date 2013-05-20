@@ -5,6 +5,7 @@ This file is used to list changes made in each version of psgi.
 ## 0.0.12:
 * chef minitest -  add test for application with mount parameter **todo**
 * `framework` is alias for `operator` parameter **todo**
+* now support for centOS **todo**
 
 ## 0.0.11:
 * added 'Twiggy' server
