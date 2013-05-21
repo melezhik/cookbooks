@@ -6,6 +6,8 @@ This file is used to list changes made in each version of psgi.
 * chef minitest -  add test for application with mount parameter **todo**
 * `framework` is alias for `operator` parameter **todo**
 * now support for centOS **todo**
+* using upstart init system in ubuntu and centOS **todo**
+* README - notes about upstart, ubutnu, centOS, debian, etc **todo**
 
 ## 0.0.11:
 * added 'Twiggy' server
