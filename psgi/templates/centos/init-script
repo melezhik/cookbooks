@@ -1,5 +1,5 @@
 author "Alexey Melezhik"
-description "runs <%= @daemon %>"
+description "runs <%= @daemon_name %>"
 
 start on runlevel [2345]
 stop on runlevel [^2345]
@@ -10,7 +10,7 @@ stop on runlevel [^2345]
 <%- app_opt << "-s #{@server}" -%>
 <%- app_opt << "--listen #{@socket}" -%>
 <%- app_opt << "-E #{@plackup_environment}" -%>
-<%- app_opt << "-a #{@application_home}/@application_script" -%>
+<%- app_opt << "-a #{@application_home}/#{@application_script}" -%>
 
 <%- if ! @proc_manager.nil? && ! @proc_manager.empty? && @server == 'FCGI' -%>
     <%- app_opt << "--manager #{@proc_manager}" -%>
