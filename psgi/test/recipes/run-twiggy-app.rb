@@ -18,6 +18,7 @@ end
 
 service 'twiggy-psgi' do
   action :restart
+  provider node[:psgi][:service][:provider]
 end
 
 

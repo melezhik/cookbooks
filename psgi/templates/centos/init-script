@@ -1,112 +1,58 @@
-#!/bin/sh
-# chkconfig: 345 80 20
-# description: <%= @daemon_name %> daemon
+author "Alexey Melezhik"
+description "runs <%= @daemon %>"
 
-APPLICATION_USER=<%= @application_user %>
-APPLICATION_HOME=<%= @application_home %>
+start on runlevel [2345]
+stop on runlevel [^2345]
 
-<%- unless @perl5lib.empty? %>
-PERL5LIB="<%= @perl5lib.join(':') %>"
-<%- end %>
+<%- app_env = Hash.new -%>
+<%- app_opt = Array.new -%>
 
-NAME="<%= @daemon_name %>"
-PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="<%= @application_desc %>"
-DAEMON="<%= @daemon_path %>"
-PIDFILE=/var/run/$NAME.pid
+<%- app_opt << "-s #{@server}" -%>
+<%- app_opt << "--listen #{@socket}" -%>
+<%- app_opt << "-E #{@plackup_environment}" -%>
+<%- app_opt << "-a #{@application_home}/@application_script" -%>
 
-<%- if ! @proc_manager.nil? && ! @proc_manager.empty? %>
-PROCMANAGER_OPT="--manager <%= @proc_manager %>"
-<%- else %>
-PROCMANAGER_OPT=""
-<%- end %>
+<%- if ! @proc_manager.nil? && ! @proc_manager.empty? && @server == 'FCGI' -%>
+    <%- app_opt << "--manager #{@proc_manager}" -%>
+<%- end -%>
 
-<%- if ! @proc_title.nil? && ! @proc_title.empty? %>
-PROCTITLE_OPT="--proc_title <%= @proc_title %>"
-<%- else %>
-PROCTITLE_OPT=""
-<%- end %>
+<%- if ! @proc_title.nil? && ! @proc_title.empty? -%>
+    <%- app_opt <<  "--proc_title #{@proc_title}" -%>
+<%- end -%>
+
+<%- if ! @mount.nil? && ! @mount.empty? -%>
+    <%- app_opt <<  "--path #{@mount}" -%>
+<%- else -%>
+    <%- app_opt <<  "--path /" -%>
+<%- end -%>
+
+<%- if ! @nproc.nil? && @server == 'FCGI' -%>
+    <%- app_opt << "--nproc #{@nproc}" -%>
+<%- elsif ! @nproc.nil? && @server == 'Starman' -%>
+    <%- app_opt << "--workers #{@nproc}" -%>
+<%- end -%>
+
+<%- @envvars.each do |k,v| -%>
+    <%- app_env[k] = v -%>
+<%- end -%>
+
+<%- if @server == 'Twiggy' %>
+    <%- app_env[:TWIGGY_DEBUG] = @debug -%>
+<%- end -%>
+
+<%- if @operator == 'Catalyst' %>
+    <%- app_env[:CATALYST_CONFIG] = @config -%>
+    <%- app_env[:CATALYST_DEBUG] = @debug -%>
+<%- elsif @operator == 'Dancer' -%>
+    <%- app_env[:DANCER_CONFDIR] = @application_home -%>
+<%- elsif @operator == 'Jifty' -%>
+    <%- app_env[:JIFTY_CONFIG] = @config -%>
+<%- end -%>
+<%- unless @perl5lib.empty? -%>
+    <%- app_env[:PERL5LIB] = "$PERL5LIB:#{@perl5lib}" -%>
+<%- end -%>
+
+exec sudo -u <%= @application_user %> /usr/bin/env <%= app_env.map {|k,v| "#{k}=#{v}"}.join " "  %> <%= @daemon_path %>  <%= app_opt.join ' ' %>  
 
 
-<%- if ! @nproc.nil? && @server == 'FCGI' %>
-NPROC_OPT="--nproc <%= @nproc %>"
-<%- elsif ! @nproc.nil? && @server == 'Starman' %>
-NPROC_OPT="--workers <%= @nproc %>"
-<%- else %>
-NPROC_OPT=""
-<%- end %>
 
-<%- if ! @mount.nil? && ! @mount.empty? %>
-MOUNT_OPT="-e 'my \$app = do \"<%= @application_script %>\"; mount \"<%= @mount %>\" => \$app' "
-<%- else %>
-MOUNT_OPT=""
-<%- end %>
-
-DAEMON_ARGS="-s <%= @server %> $PROCMANAGER_OPT --listen <%= @socket %> -E <%= @plackup_environment %> $PROCTITLE_OPT $NPROC_OPT $MOUNT_OPT"
-
-PIDFILE=/var/run/$NAME.pid
-
-SCRIPTNAME=<%= @install_dir %>/$NAME
-
-<%- vars = [] %>
-<%- @envvars.each do |k,v| %>
-    <%- vars << "#{k}=#{v}" %>
-<%- end %>
-ENVVARS='<%= vars.join(" ") %>'
-
-. /etc/init.d/functions
-
-start() {
-	echo -n Starting <%= @daemon_name %>:
-    eval "$ENVVARS" \
-    <%- if @server == 'Twiggy' %>
-    TWIGGY_DEBUG=<%= @debug %>
-    <%- end %>
-
-    <%- if @operator == 'Catalyst' %>
-    CATALYST_CONFIG=<%= @config %>  CATALYST_DEBUG=<%= @debug %> \
-    <%- elsif @operator == 'Dancer' %>
-    DANCER_CONFDIR="${APPLICATION_HOME}" \
-    <%- elsif @operator == 'Jifty' %>
-    JIFTY_CONFIG="<%= @config %>" \
-    <%- end %>
-    <%- unless @perl5lib.empty? %>
-    PERL5LIB="${PERL5LIB}" \
-    <%- end %>
-    cd $APPLICATION_HOME && daemon --pidfile $PIDFILE $DAEMON --user $APPLICATION_USER $DAEMON $DAEMON_ARGS
-	retval=$?
-	echo
-	[ "$retval" = 0 ] && touch /var/lock/subsys/<%= @daemon_name %>
-	return $retval
-}
-
-stop() {
-	echo -n Stopping <%= @daemon_name %> server:
-	killproc -p $PIDFILE $NAME
-	retval=$?
-	echo
-	[ "$retval" = 0 ] && rm -f /var/lock/subsys/<%= @daemon_name %>
-	return $retval
-}
-
-case "$1" in
-	start)
-		start
-		;;
-	stop)
-		stop
-		;;
-	status)
-		status -p $PIDFILE $NAME
-		;;
-	restart)
-		stop
-		start
-		;;
-	*)
-		echo "Usage: <%= @daemon_name %> {start|stop|status|restart}"
-		exit 1
-		;;
-esac
-
-exit 0

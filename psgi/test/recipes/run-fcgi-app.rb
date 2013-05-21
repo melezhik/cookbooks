@@ -13,6 +13,7 @@ end
 
 service 'app' do
   action :restart
+  provider node[:psgi][:service][:provider]
 end
 
 psgi_application 'test fcgi application' do

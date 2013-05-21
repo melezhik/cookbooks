@@ -1,3 +1,5 @@
+include_recipe 'nginx'
+
 include_recipe 'cpan::bootstrap'
 
 user 'app'
@@ -62,10 +64,6 @@ end
     end
 end
 
-
-execute 'apt-get update'
-
-package 'nginx'
 
 service 'nginx' do
   action :start

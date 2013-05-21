@@ -12,6 +12,7 @@ end
 
 service 'starman-psgi' do
   action :restart
+  provider node[:psgi][:service][:provider]
 end
 
 psgi_application 'test starman application' do

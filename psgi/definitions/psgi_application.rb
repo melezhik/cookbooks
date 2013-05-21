@@ -1,4 +1,4 @@
-define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :install_dir => '/etc/init.d/', :enable_service => 'on', :ignore_failure => true do 
+define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment => {}, :plackup_environment => 'development', :proc_manager => 'FCGI::ProcManager',  :perl5lib => [], :nproc => '1',  :debug => '1', :enable_service => 'on', :ignore_failure => true do 
     base_name = ::File.basename(params[:script].chomp ::File.extname(params[:script]))
     daemon_name = params[:daemon_name] ? params[:daemon_name] : base_name
     proc_title = params[:proc_title] ? params[:proc_title] : base_name
@@ -8,7 +8,8 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
 
     if params[:action] == 'install'
 
-        template "#{params[:install_dir]}/#{daemon_name}" do 
+        install_dir = params[:install_dir] || node[:psgi][:install][:dir]
+        template "#{install_dir}/#{daemon_name}#{node[:psgi][:install][:extention]}" do 
             source 'init-script'
             cookbook params[:cookbook]
             variables({
@@ -39,6 +40,7 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
         if params[:enable_service] == 'on'
             service daemon_name do 
                 action :enable
+                provider node[:psgi][:service][:provider]
             end
         end
     elsif params[:action] == 'test'
