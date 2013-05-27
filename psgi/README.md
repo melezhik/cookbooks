@@ -29,9 +29,9 @@ psgi_application
 - `application_home`, absolute path to directory holding application home
 - `enable_service`, whether to add service to run levels, default value is **on**. To not enable service set this parameter to 'off'
 - `script` - absolute path to psgi script
-- `daemon_name`, optional, if not set evaluated as base-name from `script` 
+- `daemon_name`, optional, if not set - evaluated as basename from `script` 
 - `daemon_path` - absolute path to daemon, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
-- `socket`, optional
+- `socket`, optional, specify unix or inet socket
 - `environment`, hash containing environmental variables, default value **{}**
 - `perl5lib`, array containing perl5lib paths, default value **[]**
 - `nproc`, default value `1`, number of child processes to launch
@@ -43,6 +43,22 @@ psgi_application
 - `plackup_environment`, default value **development**
 - `cookbook`, default value `psgi`, the name of cookbook where init script template coming from
 - `ignore_failure` - used in action 'test', whether to ignore test failures, if enabled, than test fail will cause chef runtime exception. Default value is **false**
+
+
+# Web server specific options
+
+## FCGI
+- `proc_manager`
+- `proc_title`
+
+# Init scripts notes
+
+## Ubunut, CentOS
+
+[upstart](http://upstart.ubuntu.com/) system used
+
+## Debian
+[start-stop-daemon](http://www.unix.com/man-page/Linux/8/start-stop-daemon/) with [System V](http://en.wikipedia.org/wiki/UNIX_System_V) system used
 
 # Usage examples
 
@@ -120,4 +136,4 @@ psgi_application
 # Tested on
 * Debian-Stable-64-bit, chef 11.4.4
 * Ubuntu 12.04.2 LTS, chef 11.4.0
-
+* CentOS-6.4-x86_64, , Chef 10.14.0

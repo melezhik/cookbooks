@@ -2,22 +2,25 @@
 
 This file is used to list changes made in each version of psgi.
 
-## 0.0.12:
+## 0.0.13:
+Unreleased, planning changes:
 * chef minitest -  add test for application with mount parameter **todo**
 * `framework` is alias for `operator` parameter **todo**
-* now support for centOS **todo**
-* using upstart init system in ubuntu and centOS **todo**
-* README - notes about upstart, ubutnu, centOS, debian, etc **todo**
+
+## 0.0.12:
+* now support for centOS
+* using upstart init system in ubuntu and centOS
+* README - notes about upstart, ubutnu, centOS, debian, etc.
 
 ## 0.0.11:
 * added 'Twiggy' server
 * default value for `operator` is not **Catalyst**, but **nill**
-* lowercase for postfix in socketfile name, in case unix socket
+* lower-case for postfix in socket file name, in case unix socket
 
 ## 0.0.10:
 * do not check Plack version
-* big fix for environment variable poluted (action :test)
-* refactoring of debian / ubuntu init script
+* big fix for environment variable polluted (action :test)
+* re-factoring of debian / ubuntu init script
 * action `:test`, `ignore_failures` default value is **false**  
 * support for Starman server
 
@@ -35,7 +38,7 @@ This file is used to list changes made in each version of psgi.
 * delete old files
 
 ## 0.0.5:
-* documentation gets more cleare
+* documentation gets more clear
 * `enabled_service` is `on` by default 
 
 ## 0.0.4:
