@@ -2,12 +2,12 @@ author "Alexey Melezhik"
 description "runs <%= @daemon_name %>"
 start on runlevel [2345]
 stop on runlevel [^2345]
-<% app_env = Hash.new -%>
+<% app_env = Array.new -%>
 <% app_opt = Array.new -%>
 <% app_opt << "-s #{@server}" -%>
 <% app_opt << "--listen #{@socket}" -%>
 <% app_opt << "-E #{@plackup_environment}" -%>
-<% app_opt << "-a #{@application_home}/#{@application_script}" -%>
+<% app_opt << "-a " << ( Pathname.new(@application_script).relative? ?  (Pathname.new(@application_home)  + '/' + Pathname.new(@application_script)).to_s : @application_script ) -%>
 <% if ! @proc_manager.nil? && ! @proc_manager.empty? && @server == 'FCGI' -%>
     <% app_opt << "--manager #{@proc_manager}" -%>
 <% end -%>
@@ -25,23 +25,23 @@ stop on runlevel [^2345]
     <% app_opt << "--workers #{@nproc}" -%>
 <% end -%>
 <% @envvars.each do |k,v| -%>
-    <% app_env[k] = v -%>
+    <% app_env << "#{k}='#{v}'" -%>
 <% end -%>
 <% if @server == 'Twiggy' %>
-    <% app_env[:TWIGGY_DEBUG] = @debug -%>
+    <% app_env << "TWIGGY_DEBUG=#{@debug}" -%>
 <% end -%>
 <% if @operator == 'Catalyst' %>
-    <% app_env[:CATALYST_CONFIG] = @config -%>
-    <% app_env[:CATALYST_DEBUG] = @debug -%>
+    <% app_env << "CATALYST_CONFIG=#{@config}" -%>
+    <% app_env << "CATALYST_DEBUG=#{@debug}" -%>
 <% elsif @operator == 'Dancer' -%>
-    <% app_env[:DANCER_CONFDIR] = @application_home -%>
+    <% app_env << "DANCER_CONFDIR=#{@application_home}" -%>
 <% elsif @operator == 'Jifty' -%>
-    <%- app_env[:JIFTY_CONFIG] = @config -%>
+    <%- app_env << "JIFTY_CONFIG=#{@config}" -%>
 <% end -%>
 <% unless @perl5lib.empty? -%>
-    <% app_env[:PERL5LIB] = "$PERL5LIB:#{@perl5lib}" -%>
+    <% app_env << "PERL5LIB=$PERL5LIB:#{@perl5lib.join(':')}" -%>
 <% end -%>
-exec sudo -u <%= @application_user %> /usr/bin/env <%= app_env.map {|k,v| "#{k}=#{v}"}.join " "  %> <%= @daemon_path %>  <%= app_opt.join ' ' %>  
+exec sudo -u <%= @application_user %> /usr/bin/env <%= app_env.join ' ' %> <%= @daemon_path %>  <%= app_opt.join ' ' %>  
 
 
 

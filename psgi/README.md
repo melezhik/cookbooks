@@ -28,7 +28,7 @@ psgi_application
 - `application_user`, change to this user name before starting the process
 - `application_home`, absolute path to directory holding application home
 - `enable_service`, whether to add service to run levels, default value is **on**. To not enable service set this parameter to 'off'
-- `script` - absolute path to psgi script
+- `script` -  the relative or absolute path to psgi script
 - `daemon_name`, optional, if not set - evaluated as basename from `script` 
 - `daemon_path` - absolute path to daemon, default value is path to system installed [plackup](http://search.cpan.org/perldoc?plackup)
 - `socket`, optional, specify unix or inet socket
