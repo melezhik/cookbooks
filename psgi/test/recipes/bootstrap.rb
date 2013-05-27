@@ -2,7 +2,7 @@ include_recipe 'nginx'
 
 include_recipe 'cpan::bootstrap'
 
-package 'apt'
+package 'mc'
 
 cpan_client 'Plack' do
   install_type 'cpan_module'
