@@ -8,6 +8,7 @@ Unreleased, planning changes:
 * `framework` is alias for `operator` parameter **todo**
 
 ## 0.0.12:
+* debian init scripts are refactored
 * now support for centOS
 * using upstart init system in ubuntu and centOS
 * README - notes about upstart, ubutnu, centOS, debian, etc.
