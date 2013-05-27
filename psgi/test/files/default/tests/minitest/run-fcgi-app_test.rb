@@ -8,9 +8,6 @@ class PsgiSpec < MiniTest::Chef::Spec
       file(file_path).must_have(:group,"root")
       file(file_path).must_have(:mode,"755")
 
-      result = assert_sh('initctl list')
-      assert_includes result, 'app'
-
     end
 
     it 'CGI script returns 200 OK and Hello World' do
@@ -21,7 +18,7 @@ class PsgiSpec < MiniTest::Chef::Spec
 
     it 'runs server' do
 
-      result = assert_sh('ps -u psgi-fcgi-user --no-headers wc -l')
+      result = assert_sh('ps -u psgi-fcgi-user --no-headers | wc -l')
       assert_includes result, '3'
 
       assert_sh("stat /tmp/app_fcgi.socket")

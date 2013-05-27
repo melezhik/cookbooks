@@ -9,9 +9,6 @@ class PsgiSpec < MiniTest::Chef::Spec
       file(file_path).must_have(:group,"root")
       file(file_path).must_have(:mode,"755")
 
-      result = assert_sh('initctl list')
-      assert_includes result, 'starman-psgi'
-
     end
 
     it 'CGI script returns 200 OK and Hello World' do

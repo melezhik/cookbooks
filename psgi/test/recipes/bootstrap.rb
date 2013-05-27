@@ -2,6 +2,7 @@ include_recipe 'nginx'
 
 include_recipe 'cpan::bootstrap'
 
+package 'apt'
 
 cpan_client 'Plack' do
   install_type 'cpan_module'
@@ -30,6 +31,7 @@ cpan_client 'Starman' do
   user 'root'
   group 'root'
   action :install
+  force true
 end
 
 cpan_client 'Twiggy' do

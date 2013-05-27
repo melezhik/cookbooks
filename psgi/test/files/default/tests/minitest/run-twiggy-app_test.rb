@@ -9,8 +9,6 @@ class PsgiSpec < MiniTest::Chef::Spec
       file(file_path).must_have(:group,"root")
       file(file_path).must_have(:mode,"755")
 
-      result = assert_sh('initctl list')
-      assert_includes result, 'twiggy-psgi'
 
     end
 

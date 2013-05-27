@@ -32,7 +32,7 @@ SCRIPTNAME=<%= @install_dir %>/$NAME
 <% app_opt << "-s #{@server}" -%>
 <% app_opt << "--listen #{@socket}" -%>
 <% app_opt << "-E #{@plackup_environment}" -%>
-<% app_opt << "-a " << ( Pathname.new(@application_script).relative? ?  (Pathname.new(@application_home)  + '/' + Pathname.new(@application_script)).to_s : @application_script ) -%>
+<% app_opt << "-a " << ( Pathname.new(@application_script).relative? ?  (Pathname.new(@application_home + "/")  + Pathname.new(@application_script)).to_s : @application_script ) -%>
 <% if ! @proc_manager.nil? && ! @proc_manager.empty? && @server == 'FCGI' -%>
     <% app_opt << "--manager #{@proc_manager}" -%>
 <% end -%>
