@@ -1,5 +1,5 @@
 psgi_application 'dancer fcgi application' do
-    application_user    'app'
+    application_user    'psgi-dancer-user'
     application_home    '/home/user/app/MyApplication'
     script              '/home/user/app/MyApplication/scripts/app.psgi'
     config              '/home/user/app/MyApplication/app.conf'

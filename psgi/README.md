@@ -135,5 +135,6 @@ psgi_application
 
 # Tested on
 * Debian-Stable-64-bit, chef 11.4.4
-* Ubuntu 12.04.2 LTS, chef 11.4.0
+* Ubuntu 10.04.1 LTS, chef 11.4.4
 * CentOS-6.4-x86_64, , Chef 10.14.0
+

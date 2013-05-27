@@ -1,7 +1,7 @@
 psgi_application 'catalyst fcgi application' do
     operator            'Catalyst'
     enable_service      false
-    application_user    'app'
+    application_user    'psgi-catalyst-user'
     application_home    '/home/user/app/MyApplication'
     script              '/home/user/app/MyApplication/scripts/app.psgi'
     perl5lib            [ 'cpanlib/lib/perl5' ]

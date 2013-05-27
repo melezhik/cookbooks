@@ -8,6 +8,10 @@ class PsgiSpec < MiniTest::Chef::Spec
       file(file_path).must_have(:owner,"root")
       file(file_path).must_have(:group,"root")
       file(file_path).must_have(:mode,"755")
+
+      result = assert_sh('initctl list')
+      assert_includes result, 'starman-psgi'
+
     end
 
     it 'CGI script returns 200 OK and Hello World' do
@@ -18,11 +22,8 @@ class PsgiSpec < MiniTest::Chef::Spec
 
     it 'runs server' do
 
-      result = assert_sh('ps axu | grep starman | grep worker | grep -v grep | wc -l')
+      result = assert_sh('ps -u psgi-starman-user --no-headers | wc -l')
       assert_includes result, '3'
-
-      result = assert_sh("ps axu | grep starman | grep -v grep | awk '{print $1}'")
-      assert_includes result, 'app'
 
     end
 

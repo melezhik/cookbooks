@@ -2,7 +2,6 @@ include_recipe 'nginx'
 
 include_recipe 'cpan::bootstrap'
 
-user 'app'
 
 cpan_client 'Plack' do
   install_type 'cpan_module'
@@ -37,6 +36,7 @@ cpan_client 'Twiggy' do
   install_type 'cpan_module'
   user 'root'
   group 'root'
+  force true
   action :install
 end
 
@@ -45,22 +45,25 @@ directory '/tmp/psgi' do
     action :delete
 end
 
-%w{ app catalyst dancer default  starman twiggy }.each do |dir|
-    directory "/tmp/psgi/#{dir}" do
+%w{ app catalyst dancer default starman twiggy fcgi }.each do |id|
+
+    user "psgi-#{id}-user"
+
+    directory "/tmp/psgi/#{id}" do
         action :create
-        owner 'app'
+        owner "psgi-#{id}-user"
         recursive true
     end
 end
 
-%w{ starman twiggy app }.each do |id|
+%w{ starman twiggy fcgi }.each do |id|
     cookbook_file "/tmp/psgi/#{id}/app.psgi" do
         source 'test.psgi'
-        user 'app'
+        user "psgi-#{id}-user"
     end
     cookbook_file "/tmp/psgi/#{id}/app.conf" do
         source 'test.conf'
-        user 'app'
+        user "psgi-#{id}-user"
     end
 end
 

@@ -8,6 +8,10 @@ class PsgiSpec < MiniTest::Chef::Spec
       file(file_path).must_have(:owner,"root")
       file(file_path).must_have(:group,"root")
       file(file_path).must_have(:mode,"755")
+
+      result = assert_sh('initctl list')
+      assert_includes result, 'twiggy-psgi'
+
     end
 
     it 'CGI script returns 200 OK and Hello World' do
@@ -15,6 +19,13 @@ class PsgiSpec < MiniTest::Chef::Spec
       assert_includes result, 'Status: 200'
       assert_includes result, 'Hello World'
     end
+    it 'runs server' do
+
+      result = assert_sh('ps -u psgi-twiggy-user --no-headers | wc -l')
+      assert_includes result, '1'
+
+    end
+
 
     it 'application index page returns Hello World' do
       result = assert_sh("curl 127.0.0.1:5001")
