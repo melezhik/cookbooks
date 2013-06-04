@@ -12,7 +12,7 @@ default.pinto.bootstrap.packages = %w[ curl ]
 
 case platform 
     when 'centos'
-        default.pinto.bootstrap.cpan.packages = %w[ CGI Time::HiRes ]
+        default.pinto.bootstrap.cpan.packages = %w[  ]
         default.pinto.bootstrap.packages <<  'zlib-devel'
         default.pinto.bootstrap.packages <<  'perl-devel' 
     when 'ubuntu'
