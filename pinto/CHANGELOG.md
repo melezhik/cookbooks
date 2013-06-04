@@ -5,11 +5,12 @@ This file is used to list changes made in each version of pinto.
 
 ## 0.1.8:
 
-* default.pinto.bootstrap.home is depricated ( effectively evalutaed to /home/default.pinto.bootstrap.home )
+* default.pinto.bootstrap.home is depricated ( effectively evaluated to /home/default.pinto.bootstrap.home )
+* default.pinto.server.repo_root is depricated ( effectively evaluated to /home/default.pinto.bootstrap.home/opt/local/pinto/var/ )
 * doing *system-wide install* when default.pinto.bootstrap.user == root
 * doing *local user install* when default.pinto.bootstrap.root != root
 * *local user install* is default one
-* removed Time::HiRes and CGI from missed dependencies list ( for centOS )
+* removed Time::HiRes and CGI from missed dependencies list ( for centOS ) - https://github.com/thaljef/Pinto/issues/67
 
 
 ## 0.1.7:

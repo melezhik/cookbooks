@@ -3,8 +3,6 @@ default.pinto.bootstrap.group = 'pinto'
 
 default.pinto.bootstrap.installer_url = 'http://getpinto.stratopan.com'
 
-default.pinto.bootstrap.home = "/home/pinto"
-
 default.pinto.bootstrap.cpanminus_url = 'http://xrl.us/cpanm'
 
 default.pinto.bootstrap.packages = %w[ curl ]
@@ -24,7 +22,6 @@ case platform
 end
 
 
-default.pinto.server.repo_root = "/home/pinto/opt/local/pinto/repo"
 default.pinto.server.host = '0.0.0.0'
 default.pinto.server.port = '5000'
 default.pinto.server.workers = '3'

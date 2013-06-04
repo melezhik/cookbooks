@@ -16,10 +16,10 @@
 # Do NOT "set -e"
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
-PATH=/sbin:/usr/sbin:/bin:/usr/bin:<%= @home %>/opt/local/pinto/bin/
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:<%= @home %>bin/
 DESC="Pinto Server Daemon"
 NAME=pintod
-DAEMON=<%= @home %>/opt/local/pinto/bin/$NAME
+DAEMON=<%= @home %>/bin/$NAME
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 DAEMON_ARGS="--root <%= @repo_root %> --server Starman --workers <%= @workers %> --host <%= @host %> --port <%= @port %> --user <%= @user %> --group <%= @group %> --access-log /var/log/pintod.log"
@@ -47,7 +47,7 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-    export PERL5LIB=PERL5LIB:<%= @home %>/opt/local/pinto/lib/perl5 
+    export PERL5LIB=PERL5LIB:<%= @home %>/lib/perl5 
     start-stop-daemon --start --test -b --startas $DAEMON -m --pidfile $PIDFILE -- $DAEMON_ARGS  > /dev/null || return 1
 	start-stop-daemon --start --startas $DAEMON -b -m --pidfile $PIDFILE -- $DAEMON_ARGS || return 2
 	# Add code here, if necessary, that waits for the process to be ready

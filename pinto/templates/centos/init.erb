@@ -8,8 +8,8 @@ PIDFILE=/var/run/pintod.pid
 
 start() {
 	echo -n Starting Pinto server:
-    export PERL5LIB=PERL5LIB:<%= @home %>/opt/local/pinto/lib/perl5
-    export PATH=$PATH:<%= @home %>/opt/local/pinto/bin/
+    export PERL5LIB=PERL5LIB:<%= @home %>/lib/perl5
+    export PATH=$PATH:<%= @home %>/bin/
 	pintod --daemonize --pid $PIDFILE --root <%= @repo_root %> --server Starman --workers <%= @workers %> --host <%= @host %> --port <%= @port %> --user <%= @user %> --group <%= @group %> --access-log /var/log/pintod.log
 	retval=$?
 	echo
