@@ -8,8 +8,8 @@ Installs, configures [Pinto](http://search.cpan.org/perldoc?Pinto) application
 # Attributes 
 May be overridden to alter recipes behaviour 
 
-* `pinto.bootstrap.user` - the user which Pinto installation files belongs to, default value is **pinto**. so pinto application will be installed into `~/opt/local/pinto` directory
-* `pinto.bootstrap.group` - the group which Pinto installation files belongs to, default value is **pinto**
+* `pinto.user` - the user which Pinto installation files belongs to, default value is **pinto**. so pinto application will be installed into `~/opt/local/pinto` directory
+* `pinto.group` - the group which Pinto installation files belongs to, default value is **pinto**
 
 *  `pinto.server.host` - pinto server bind host, default value is **0.0.0.0**
 *  `pinto.server.port` - pinto server bind port, default value is **5000**

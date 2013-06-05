@@ -18,8 +18,8 @@ template '/etc/init.d/pintod' do
         :workers => node.pinto.server.workers,
         :host => node.pinto.server.host,
         :port => node.pinto.server.port,
-        :user => node.pinto.bootstrap.user,
-        :group => node.pinto.bootstrap.group,
+        :user => node.pinto.user,
+        :group => node.pinto.group,
         :repo_root => repo_root
     })
     mode '755'
@@ -30,8 +30,8 @@ end
 log 'init pinto repo'
 
 execute "bash -c 'source #{pinto_home}/etc/bashrc; pinto -r #{repo_root} init'" do
-    user node[:pinto][:bootstrap][:user]
-    group node[:pinto][:bootstrap][:group]
+    user node[:pinto][:user]
+    group node[:pinto][:group]
     not_if { ::File.exists? repo_root } 
     notifies :restart, "service[pintod]", :delayed
 end

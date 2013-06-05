@@ -5,8 +5,8 @@ class PintoSpec < MiniTest::Chef::Spec
     describe 'installs pintod server' do
 
         it 'creates pinto repo directory' do
-            directory(repo_root).must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
-            directory(repo_root).must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+            directory(repo_root).must_exist.with(:owner, "#{node[:pinto][:user]}")
+            directory(repo_root).must_exist.with(:group, "#{node[:pinto][:group]}")
         end
 
         it 'creates pintod init script' do
