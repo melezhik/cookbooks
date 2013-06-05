@@ -1,12 +1,13 @@
-if node.pinto.bootstrap.user == 'root'
-    pinto_home = '/opt/local/pinto'
-    repo_root = '/opt/local/pinto/var/'
-else
-    pinto_home = "/home/#{node.pinto.bootstrap.user}/opt/local/pinto"
-    repo_root = "/home/#{node.pinto.bootstrap.user}/opt/local/var"
+class Chef::Recipe
+  include PintoLibrary
 end
 
+pinto_home = pinto_home()
+repo_root = repo_root()
+
+log "pinto_home: #{pinto_home}"
 log "repo_root: #{repo_root}"
+
 
 template '/etc/init.d/pintod' do
     owner 'root'
@@ -31,7 +32,7 @@ log 'init pinto repo'
 execute "bash -c 'source #{pinto_home}/etc/bashrc; pinto -r #{repo_root} init'" do
     user node[:pinto][:bootstrap][:user]
     group node[:pinto][:bootstrap][:group]
-    not_if { ::File.exists? node.pinto.server.repo_root } 
+    not_if { ::File.exists? repo_root } 
     notifies :restart, "service[pintod]", :delayed
 end
 

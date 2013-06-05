@@ -1,44 +1,30 @@
 # installs Pinto application in standalone mode - see https://metacpan.org/module/THALJEF/Pinto-0.082/lib/Pinto/Manual/Installing.pod#___pod
 
+
+class Chef::Recipe
+  include PintoLibrary
+end
+
+pinto_home = pinto_home()
+pinto_user_home = pinto_user_home()
+
+log "pinto_user_home: #{pinto_user_home}"
+log "pinto_home: #{pinto_home}"
+
 node.pinto.bootstrap.packages.each do |p|
     package p
 end
 
-if node.pinto.bootstrap.user == 'root'
-    pinto_home = '/opt/local/pinto'
-else
+unless node.pinto.bootstrap.user == 'root'
     group node.pinto.bootstrap.group
     user node.pinto.bootstrap.user do
         gid node.pinto.bootstrap.group
         supports :manage_home => true
-        home pinto_home
+        # home pinto_user_home
     end
-    pinto_home = "/home/#{node.pinto.bootstrap.user}/opt/local/pinto"
 end
 
-log "pinto_home: #{pinto_home}"
-
-directory pinto_home do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
-    recursive true
-end
-
-directory "#{pinto_home}/bin" do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
-end
-
-directory "#{pinto_home}/misc" do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
-end
-
-directory "#{pinto_home}/misc/bin/" do
-    owner node.pinto.bootstrap.user
-    group node.pinto.bootstrap.group
-end
-
+create_pinto_sub_dirs()
 
 case node.platform 
 
@@ -61,7 +47,7 @@ case node.platform
         execute "#{pinto_home}/misc/bin/cpanm --skip-satisfied --quiet --local-lib #{pinto_home} #{p}" do
             user node.pinto.bootstrap.user
             group node.pinto.bootstrap.group
-            environment( { 'HOME' => ( node.pinto.bootstrap.user == 'root' ? nil : "/home/#{node.pinto.bootstrap.user}/" )  } )
+            environment( { 'HOME' => pinto_user_home  } )
         end
     end
 
@@ -81,7 +67,7 @@ end
 execute "cat #{pinto_home}/misc/bin/installer.sh | bash" do
     user node.pinto.bootstrap.user
     group node.pinto.bootstrap.group
-    environment( { 'HOME' => ( node.pinto.bootstrap.user == 'root' ? nil : "/home/#{node.pinto.bootstrap.user}/" )  } )
+    environment( { 'HOME' => pinto_user_home  } )
 end
 
 
