@@ -14,6 +14,13 @@ class PintoSpec < MiniTest::Chef::Spec
             directory(pinto_home).must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
         end
 
+        it 'creates pinto_home sub directories' do
+            pinto_sub_dirs.each do |d|
+                directory(d).must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
+                directory(d).must_exist.with(:group, "#{node[:pinto][:bootstrap][:group]}")
+            end
+        end
+
         %w( pinto pintod ).each do |file|
             it "installs #{file} into pinto_home directory" do
                 file("#{pinto_home}/bin/#{file}").must_exist.with(:owner, "#{node[:pinto][:bootstrap][:user]}")
@@ -51,11 +58,12 @@ class PintoSpec < MiniTest::Chef::Spec
             assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ init'"
             assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ pull Bundler'"
 
-            if node[:pinto][:bootstrap][:slow_tests] == 1
+            if node[:pinto][:bootstrap][:slow_tests] == '1'
+                puts "running slow tests, please be patient,    will take some time ..."    
                 result = assert_sh "sudo -u #{node[:pinto][:bootstrap][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ list'"
                 assert_includes result, '[rf-] Bundler'
             else
-                puts "skip slow smoke tests"    
+                puts "skip slow tests"    
             end
 
         end

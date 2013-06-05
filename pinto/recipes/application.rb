@@ -20,7 +20,7 @@ unless node.pinto.bootstrap.user == 'root'
     user node.pinto.bootstrap.user do
         gid node.pinto.bootstrap.group
         supports :manage_home => true
-        # home pinto_user_home
+        home pinto_user_home
     end
 end
 

@@ -8,21 +8,22 @@ module PintoLibrary
             pinto_home
     end
 
+    def pinto_sub_dirs
+        if node.pinto.bootstrap.user == 'root'
+            %w{ /opt /opt/local /opt/local/pinto /opt/local/pinto/bin /opt/local/pinto/misc /opt/local/pinto/misc/bin }
+        else node.pinto.bootstrap.user == 'root'
+            %w{ opt opt/local opt/local/pinto opt/local/pinto/bin opt/local/pinto/misc opt/local/pinto/misc/bin }.map do |d|
+                "/home/#{node.pinto.bootstrap.user}/#{d}"
+            end
+        end
+    end
+
     def create_pinto_sub_dirs
         log "create pinto_home sub directories"
-        if node.pinto.bootstrap.user == 'root'
-            %w{ /opt /opt/local /opt/local/pinto /opt/local/pinto/bin /opt/local/pinto/misc /opt/local/pinto/misc/bin }.each do |d|
-                directory d do
-                    owner node.pinto.bootstrap.user
-                    group node.pinto.bootstrap.group
-                end
-            end
-        else node.pinto.bootstrap.user == 'root'
-            %w{ opt opt/local opt/local/pinto opt/local/pinto/bin opt/local/pinto/misc opt/local/pinto/misc/bin }.each do |d|
-                directory "/home/#{node.pinto.bootstrap.user}/#{d}" do
-                    owner node.pinto.bootstrap.user
-                    group node.pinto.bootstrap.group
-                end
+        pinto_sub_dirs.each do |d|
+            directory d do
+                owner node.pinto.bootstrap.user
+                group node.pinto.bootstrap.group
             end
         end
     end
