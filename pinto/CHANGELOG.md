@@ -5,6 +5,7 @@ This file is used to list changes made in each version of pinto.
 
 ## 0.1.8:
 
+* big refactoring 
 * default.pinto.bootstrap namespace has been abolished to default.pinto namespace
 * default.pinto.bootstrap.home is depricated ( effectively evaluated to ~/local/pinto )
 * default.pinto.server.repo_root is depricated ( effectively evaluated to ~/local/pinto/var/ )
