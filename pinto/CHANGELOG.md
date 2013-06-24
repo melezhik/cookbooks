@@ -3,6 +3,10 @@
 This file is used to list changes made in each version of pinto.
 
 
+## 0.1.9:
+* default port for pinto server is now 3111
+* removed outdated code
+
 ## 0.1.8:
 
 * big refactoring 
