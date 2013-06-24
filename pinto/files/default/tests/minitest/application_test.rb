@@ -44,13 +44,14 @@ class PintoSpec < MiniTest::Chef::Spec
                 result = assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && which #{file}'"
                 assert_includes result, "#{pinto_home}/bin/#{file}"
             end
-
-            result = assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto version'")
-            %w( App::Pinto Pinto Pinto::Remote ).each do |l|
-                assert_includes result, l
-            end
+            assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto --version'")
         end
 
+        it "installs correct version of Printo Application" do
+            result = assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto version'")
+            assert_includes result, "#{pinto_home}/bin/pinto"
+            assert_includes result, node[:pinto][:version]
+        end
 
         it "smoke tests on installed pinto client" do
             assert_sh "rm -rf #{pinto_home}/tmp/"
