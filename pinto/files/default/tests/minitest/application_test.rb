@@ -48,7 +48,7 @@ class PintoSpec < MiniTest::Chef::Spec
         end
 
         it "installs correct version of Printo Application" do
-            result = assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto version'")
+            result = assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto --version'")
             assert_includes result, "#{pinto_home}/bin/pinto"
             assert_includes result, node[:pinto][:version]
         end
