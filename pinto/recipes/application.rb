@@ -33,22 +33,12 @@ case node.platform
     # see https://github.com/thaljef/Pinto/issues/67
 
     log "Downloading the standalone executable cpanminus client from #{node.pinto.cpanminus_url}"
- 
+
     remote_file "#{pinto_home}/misc/bin/cpanm" do
         source node.pinto.cpanminus_url 
         user node.pinto.user
         group node.pinto.group
         mode '755'
-    end
-     
-    log "Installing missed cpan packages into #{pinto_home}"
-     
-    node.pinto.cpan.packages.each do |p|
-        execute "#{pinto_home}/misc/bin/cpanm --skip-satisfied --quiet --local-lib #{pinto_home} #{p}" do
-            user node.pinto.user
-            group node.pinto.group
-            environment( { 'HOME' => pinto_user_home  } )
-        end
     end
 
     execute "#{pinto_home}/misc/bin/cpanm --skip-satisfied --quiet Module::CoreList"
