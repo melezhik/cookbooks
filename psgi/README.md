@@ -6,6 +6,10 @@ Configures and runs psgi application
 * [Plack](http://search.cpan.org/perldoc?Plack)
 * a chosen web server cpan module should be installed ( see  list in the `web servers supported` section )
 
+# Last release
+
+http://community.opscode.com/cookbooks/psgi
+
 # Features
 
 ## web servers supported
