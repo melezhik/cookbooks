@@ -53,7 +53,7 @@ psgi_application
 
 # Init scripts notes
 
-## Ubunut, CentOS
+## Ubuntu, CentOS
 
 [upstart](http://upstart.ubuntu.com/) system used
 
