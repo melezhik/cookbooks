@@ -1,3 +1,6 @@
+# version 0.0.29
+- bootstrap recipe: added centos relate package [pull/16](https://github.com/melezhik/cookbooks/pull/16), thanks to [phoolish](https://github.com/phoolish)
+
 # version 0.0.28
 - berkshelf / minitest chef infrastructure has been added 
 - messages 'won't install without force' in log file should turn into exception
