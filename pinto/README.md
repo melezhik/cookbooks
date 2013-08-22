@@ -9,6 +9,7 @@ Installs, configures [Pinto](http://search.cpan.org/perldoc?Pinto) application
 May be overridden to alter recipes behaviour 
 
 * `node[:pinto][:user]`, `node[:pinto][:group]` - The owner and group of pinto application. The application will be installed into `~/opt/local/pinto` directory
+* `node[:pinto][:user_shell]`, shell for pinto application owner, default is '/bin/bash'
 * `node[:pinto][:host]` - pinto server bind host, default value is **0.0.0.0**
 * `node[:pinto][:port]` - pinto server bind port, default value is **3111**
 * `node[:pinto][:workers]` - number of pinto server workers, default value is **3**

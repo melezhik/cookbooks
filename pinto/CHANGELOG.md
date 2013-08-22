@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of pinto.
 
+## 0.1.10:
+- small bug fix in mini test for application recipe, to take into account http proxy issues
+- pinto.user_shell attribute added, now pinto application owner is created with this shell
+- fix version check in minitest
 
 ## 0.1.9:
 * default port for pinto server is now 3111

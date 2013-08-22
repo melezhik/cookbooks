@@ -1,5 +1,6 @@
 default.pinto.user = 'pinto'
 default.pinto.group = 'pinto'
+default.pinto.user_shell = '/bin/bash'
 
 default.pinto.installer_url = 'http://getpinto.stratopan.com'
 

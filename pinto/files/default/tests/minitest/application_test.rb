@@ -38,13 +38,13 @@ class PintoSpec < MiniTest::Chef::Spec
 
         it "installs valid pinto bashrc file" do
 
-            assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc'"
+            assert_sh "echo 'source #{pinto_home}/etc/bashrc' | sudo su -s /bin/bash --login #{node[:pinto][:user]}"
 
             %w( pinto pintod ).each do |file|
-                result = assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && which #{file}'"
+                result = assert_sh "echo 'source #{pinto_home}/etc/bashrc && which #{file}' | sudo su -s /bin/bash --login #{node[:pinto][:user]}"
                 assert_includes result, "#{pinto_home}/bin/#{file}"
             end
-            assert_sh("sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto --version'")
+            assert_sh "echo 'source #{pinto_home}/etc/bashrc && pinto --version' | sudo su -s /bin/bash --login #{node[:pinto][:user]}"
         end
 
         it "installs correct version of Printo Application" do
@@ -57,7 +57,7 @@ class PintoSpec < MiniTest::Chef::Spec
             assert_sh "rm -rf #{pinto_home}/tmp/"
             assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'mkdir  #{pinto_home}/tmp/'"
             assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ init'"
-            assert_sh "sudo -u #{node[:pinto][:user]} bash -c 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ pull Bundler'"
+            assert_sh "echo 'source #{pinto_home}/etc/bashrc && pinto -r #{pinto_home}/tmp/ pull Bundler' | sudo su -s /bin/bash --login #{node[:pinto][:user]}"
 
             if node[:pinto][:slow_tests] == '1'
                 puts "running slow tests, please be patient,    will take some time ..."    

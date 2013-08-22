@@ -21,6 +21,7 @@ unless node.pinto.user == 'root'
         gid node.pinto.group
         supports :manage_home => true
         home pinto_user_home
+        shell node.pinto.user_shell
     end
 end
 
