@@ -13,7 +13,7 @@ A little prerequisites are required. Run `cpan::bootstrap` recipe to satisfy
   - [CPAN](http://search.cpan.org/perldoc?CPAN)
   - [local::lib](http://search.cpan.org/perldoc?local::lib)
 
-If only want to run bootstrap once, set the `bootstrap['keep_uptodate']` attribute to false.
+If you only want to run bootstrap once, set the `bootstrap['keep_uptodate']` attribute to false.
   
 
 BASIC USAGE
