@@ -1,3 +1,6 @@
+# version 0.0.30
+- bootstrap recipe now can be run in skip_uptodate mode, thanks to [phoolish](https://github.com/phoolish),  merged [pull/17](https://github.com/melezhik/cookbooks/pull/17)
+
 # version 0.0.29
 - bootstrap recipe: added centos relate package [pull/16](https://github.com/melezhik/cookbooks/pull/16), thanks to [phoolish](https://github.com/phoolish)
 
