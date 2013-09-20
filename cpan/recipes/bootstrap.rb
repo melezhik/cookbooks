@@ -4,12 +4,13 @@ node.cpan_client.bootstrap.packages.each  { |p| package p }
 
 execute 'curl -L http://cpanmin.us | perl - --sudo App::cpanminus' do
     only_if do
+        exe_run = true
         unless node.cpan_client.bootstrap.keep_uptodate
             if system("which cpanm > /dev/null 2>&1")
-                return false
+                exe_run = false
             end
         end
-        return true
+        exe_run
     end
 end
 
