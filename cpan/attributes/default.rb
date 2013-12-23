@@ -10,4 +10,6 @@ default.cpan_client.bootstrap.cpan_packages = ['Time::HiRes', 'CPAN', 'local::li
 
 default.cpan_client.default_inc = []
 
+default.cpan_client.bootstrap.keep_uptodate = true
+
 
