@@ -27,5 +27,5 @@ default.pinto.server.workers = '3'
 # these are 'non-public'  attributes:
 
 default.pinto.slow_tests = '0'# is used in mini tests only
-default.pinto.version = '0.087' # is used in mini tests only 
+default.pinto.version = '0.094' # is used in mini tests only 
 

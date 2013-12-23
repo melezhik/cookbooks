@@ -17,6 +17,7 @@ class PintoSpec < MiniTest::Chef::Spec
 
         it 'runs pintod server' do
 
+	    sleep 5		
             result = assert_sh('/etc/init.d/pintod status')
             assert_includes result, 'is running'
 
