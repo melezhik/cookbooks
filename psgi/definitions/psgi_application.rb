@@ -31,7 +31,9 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
                 :plackup_environment => params[:plackup_environment],
                 :install_dir => params[:install_dir],
                 :operator => params[:operator] || 'default',
-                :server => params[:server]
+                :server => params[:server],
+                :loader => params[:loader],
+                :backlog => params[:backlog]
             })
             owner 'root'
             group 'root'

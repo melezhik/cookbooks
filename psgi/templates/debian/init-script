@@ -36,6 +36,9 @@ SCRIPTNAME=<%= @install_dir %>/$NAME
 <% if ! @proc_manager.nil? && ! @proc_manager.empty? && @server == 'FCGI' -%>
     <% app_opt << "--manager #{@proc_manager}" -%>
 <% end -%>
+<% if ! @loader.nil? && ! @loader.empty?  -%>
+    <% app_opt << "--loader #{@loader}" -%>
+<% end -%>
 <% if ! @proc_title.nil? && ! @proc_title.empty? -%>
     <% app_opt <<  "--proc_title #{@proc_title}" -%>
 <% end -%>
@@ -48,6 +51,9 @@ SCRIPTNAME=<%= @install_dir %>/$NAME
     <% app_opt << "--nproc #{@nproc}" -%>
 <% elsif ! @nproc.nil? && @server == 'Starman' -%>
     <% app_opt << "--workers #{@nproc}" -%>
+<% end -%>
+<% if ! @backlog.nil? && @server == 'FCGI' -%>
+    <% app_opt << "--backlog #{@backlog}" -%>
 <% end -%>
 <% @envvars.each do |k,v| -%>
     <% app_env << "#{k}='#{v}'" -%>
@@ -90,7 +96,7 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	<%= app_env.join ' ' %> start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- <%= app_opt.join ' ' %> || return 1
+    <%= app_env.join ' ' %> start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --test --startas $DAEMON -- <%= app_opt.join ' ' %> || return 1
     <%= app_env.join ' ' %> start-stop-daemon -m --pidfile $PIDFILE --chuid $APPLICATION_USER -b -d $APPLICATION_HOME --start --startas $DAEMON -- <%= app_opt.join ' ' %> || return 2
 	# Add code here, if necessary, that waits for the process to be ready
 	# to handle requests from services started subsequently which depend

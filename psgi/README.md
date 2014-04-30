@@ -39,6 +39,8 @@ psgi_application
 - `environment`, hash containing environmental variables, default value **{}**
 - `perl5lib`, array containing perl5lib paths, default value **[]**
 - `nproc`, default value `1`, number of child processes to launch
+- `loader`, specifies the server loading subclass that implements how to run the server - see [plackup doc](http://search.cpan.org/perldoc?plackup)
+- `backlog`, maximum length of the queue of pending connections, only valid for `FCGI` server - [Plack::Handler::FCGI](http://search.cpan.org/perldoc?Plack%3A%3AHandler%3A%3AFCGI)
 - `proc_manager`, optional, default value is **FCGI::ProcManager**
 - `proc_title`, optional, how the processes are seen in process list
 - `mount`, optional, mount path, see [Plack::App::URLMap](http://search.cpan.org/perldoc?Plack%3A%3AApp%3A%3AURLMap) for details 

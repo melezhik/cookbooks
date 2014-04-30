@@ -2,10 +2,15 @@
 
 This file is used to list changes made in each version of psgi.
 
+## 0.0.15:
+* added notions about loader and backlog parameters
+* backlog parameter added for FCGI server
+
+## 0.0.14:
+* support for Corona web server  
+
 ## 0.0.13:
-Unreleased, planning changes:
-* chef minitest -  add test for application with mount parameter **todo**
-* `framework` is alias for `operator` parameter **todo**
+* `loader` parameter now can be passed to `psgi` resource - see [plackup documenation](http://search.cpan.org/~miyagawa/Plack-1.0030/script/plackup) for details
 
 ## 0.0.12:
 * debian init scripts are refactored
