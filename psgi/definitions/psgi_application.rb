@@ -47,7 +47,7 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
         end
     elsif params[:action] == 'test'
 
-        my_test_env = params[:environment].clone
+        my_test_env = Hash.new
         my_test_env['PERL5LIB'] = params[:perl5lib].join ':' unless params[:perl5lib].empty?
 
         if params[:server] == 'Twiggy'
@@ -70,12 +70,14 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
         my_test_env['SCRIPT_NAME'] = '/'
         my_test_env['REQUEST_METHOD'] = 'GET'
 
+        my_env = params[:environment].clone
+        
         log "execute in pwd: #{params[:application_home]}"
         log "execute with env: #{my_test_env}"
         daemon_path = params[:daemon_path] || `which plackup`.chomp
         log "daemon_path: #{daemon_path}"
         execute "#{daemon_path} -s CGI #{params[:script]}" do 
-            environment my_test_env
+            environment my_test_env.merge my_env
             cwd params[:application_home]
             user params[:application_user]
             group params[:application_group]
