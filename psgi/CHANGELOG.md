@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of psgi.
 
+## 0.1.0:
+* environment variables now have highest priority
+
 ## 0.0.15:
 * added notions about loader and backlog parameters
 * backlog parameter added for FCGI server

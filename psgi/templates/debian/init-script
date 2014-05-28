@@ -55,9 +55,6 @@ SCRIPTNAME=<%= @install_dir %>/$NAME
 <% if ! @backlog.nil? && @server == 'FCGI' -%>
     <% app_opt << "--backlog #{@backlog}" -%>
 <% end -%>
-<% @envvars.each do |k,v| -%>
-    <% app_env << "#{k}='#{v}'" -%>
-<% end -%>
 <% if @server == 'Twiggy' %>
     <% app_env << "TWIGGY_DEBUG=#{@debug}" -%>
 <% end -%>
@@ -68,6 +65,9 @@ SCRIPTNAME=<%= @install_dir %>/$NAME
     <% app_env << "DANCER_CONFDIR=#{@application_home}" -%>
 <% elsif @operator == 'Jifty' -%>
     <%- app_env << "JIFTY_CONFIG=#{@config}" -%>
+<% end -%>
+<% @envvars.each do |k,v| -%>
+    <% app_env << "#{k}='#{v}'" -%>
 <% end -%>
 <% unless @perl5lib.empty? -%>
     <% app_env << "PERL5LIB=$PERL5LIB:#{@perl5lib.join(':')}" -%>
