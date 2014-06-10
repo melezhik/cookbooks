@@ -87,7 +87,7 @@ def sanity_string file_contents
     if String.method_defined?(:encode)
       file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
     else
-      ic = Iconv.new('UTF-8', 'UTF-8//IGNORE')
+      ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       file_contents = ic.iconv(file_contents)
     end
 end
