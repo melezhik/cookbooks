@@ -1,3 +1,6 @@
+# version 0.0.31
+- Fix the order of parameters to Iconv#initialize - by [ippeif](https://github.com/ippeif), MR - [pull/17](https://github.com/melezhik/cookbooks/pull/19)
+
 # version 0.0.30
 - bootstrap recipe now can be run in skip_uptodate mode, thanks to [phoolish](https://github.com/phoolish),  merged [pull/17](https://github.com/melezhik/cookbooks/pull/17)
 
