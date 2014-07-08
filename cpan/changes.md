@@ -1,3 +1,6 @@
+# version 0.0.32
+- CPAN::Meta is included into `cpan_client.bootstrap.cpan_packages`  due to [issue/21](https://github.com/melezhik/cookbooks/issues/21)
+
 # version 0.0.31
 - Fix the order of parameters to Iconv#initialize - by [ippeif](https://github.com/ippeif), MR - [pull/17](https://github.com/melezhik/cookbooks/pull/19)
 
