@@ -42,7 +42,7 @@ define :psgi_application, :cookbook => 'psgi', :server => 'FCGI', :environment =
         if params[:enable_service] == 'on'
             service daemon_name do 
                 action :enable
-                provider node[:psgi][:service][:provider]
+                # provider node[:psgi][:service][:provider]
             end
         end
     elsif params[:action] == 'test'
