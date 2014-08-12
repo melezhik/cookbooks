@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of psgi.
 
+## 0.1.2:
+* `test action` - log info for environment variables now is correct  
+
+## 0.1.1:
+* use Chef::Provider::Service::Debian provider for debian 
+
 ## 0.1.0:
 * environment variables now have highest priority
 

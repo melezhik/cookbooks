@@ -13,6 +13,6 @@ case platform
     when 'debian'
         default[:psgi][:install][:dir] = '/etc/init.d/'
         default[:psgi][:install][:extention] = nil
-        default[:psgi][:service][:provider] = Chef::Provider::Service::Init
+        default[:psgi][:service][:provider] = Chef::Provider::Service::Debian
 end
 
