@@ -44,7 +44,7 @@ RESOURCE ATTRIBUTES
 * `inc` - specifies perl @INC array
 * `install_base` - specifies installation base
 * `install_path` - specifies installation paths
-* `install_type` - specifies installation type : cpan_module, application; default - application
+* `install_type` - specifies installation type : cpan_module, bundle, application; default - application
 * `module_name` - specifies the name of cpan module to check version against when install, useful when installing from http url or cookbook
 * `version` - specifies version of module to install, see also `module_name` parameter
    * if version defined as `version '0'` - installs only if module is not installed yet
@@ -64,8 +64,6 @@ EXAMPLES OF USAGE
         action 'install'
     end
 
-
-
 ## does not install, only run tests
 
     cpan_client 'CGI' do
@@ -75,7 +73,14 @@ EXAMPLES OF USAGE
         action 'test'
     end
 
+## Bundle install
 
+    cpan_client 'Bundle::LWP' do
+        user 'root'
+        group 'root' 
+        install_type 'bundle'
+        action 'install'
+    end
 
 ## force install
 

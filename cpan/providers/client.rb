@@ -277,9 +277,9 @@ end
 def install_dry_run
  return install_dry_run_tarball if @installer.from_cookbook
  return install_dry_run_cpan_module if @installer.install_type == 'cpan_module'
- return install_dry_run_cpan_module if @installer.install_type == 'cpan_module'
+ return install_dry_run_cpan_module if @installer.install_type == 'bundle'
  return install_dry_run_application if @installer.install_type == 'application'
- raise 'should set install_type as (cpan_module|application) or from_cookbook parameter'
+ raise 'should set install_type as (cpan_module|bundle|application) or from_cookbook parameter'
 end
 
 def install_real
@@ -288,9 +288,9 @@ def install_real
  end
  
  return install_cpan_module if @installer.install_type == 'cpan_module'
- return install_cpan_module if @installer.install_type == 'cpan_module'
+ return install_cpan_module if @installer.install_type == 'bundle'
  return install_application if @installer.install_type == 'application'
- raise 'should set install_type as (cpan_module|application) or from_cookbook parameter'
+ raise 'should set install_type as (cpan_module|bundle|application) or from_cookbook parameter'
 end
 
 def installed_module
@@ -392,7 +392,11 @@ def install_cpan_module args = { }
     module_version = args[:module_version] || @installer.version
     install_object = args[:install_object] || @installer.name
 
-    module_name =~ /Bundle/ ? cpan_type = 'Bundle' : cpan_type = 'Module'
+    if @installer.install_type == 'bundle'
+      cpan_type = 'Bundle'
+    else
+      cpan_type = 'Module'
+    end
 
     execute  "rm #{install_log_file}" 
 
