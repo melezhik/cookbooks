@@ -277,9 +277,9 @@ end
 def install_dry_run
  return install_dry_run_tarball if @installer.from_cookbook
  return install_dry_run_cpan_module if @installer.install_type == 'cpan_module'
- return install_dry_run_cpan_module if @installer.install_type == 'cpan_module'
+ return install_dry_run_cpan_module if @installer.install_type == 'bundle'
  return install_dry_run_application if @installer.install_type == 'application'
- raise 'should set install_type as (cpan_module|application) or from_cookbook parameter'
+ raise 'should set install_type as (cpan_module|bundle|application) or from_cookbook parameter'
 end
 
 def install_real
@@ -288,9 +288,9 @@ def install_real
  end
  
  return install_cpan_module if @installer.install_type == 'cpan_module'
- return install_cpan_module if @installer.install_type == 'cpan_module'
+ return install_cpan_module if @installer.install_type == 'bundle'
  return install_application if @installer.install_type == 'application'
- raise 'should set install_type as (cpan_module|application) or from_cookbook parameter'
+ raise 'should set install_type as (cpan_module|bundle|application) or from_cookbook parameter'
 end
 
 def installed_module
@@ -392,14 +392,21 @@ def install_cpan_module args = { }
     module_version = args[:module_version] || @installer.version
     install_object = args[:install_object] || @installer.name
 
+    if @installer.install_type == 'bundle'
+      cpan_type = 'Bundle'
+    else
+      cpan_type = 'Module'
+    end
+
     execute  "rm #{install_log_file}" 
 
-    if module_name != '.' 
+    if module_name != '.'
+
         bash "checking if module exists at CPAN" do
             code <<-CODE
                 #{local_lib_stack}
                 perl -MCPAN -e '
-                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                my $m = CPAN::Shell->expand("#{cpan_type}","#{module_name}");
                 exit(2) unless defined $m';
             CODE
             user user
@@ -414,7 +421,7 @@ def install_cpan_module args = { }
             code <<-CODE
                 #{local_lib_stack}
                 perl -MCPAN -e '
-                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                my $m = CPAN::Shell->expand("#{cpan_type}","#{module_name}");
                 if ($m->uptodate){
                      print "#{module_name} -- OK have higher or equal version [",$m->inst_version,"] [",$m->inst_file,"]\n";
                 }else{
@@ -431,7 +438,7 @@ def install_cpan_module args = { }
             code <<-CODE
                 #{local_lib_stack}
                 perl -MCPAN -e '
-                my $m = CPAN::Shell->expand("Module","#{module_name}");
+                my $m = CPAN::Shell->expand("#{cpan_type}","#{module_name}");
                 if ($m->inst_version){
                      print "#{module_name} -- OK already installed at version [",$m->inst_version,"] [",$m->inst_file,"]\n";
                 }else{
@@ -449,8 +456,8 @@ def install_cpan_module args = { }
             code <<-CODE
                 #{local_lib_stack}
                 perl -MCPAN -MCPAN::Version -e '
-                my $m = CPAN::Shell->expand("Module","#{module_name}");
-                my $inst_v = CPAN::Shell->expand("Module","#{module_name}")->inst_version;
+                my $m = CPAN::Shell->expand("#{cpan_type}","#{module_name}");
+                my $inst_v = CPAN::Shell->expand("#{cpan_type}","#{module_name}")->inst_version;
                 my $version_required = "#{module_version}";
                 s/\s//g for $version_required;
                 my $exact_version_check = 0;
