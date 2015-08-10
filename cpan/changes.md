@@ -1,4 +1,4 @@
-# version 0.0.32
+# version 0.0.33
 - now can install bundles - thanks @funzoneq for contribution  - https://github.com/melezhik/cookbooks/pull/27
 
 
