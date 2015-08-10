@@ -1,4 +1,8 @@
 # version 0.0.32
+- now can install bundles - thanks @funzoneq for contribution  - https://github.com/melezhik/cookbooks/pull/27
+
+
+# version 0.0.32
 - CPAN::Meta is included into `cpan_client.bootstrap.cpan_packages`  due to [issue/21](https://github.com/melezhik/cookbooks/issues/21)
 
 # version 0.0.31
