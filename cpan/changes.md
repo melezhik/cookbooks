@@ -1,3 +1,6 @@
+# version 0.0.34
+- by @chazzly - added matchers for Chefspec  - https://github.com/melezhik/cookbooks/pull/28
+
 # version 0.0.33
 - now can install bundles - thanks @funzoneq for contribution  - https://github.com/melezhik/cookbooks/pull/27
 
