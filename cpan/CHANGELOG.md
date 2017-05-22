@@ -1,12 +1,12 @@
-# version 0.0.34
-- by @chazzly - added matchers for Chefspec  - https://github.com/melezhik/cookbooks/pull/28
+# 0.0.37
 
-# version 0.0.33
-- now can install bundles - thanks @funzoneq for contribution  - https://github.com/melezhik/cookbooks/pull/27
+- Fixing my change log
 
+# 0.0.36
+- occasional syntax error fixed, thanks to @redterror
 
-# version 0.0.32
-- CPAN::Meta is included into `cpan_client.bootstrap.cpan_packages`  due to [issue/21](https://github.com/melezhik/cookbooks/issues/21)
+# 0.0.35
+- merged PR by @abadelt to fix `undefined method `cpan_client' after update to Chef 13 ` error - #3
 
 # version 0.0.31
 - Fix the order of parameters to Iconv#initialize - by [ippeif](https://github.com/ippeif), MR - [pull/17](https://github.com/melezhik/cookbooks/pull/19)
@@ -115,4 +115,4 @@
 # version 0.0.4
  - log messages are neat and at different levels
  - big fix for access to log files 
- 
+
