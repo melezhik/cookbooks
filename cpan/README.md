@@ -5,6 +5,12 @@ DESCRIPTION
 
 [cpan](http://search.cpan.org/perldoc?CPAN) modules resource provider
 
+WARNING
+===
+
+The cpan cookbook seems does not work under recent versipon of chef ( since 12.5 ) and is no longer mainatained.
+Feel free to fork the code and take up further development.
+
 PREREQUISITES
 ===
 A little prerequisites are required. Run `cpan::bootstrap` recipe to satisfy
