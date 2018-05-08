@@ -1,3 +1,7 @@
+# 0.1.0
+
+- Update license #33
+
 # 0.0.8
 - checks if daemon already running before start
 
