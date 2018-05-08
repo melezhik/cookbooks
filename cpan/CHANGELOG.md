@@ -1,3 +1,8 @@
+# 0.1.0
+
+- Update license #33
+
+
 # 0.0.37
 
 - Fixing my change log
